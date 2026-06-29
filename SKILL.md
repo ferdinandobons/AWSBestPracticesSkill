@@ -66,12 +66,14 @@ catalog.json                       # machine-readable source of truth
 - [AWS Parallel Computing Service](services/compute/parallel-computing-service.md)
 - [Amazon EC2](services/compute/ec2.md)
 - [Amazon EC2 Auto Scaling](services/compute/ec2-auto-scaling.md)
+- [Amazon Elastic VMware Service](services/compute/evs.md)
 - [Amazon Lightsail](services/compute/lightsail.md)
 - [VMware Cloud on AWS](services/compute/vmware-cloud-on-aws.md)
 
 ### Containers
 - [AWS Fargate](services/containers/fargate.md)
 - [Amazon ECR](services/containers/ecr.md)
+- [Amazon ECR Public](services/containers/ecr-public.md)
 - [Amazon ECS](services/containers/ecs.md)
 - [Amazon EKS](services/containers/eks.md)
 - [Amazon EKS Anywhere](services/containers/eks-anywhere.md)
@@ -101,6 +103,7 @@ catalog.json                       # machine-readable source of truth
 - [Amazon RDS](services/database/rds.md)
 - [Amazon Redshift](services/database/redshift.md)
 - [Amazon Timestream](services/database/timestream.md)
+- [Oracle Database@AWS](services/database/oracle-database-at-aws.md)
 
 ### Networking & Content Delivery
 - [AWS App Mesh](services/networking-content-delivery/app-mesh.md)
@@ -162,6 +165,7 @@ catalog.json                       # machine-readable source of truth
 - [Route 53 Application Recovery Controller](services/management-governance/route53-arc.md)
 
 ### Application Integration
+- [AWS AppFabric](services/application-integration/app-fabric.md)
 - [AWS B2B Data Interchange](services/application-integration/b2b-data-interchange.md)
 - [AWS Step Functions](services/application-integration/step-functions.md)
 - [Amazon AppFlow](services/application-integration/appflow.md)
@@ -176,12 +180,14 @@ catalog.json                       # machine-readable source of truth
 - [AWS Clean Rooms](services/analytics/clean-rooms.md)
 - [AWS Data Exchange](services/analytics/data-exchange.md)
 - [AWS Data Pipeline](services/analytics/data-pipeline.md)
+- [AWS Entity Resolution](services/analytics/entity-resolution.md)
 - [AWS Glue](services/analytics/glue.md)
 - [AWS Lake Formation](services/analytics/lake-formation.md)
 - [Amazon Athena](services/analytics/athena.md)
 - [Amazon Data Firehose](services/analytics/data-firehose.md)
 - [Amazon DataZone](services/analytics/datazone.md)
 - [Amazon EMR](services/analytics/emr.md)
+- [Amazon FinSpace](services/analytics/finspace.md)
 - [Amazon Kinesis Data Streams](services/analytics/kinesis-data-streams.md)
 - [Amazon Kinesis Video Streams](services/analytics/kinesis-video-streams.md)
 - [Amazon MSK](services/analytics/msk.md)
@@ -190,6 +196,7 @@ catalog.json                       # machine-readable source of truth
 - [Amazon QuickSight](services/analytics/quicksight.md)
 
 ### Machine Learning
+- [AWS HealthImaging](services/machine-learning/healthimaging.md)
 - [Amazon Bedrock](services/machine-learning/bedrock.md)
 - [Amazon Comprehend](services/machine-learning/comprehend.md)
 - [Amazon Forecast](services/machine-learning/forecast.md)
@@ -223,6 +230,7 @@ catalog.json                       # machine-readable source of truth
 - [AWS Database Migration Service](services/migration-transfer/database-migration-service.md)
 - [AWS Mainframe Modernization](services/migration-transfer/mainframe-modernization.md)
 - [AWS Migration Hub](services/migration-transfer/migration-hub.md)
+- [AWS Migration Hub Refactor Spaces](services/migration-transfer/refactor-spaces.md)
 - [AWS Transfer Family](services/migration-transfer/transfer-family.md)
 
 ### Front-End Web & Mobile
@@ -244,6 +252,7 @@ catalog.json                       # machine-readable source of truth
 - [AWS IoT TwinMaker](services/iot/iot-twinmaker.md)
 
 ### Media Services
+- [AWS Deadline Cloud](services/media-services/deadline-cloud.md)
 - [AWS Elemental MediaConnect](services/media-services/mediaconnect.md)
 - [AWS Elemental MediaConvert](services/media-services/mediaconvert.md)
 - [AWS Elemental MediaLive](services/media-services/medialive.md)
@@ -259,6 +268,7 @@ catalog.json                       # machine-readable source of truth
 
 ### Business Applications
 - [AWS Supply Chain](services/business-applications/supply-chain.md)
+- [AWS Wickr](services/business-applications/wickr.md)
 - [Amazon Chime SDK](services/business-applications/chime-sdk.md)
 - [Amazon Connect](services/business-applications/connect.md)
 - [Amazon SES](services/business-applications/ses.md)
@@ -284,6 +294,7 @@ catalog.json                       # machine-readable source of truth
 
 ### Game Tech
 - [Amazon GameLift](services/game-tech/gamelift.md)
+- [Amazon GameLift Streams](services/game-tech/gamelift-streams.md)
 
 ### General AWS Best Practices
 - [AWS Well-Architected Framework](general/well-architected.md)

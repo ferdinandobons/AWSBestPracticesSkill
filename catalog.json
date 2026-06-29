@@ -74,6 +74,13 @@
           "type": "service",
           "path": "services/compute/vmware-cloud-on-aws.md",
           "aws_service_code": "VMwareCloudOnAWS"
+        },
+        {
+          "name": "Amazon Elastic VMware Service",
+          "slug": "evs",
+          "type": "service",
+          "path": "services/compute/evs.md",
+          "aws_service_code": "AmazonEVS"
         }
       ]
     },
@@ -114,6 +121,13 @@
           "type": "service",
           "path": "services/containers/eks-anywhere.md",
           "aws_service_code": "AmazonEKSAnywhere"
+        },
+        {
+          "name": "Amazon ECR Public",
+          "slug": "ecr-public",
+          "type": "service",
+          "path": "services/containers/ecr-public.md",
+          "aws_service_code": "AmazonECRPublic"
         }
       ]
     },
@@ -278,6 +292,13 @@
           "type": "service",
           "path": "services/database/qldb.md",
           "aws_service_code": "AmazonQLDB"
+        },
+        {
+          "name": "Oracle Database@AWS",
+          "slug": "oracle-database-at-aws",
+          "type": "service",
+          "path": "services/database/oracle-database-at-aws.md",
+          "aws_service_code": "OracleDbAtAWS"
         }
       ]
     },
@@ -732,6 +753,13 @@
           "type": "service",
           "path": "services/application-integration/b2b-data-interchange.md",
           "aws_service_code": "AWSB2Bi"
+        },
+        {
+          "name": "AWS AppFabric",
+          "slug": "app-fabric",
+          "type": "service",
+          "path": "services/application-integration/app-fabric.md",
+          "aws_service_code": "AWSAppFabric"
         }
       ]
     },
@@ -842,6 +870,20 @@
           "type": "service",
           "path": "services/analytics/data-pipeline.md",
           "aws_service_code": "datapipeline"
+        },
+        {
+          "name": "AWS Entity Resolution",
+          "slug": "entity-resolution",
+          "type": "service",
+          "path": "services/analytics/entity-resolution.md",
+          "aws_service_code": "AWSEntityResolution"
+        },
+        {
+          "name": "Amazon FinSpace",
+          "slug": "finspace",
+          "type": "service",
+          "path": "services/analytics/finspace.md",
+          "aws_service_code": "AmazonFinSpace"
         }
       ]
     },
@@ -959,6 +1001,13 @@
           "type": "service",
           "path": "services/machine-learning/omics.md",
           "aws_service_code": "AmazonOmics"
+        },
+        {
+          "name": "AWS HealthImaging",
+          "slug": "healthimaging",
+          "type": "service",
+          "path": "services/machine-learning/healthimaging.md",
+          "aws_service_code": "AmazonMedicalImaging"
         }
       ]
     },
@@ -1067,6 +1116,13 @@
           "type": "service",
           "path": "services/migration-transfer/mainframe-modernization.md",
           "aws_service_code": "AWSM2"
+        },
+        {
+          "name": "AWS Migration Hub Refactor Spaces",
+          "slug": "refactor-spaces",
+          "type": "service",
+          "path": "services/migration-transfer/refactor-spaces.md",
+          "aws_service_code": "AWSMigrationHubRefactorSpaces"
         }
       ]
     },
@@ -1229,6 +1285,13 @@
           "type": "service",
           "path": "services/media-services/ivs.md",
           "aws_service_code": "AmazonIVS"
+        },
+        {
+          "name": "AWS Deadline Cloud",
+          "slug": "deadline-cloud",
+          "type": "service",
+          "path": "services/media-services/deadline-cloud.md",
+          "aws_service_code": "AmazonDeadline"
         }
       ]
     },
@@ -1295,6 +1358,13 @@
           "type": "service",
           "path": "services/business-applications/supply-chain.md",
           "aws_service_code": "AWSSupplyChain"
+        },
+        {
+          "name": "AWS Wickr",
+          "slug": "wickr",
+          "type": "service",
+          "path": "services/business-applications/wickr.md",
+          "aws_service_code": "AWSWickr"
         }
       ]
     },
@@ -1388,6 +1458,13 @@
           "type": "service",
           "path": "services/game-tech/gamelift.md",
           "aws_service_code": "AmazonGameLift"
+        },
+        {
+          "name": "Amazon GameLift Streams",
+          "slug": "gamelift-streams",
+          "type": "service",
+          "path": "services/game-tech/gamelift-streams.md",
+          "aws_service_code": "AmazonGameLiftStreams"
         }
       ]
     },
