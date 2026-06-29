@@ -1,66 +1,87 @@
 ---
-description: Generate AWS best-practice files via recursive, parallel workflows (one child workflow per category, one agent per service).
+description: Autonomous goal-loop that generates AWS best-practice files until full coverage (Codex /goal "Ralph loop" style — work → check → continue/complete).
 argument-hint: "[--all | --stale | <category>]"
 ---
 
-# /goal — recursive parallel generation of best-practice files
+# /goal — autonomous coverage loop
 
-You are the maintainer driver for **AWSBestPracticesSkill**. Generate the missing
-(or stale) best-practice files by launching the recursive `goal` Workflow.
+This is a **goal**, not a one-shot task. Work toward it in a loop across
+iterations, the way Codex's `/goal` command does: **work → check → continue or
+complete**. Do not stop after one batch — keep going until the verifiable end
+state is reached.
 
-**Arguments:** `$ARGUMENTS`
-- empty or `--all` → every catalog entry whose file is missing.
-- `--stale` → missing files **and** files past the freshness threshold (180 days).
-- `<category>` (e.g. `database`, `general`) → only that category's missing files.
+## GOAL
 
-## Procedure
+> Complete the AWS best-practices coverage for scope **`$ARGUMENTS`** (default:
+> all) — produce a conformant, source-linked best-practice file for every
+> matching entry in `catalog.json` — and do not stop until
+> `python3 scripts/check.py` reports **0 errors** for that scope.
 
-1. **Build the work-list.** Run this helper (it reads `catalog.json`, checks which
-   files exist / are stale, groups pending entries by category, and writes the
-   Workflow args JSON). Pass the same `$ARGUMENTS` through:
+**Verified by (evidence, not declaration):**
+- `python3 scripts/check.py` → 0 errors (every file exists and conforms).
+- `python3 scripts/check.py --check-links` → no broken links on the new files.
 
-   ```bash
-   python3 scripts/goal_worklist.py $ARGUMENTS > "$CLAUDE_SCRATCH/goal_args.json" 2>/dev/null \
-     || python3 scripts/goal_worklist.py $ARGUMENTS
-   ```
+**Constraints that must NOT regress:**
+- **Only best practices.** Never add service descriptions / "what is X",
+  pricing or cost figures, tutorials / getting-started, or extended code samples.
+- Every non–`Common scenarios` bullet ends with a Markdown link to an official
+  AWS URL (`docs.aws.amazon.com`, `aws.amazon.com`, `wa.aws.amazon.com`).
+- Never invent a URL — only cite pages you actually retrieved.
+- Already-valid files must stay valid.
 
-   (The helper lives at `scripts/goal_worklist.py`. If `$CLAUDE_SCRATCH` is unset,
-   just read the JSON it prints to stdout.) The JSON has the shape:
-   `{ "childScriptPath": "<abs path to .claude/workflows/goal-category.js>",
-      "categories": [ { "category", "title", "services": [ {name, slug, path, abspath, type, aws_service_code} ] } ] }`
+**Boundaries / tools:**
+- Research only via the **AWS Knowledge MCP** (`search_documentation`,
+  `read_documentation`). Load them with ToolSearch
+  `select:mcp__plugin_deploy-on-aws_awsknowledge__aws___search_documentation,mcp__plugin_deploy-on-aws_awsknowledge__aws___read_documentation`.
+- Write files under `services/<category>/` and `general/` only, using the
+  format in [`_TEMPLATE.md`](../../_TEMPLATE.md).
 
-2. **Stop early if empty.** If `categories` is empty, report "nothing to generate"
-   and stop — do not launch a workflow.
+## THE LOOP (repeat until done)
 
-3. **Launch the Workflow.** Call the `Workflow` tool with `name: "goal"` and
-   `args` set to the JSON object from step 1 (pass it as a real JSON value, not a
-   string). This runs one **child workflow per category in parallel**, each fanning
-   out one **generate → verify** agent chain per service (bounded retry on
-   verification failure).
+Each iteration:
 
-4. **Apply results to the catalog.** When the workflow returns, for every result
-   with `status: "written"`, update its `catalog.json` entry: set
-   `last_reviewed` to today, `pillars` to the returned pillars, and `sources` to
-   the returned count. Use:
+1. **Assess state (evidence).** Get the remaining work-list:
+   `python3 scripts/goal_worklist.py $ARGUMENTS`
+   → JSON of pending entries grouped by category (missing files; with `--stale`
+   also files past freshness).
+2. **Completion check.** If `categories` is empty → the goal is **met**: run the
+   final validation (step 6), update `README.md`/`CHANGELOG.md` counts, report,
+   and **stop the loop**.
+3. **Pick the next batch.** Take one category (or ~6–10 services) — the smallest
+   useful checkpoint.
+4. **Act, in parallel.** Dispatch one subagent **per service in the batch,
+   concurrently** (this is the parallel fan-out). Give each subagent: the service
+   name, its absolute file path, its `type` (service|general), and the format
+   rules below. Each subagent researches via the AWS Knowledge MCP, extracts
+   **only best practices**, and writes its file from the template.
+5. **Validate + record.** Run `python3 scripts/check.py`; fix any conformance
+   issues. Update each written entry's `last_reviewed` (today), `pillars`, and
+   `sources` in `catalog.json` (helper:
+   `python3 scripts/goal_apply.py <results.json>`), then
+   `python3 scripts/check.py --write-index`. Commit the batch.
+6. **Checkpoint log (compact).** Report: `<done>/<total> files · <remaining> left
+   · blocked: <slugs with no published best practices>`. Then **continue to the
+   next iteration**.
 
-   ```bash
-   python3 scripts/goal_apply.py "$CLAUDE_SCRATCH/goal_results.json"
-   ```
+**Stop conditions:** full coverage (0 errors) · user pauses · a remaining
+service genuinely has no published AWS best practices (mark it blocked, log it,
+skip it — do not invent content).
 
-   after writing the workflow's `results` array to that path — or update
-   `catalog.json` directly for the handful of written entries.
+## Per-service generation rules (give these to each subagent)
 
-5. **Validate.** Run `python3 scripts/check.py` (and `--check-links` if generating
-   broadly). Report: written / skipped / failed counts, and any validation errors.
+Write `# <Service> — Best Practices` then, for a **service**: `## Common
+scenarios` (2–4 use-case → pillar lines, no links) followed by only the
+applicable Well-Architected pillar sections (`## 🔒 Security`, `## 🛡️
+Reliability`, `## ⚡ Performance Efficiency`, `## 💰 Cost Optimization`, `## ⚙️
+Operational Excellence`, `## 🌱 Sustainability`). For a **general** doc: use
+topic-based `## ` sections instead of pillars. Every practice bullet:
+`- **[context]** imperative practice — short rationale. [doc](official AWS URL)`.
+End with `<!-- meta: last_reviewed=<today>; sources=<n> -->`. Aim for ~12–20
+high-signal, specific practices. Only best practices — nothing else.
 
-6. **Re-run for the tail.** If any services `failed` or validation reports missing
-   files, run `/goal` again — it only picks up what is still missing — until the
-   work-list is dry.
+## Self-pacing
 
-## Notes
-- Workflow scripts cannot read the filesystem, so the work-list is passed via
-  `args`; the spawned agents (full subagents with file + MCP tools) do the writes.
-- Workflow nesting is one level: parent (`goal`) → category children
-  (`goal-category`); children use agents only, never another `workflow()` call.
-- Keep the "only best practices" rule absolute: the verify stage rejects any file
-  containing descriptions, pricing, tutorials, or extended code.
+- **Claude Code:** run `/loop /goal` to let the loop self-pace across turns, or
+  just keep iterating this command until step 2 reports done.
+- **Codex:** feed the GOAL block above to the native `/goal` command; Codex runs
+  the same work → check → continue loop autonomously.

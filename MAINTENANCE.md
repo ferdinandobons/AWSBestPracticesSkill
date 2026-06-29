@@ -45,12 +45,16 @@ For each service, with the **AWS Knowledge MCP**:
 3. Update the `<!-- meta: last_reviewed=... -->` footer and the
    `last_reviewed` / `sources` / `pillars` fields in `catalog.json`.
 
-### 2.4 At scale — the `/goal` command
-For many services at once, run **`/goal`** (see `.claude/commands/goal.md`). It
-launches a parent Workflow that, per category, runs a child Workflow in parallel;
-each child pipelines `generate → verify` per service, writing files from the
-template and looping until the work-list is exhausted. After it returns, update
-`catalog.json` and run `check.py`.
+### 2.4 At scale — the `/goal` command (autonomous loop)
+For many services at once, run **`/goal`** (see `.claude/commands/goal.md`). It is
+a Codex-style goal loop ("Ralph loop"): **work → check → continue or complete**.
+Each iteration it reads the remaining work-list (`scripts/goal_worklist.py`),
+generates a batch of files in **parallel** (one subagent per service, each
+researching via the AWS Knowledge MCP and writing from the template), validates
+with `check.py`, updates `catalog.json` (`scripts/goal_apply.py`), commits, and
+keeps going until `check.py` reports full coverage. On Claude Code you can wrap it
+with `/loop /goal` to self-pace across turns; on Codex, feed the GOAL block to the
+native `/goal` command.
 
 Variants:
 - `/goal --all` — every missing service/general doc.
