@@ -60,7 +60,7 @@ The entire best-practices corpus is generated autonomously by the `/goal`
 command. Token usage is tracked from each workflow run.
 
 <!-- BUILD-COST -->
-**Generation cost so far: ~341K tokens** (340,784) across 6 workflow agents · 3 files. See [`docs/build-cost.md`](docs/build-cost.md) for the per-phase breakdown.
+**Generation cost so far: ~1.37M tokens** (1,365,842) across 24 workflow agents · 12 files. See [`docs/build-cost.md`](docs/build-cost.md) for the per-phase breakdown.
 <!-- /BUILD-COST -->
 
 ## Maintenance

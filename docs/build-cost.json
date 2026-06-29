@@ -1,6 +1,17 @@
 {
   "note": "Token usage extracted from workflow-run usage (subagent_tokens). Updated per generation phase.",
   "phases": [
-    {"name": "Validation (s3, lambda, tagging-strategy)", "agents": 6, "tokens": 340784, "files": 3}
+    {
+      "name": "Validation (s3, lambda, tagging-strategy)",
+      "agents": 6,
+      "tokens": 340784,
+      "files": 3
+    },
+    {
+      "name": "Compute",
+      "agents": 18,
+      "tokens": 1025058,
+      "files": 9
+    }
   ]
 }

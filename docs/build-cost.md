@@ -7,4 +7,5 @@ workflow usage report) and accumulated here. This counts the generation agents
 | Phase | Files | Agents | Tokens |
 |---|--:|--:|--:|
 | Validation (s3, lambda, tagging-strategy) | 3 | 6 | 340,784 |
-| **Total** | **3** | **6** | **340,784 (~341K)** |
+| Compute | 9 | 18 | 1,025,058 |
+| **Total** | **12** | **24** | **1,365,842 (~1.37M)** |
