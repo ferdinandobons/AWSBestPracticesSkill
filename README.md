@@ -18,18 +18,26 @@ security, reliability, performance, cost, operations, sustainability.
 | Cross-service general best practices | Tutorials / getting-started / how-to |
 | Official AWS source link on every item | Extended code samples |
 
-## Installation
+## Quick start
 
-**Claude Code** — install as a skill (one of):
-- Clone into your skills directory: `git clone https://github.com/ferdinandobons/AWSBestPracticesSkill ~/.claude/skills/aws-best-practices`
-- Or add it as a plugin/marketplace skill and let Claude load `SKILL.md`.
+Clone the repo into your tool's skills directory — the same folder works for both:
 
-**Codex** — skills load natively; place the repo where Codex discovers skills and
-it will pick up `SKILL.md`.
+```bash
+# Claude Code
+git clone https://github.com/ferdinandobons/AWSBestPracticesSkill ~/.claude/skills/aws-best-practices
 
-Once installed, ask things like *"best practices for securing my S3 bucket"* or
-*"how should I run DynamoDB for a high-traffic app"* and the model opens the
-matching `services/<category>/<service>.md`.
+# OpenAI Codex
+git clone https://github.com/ferdinandobons/AWSBestPracticesSkill ~/.codex/skills/aws-best-practices
+```
+
+Restart the tool if it's open, then just ask in natural language:
+
+> *"best practices for securing my S3 bucket"* · *"how should I run DynamoDB for high traffic"* · *"AWS account security baseline"*
+
+The model reads `SKILL.md`, opens the matching `services/<category>/<service>.md`
+(or `general/<topic>.md`), and answers with sourced best practices.
+
+Update anytime: `git -C ~/.claude/skills/aws-best-practices pull`.
 
 ## How navigation works
 
@@ -43,7 +51,8 @@ catalog.md                        # human-readable index (generated)
 catalog.json                      # machine-readable source of truth
 services/<category>/<service>.md  # per-service best practices
 general/<topic>.md                # cross-service best practices
-scripts/check.py                  # validator + diff-checker (maintainers)
+scripts/                          # maintainer utilities (check.py, cost.py)
+.claude/commands/goal.md          # /goal generation loop (maintainers)
 ```
 
 Browse the full index in [`catalog.md`](catalog.md).

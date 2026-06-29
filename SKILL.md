@@ -8,7 +8,9 @@ description: >-
   guidance for <service>", "harden / optimize / secure my <service>", or any
   question about recommended ways to run an AWS service. Also covers
   cross-service AWS best practices (account baseline, multi-account, cost
-  governance, DR, observability, tagging). This skill contains ONLY best
+  governance, DR, observability, tagging). Consult it for any "how should I set
+  up / secure / harden / optimize / run my <AWS service>" question, even when the
+  user never says the words "best practice". This skill contains ONLY best
   practices and nothing else about the services.
 ---
 
