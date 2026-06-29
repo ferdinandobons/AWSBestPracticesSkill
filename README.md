@@ -54,6 +54,11 @@ Browse the full index in [`catalog.md`](catalog.md).
 - Best practices sourced from official AWS documentation and the
   Well-Architected Framework.
 
+## Build cost
+
+The entire best-practices corpus was generated autonomously by the `/goal`
+command. Total build cost: **~_TBD_ tokens** (see [`docs/build-cost.md`](docs/build-cost.md)).
+
 ## Maintenance
 
 This is a living collection. The update procedure, the `/goal` generation

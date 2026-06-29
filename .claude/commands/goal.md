@@ -1,87 +1,16 @@
----
-description: Autonomous goal-loop that generates AWS best-practice files until full coverage (Codex /goal "Ralph loop" style — work → check → continue/complete).
-argument-hint: "[--all | --stale | <category>]"
----
+Goal: produce a conformant, source-linked AWS best-practices file for every entry in `catalog.json` (scope: `$ARGUMENTS`, default all). This is a LOOP, not a one-shot — keep going until the end state is verified: `python3 scripts/check.py` reports 0 errors. Do not stop after one batch.
 
-# /goal — autonomous coverage loop
+Repeat this loop until done:
 
-This is a **goal**, not a one-shot task. Work toward it in a loop across
-iterations, the way Codex's `/goal` command does: **work → check → continue or
-complete**. Do not stop after one batch — keep going until the verifiable end
-state is reached.
+1. Get the remaining work-list: `python3 scripts/goal_worklist.py $ARGUMENTS` → pending entries grouped by category, each with `name`, `slug`, `path`, `abspath`, `type` (service|general), `aws_service_code`. If the list is empty → run `python3 scripts/check.py --check-links` and `python3 scripts/check.py --write-index`, then STOP: the goal is met.
 
-## GOAL
+2. Take the next batch (one category, or up to ~10 services). Launch the **Workflow tool** over the batch as **one workflow unit per service running in parallel**: `pipeline(services, generate, verify)`. Each unit is independent so every service gets its own generate→verify cycle.
 
-> Complete the AWS best-practices coverage for scope **`$ARGUMENTS`** (default:
-> all) — produce a conformant, source-linked best-practice file for every
-> matching entry in `catalog.json` — and do not stop until
-> `python3 scripts/check.py` reports **0 errors** for that scope.
+   - `generate` agent (for one service): load the AWS Knowledge MCP with ToolSearch `select:mcp__plugin_deploy-on-aws_awsknowledge__aws___search_documentation,mcp__plugin_deploy-on-aws_awsknowledge__aws___read_documentation`; `search_documentation` for `"<name> best practices"`, `"<name> security best practices"`, `"<name> Well-Architected"`, `"<name> reliability"`, `"<name> cost optimization"`; `read_documentation` on the most relevant official pages; extract ONLY best practices; Write `<abspath>` from the `_TEMPLATE.md` format — first line `# <name> — Best Practices`; for a **service**: `## Common scenarios` (2–4 use-case → pillar lines, no links) then only the applicable Well-Architected pillar sections (`## 🔒 Security`, `## 🛡️ Reliability`, `## ⚡ Performance Efficiency`, `## 💰 Cost Optimization`, `## ⚙️ Operational Excellence`, `## 🌱 Sustainability`); for a **general** doc: topic-based `## ` sections instead of pillars; every practice bullet `- **[context]** imperative practice — short rationale. [doc](official AWS URL)`; final line `<!-- meta: last_reviewed=<today>; sources=<n> -->`; return `{ path, status: "written"|"skipped", pillars, sources, note }`.
+   - `verify` agent: read the written file and return `{ onlyBestPractices, allSourced, issues }` — `onlyBestPractices=false` if it contains any service description/overview, pricing, tutorial, or extended code; `allSourced=false` if any non–`Common scenarios` bullet lacks a Markdown link to an official AWS URL (`docs.aws.amazon.com`, `aws.amazon.com`, `wa.aws.amazon.com`) or a link looks invented. On failure, leave the service for the next iteration (bounded retry).
 
-**Verified by (evidence, not declaration):**
-- `python3 scripts/check.py` → 0 errors (every file exists and conforms).
-- `python3 scripts/check.py --check-links` → no broken links on the new files.
+3. Validate and record: `python3 scripts/check.py` (fix any conformance issue); write the workflow `results` array to a JSON file and run `python3 scripts/goal_apply.py <results.json>` to set `last_reviewed`/`pillars`/`sources` in `catalog.json`; `python3 scripts/check.py --write-index`; commit the batch.
 
-**Constraints that must NOT regress:**
-- **Only best practices.** Never add service descriptions / "what is X",
-  pricing or cost figures, tutorials / getting-started, or extended code samples.
-- Every non–`Common scenarios` bullet ends with a Markdown link to an official
-  AWS URL (`docs.aws.amazon.com`, `aws.amazon.com`, `wa.aws.amazon.com`).
-- Never invent a URL — only cite pages you actually retrieved.
-- Already-valid files must stay valid.
+4. Log a compact checkpoint: `<done>/<total> files · <remaining> left · blocked: <slugs>`. Continue to the next iteration.
 
-**Boundaries / tools:**
-- Research only via the **AWS Knowledge MCP** (`search_documentation`,
-  `read_documentation`). Load them with ToolSearch
-  `select:mcp__plugin_deploy-on-aws_awsknowledge__aws___search_documentation,mcp__plugin_deploy-on-aws_awsknowledge__aws___read_documentation`.
-- Write files under `services/<category>/` and `general/` only, using the
-  format in [`_TEMPLATE.md`](../../_TEMPLATE.md).
-
-## THE LOOP (repeat until done)
-
-Each iteration:
-
-1. **Assess state (evidence).** Get the remaining work-list:
-   `python3 scripts/goal_worklist.py $ARGUMENTS`
-   → JSON of pending entries grouped by category (missing files; with `--stale`
-   also files past freshness).
-2. **Completion check.** If `categories` is empty → the goal is **met**: run the
-   final validation (step 6), update `README.md`/`CHANGELOG.md` counts, report,
-   and **stop the loop**.
-3. **Pick the next batch.** Take one category (or ~6–10 services) — the smallest
-   useful checkpoint.
-4. **Act, in parallel.** Dispatch one subagent **per service in the batch,
-   concurrently** (this is the parallel fan-out). Give each subagent: the service
-   name, its absolute file path, its `type` (service|general), and the format
-   rules below. Each subagent researches via the AWS Knowledge MCP, extracts
-   **only best practices**, and writes its file from the template.
-5. **Validate + record.** Run `python3 scripts/check.py`; fix any conformance
-   issues. Update each written entry's `last_reviewed` (today), `pillars`, and
-   `sources` in `catalog.json` (helper:
-   `python3 scripts/goal_apply.py <results.json>`), then
-   `python3 scripts/check.py --write-index`. Commit the batch.
-6. **Checkpoint log (compact).** Report: `<done>/<total> files · <remaining> left
-   · blocked: <slugs with no published best practices>`. Then **continue to the
-   next iteration**.
-
-**Stop conditions:** full coverage (0 errors) · user pauses · a remaining
-service genuinely has no published AWS best practices (mark it blocked, log it,
-skip it — do not invent content).
-
-## Per-service generation rules (give these to each subagent)
-
-Write `# <Service> — Best Practices` then, for a **service**: `## Common
-scenarios` (2–4 use-case → pillar lines, no links) followed by only the
-applicable Well-Architected pillar sections (`## 🔒 Security`, `## 🛡️
-Reliability`, `## ⚡ Performance Efficiency`, `## 💰 Cost Optimization`, `## ⚙️
-Operational Excellence`, `## 🌱 Sustainability`). For a **general** doc: use
-topic-based `## ` sections instead of pillars. Every practice bullet:
-`- **[context]** imperative practice — short rationale. [doc](official AWS URL)`.
-End with `<!-- meta: last_reviewed=<today>; sources=<n> -->`. Aim for ~12–20
-high-signal, specific practices. Only best practices — nothing else.
-
-## Self-pacing
-
-- **Claude Code:** run `/loop /goal` to let the loop self-pace across turns, or
-  just keep iterating this command until step 2 reports done.
-- **Codex:** feed the GOAL block above to the native `/goal` command; Codex runs
-  the same work → check → continue loop autonomously.
+Hard constraints (never regress): ONLY best practices — never add service descriptions, pricing/cost figures, tutorials, or extended code samples (cost-optimization practices are fine; prices are not). Every non–`Common scenarios` bullet ends with a link to an official AWS URL. Never invent a URL — cite only pages you actually retrieved. If a service genuinely has no published AWS best practices, mark it `skipped`, log it as blocked, and move on — do not fabricate content.
