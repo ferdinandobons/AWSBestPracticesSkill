@@ -56,8 +56,12 @@ Browse the full index in [`catalog.md`](catalog.md).
 
 ## Build cost
 
-The entire best-practices corpus was generated autonomously by the `/goal`
-command. Total build cost: **~_TBD_ tokens** (see [`docs/build-cost.md`](docs/build-cost.md)).
+The entire best-practices corpus is generated autonomously by the `/goal`
+command. Token usage is tracked from each workflow run.
+
+<!-- BUILD-COST -->
+**Generation cost so far: ~341K tokens** (340,784) across 6 workflow agents · 3 files. See [`docs/build-cost.md`](docs/build-cost.md) for the per-phase breakdown.
+<!-- /BUILD-COST -->
 
 ## Maintenance
 

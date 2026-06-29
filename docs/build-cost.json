@@ -1,0 +1,6 @@
+{
+  "note": "Token usage extracted from workflow-run usage (subagent_tokens). Updated per generation phase.",
+  "phases": [
+    {"name": "Validation (s3, lambda, tagging-strategy)", "agents": 6, "tokens": 340784, "files": 3}
+  ]
+}
