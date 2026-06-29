@@ -1,0 +1,2036 @@
+{
+  "version": "0.1.0-dev",
+  "generated": "2026-06-29",
+  "categories": {
+    "compute": {
+      "title": "Compute",
+      "services": [
+        {
+          "name": "Amazon EC2",
+          "slug": "ec2",
+          "type": "service",
+          "path": "services/compute/ec2.md",
+          "aws_service_code": "AmazonEC2",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon EC2 Auto Scaling",
+          "slug": "ec2-auto-scaling",
+          "type": "service",
+          "path": "services/compute/ec2-auto-scaling.md",
+          "aws_service_code": null,
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Lambda",
+          "slug": "lambda",
+          "type": "service",
+          "path": "services/compute/lambda.md",
+          "aws_service_code": "AWSLambda",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Elastic Beanstalk",
+          "slug": "elastic-beanstalk",
+          "type": "service",
+          "path": "services/compute/elastic-beanstalk.md",
+          "aws_service_code": null,
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Batch",
+          "slug": "batch",
+          "type": "service",
+          "path": "services/compute/batch.md",
+          "aws_service_code": null,
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon Lightsail",
+          "slug": "lightsail",
+          "type": "service",
+          "path": "services/compute/lightsail.md",
+          "aws_service_code": "AmazonLightsail",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS App Runner",
+          "slug": "app-runner",
+          "type": "service",
+          "path": "services/compute/app-runner.md",
+          "aws_service_code": "AWSAppRunner",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Outposts",
+          "slug": "outposts",
+          "type": "service",
+          "path": "services/compute/outposts.md",
+          "aws_service_code": "AWSOutposts",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Parallel Computing Service",
+          "slug": "parallel-computing-service",
+          "type": "service",
+          "path": "services/compute/parallel-computing-service.md",
+          "aws_service_code": "AWSPCS",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "VMware Cloud on AWS",
+          "slug": "vmware-cloud-on-aws",
+          "type": "service",
+          "path": "services/compute/vmware-cloud-on-aws.md",
+          "aws_service_code": "VMwareCloudOnAWS",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        }
+      ]
+    },
+    "containers": {
+      "title": "Containers",
+      "services": [
+        {
+          "name": "Amazon ECS",
+          "slug": "ecs",
+          "type": "service",
+          "path": "services/containers/ecs.md",
+          "aws_service_code": "AmazonECS",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon EKS",
+          "slug": "eks",
+          "type": "service",
+          "path": "services/containers/eks.md",
+          "aws_service_code": "AmazonEKS",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon ECR",
+          "slug": "ecr",
+          "type": "service",
+          "path": "services/containers/ecr.md",
+          "aws_service_code": "AmazonECR",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Fargate",
+          "slug": "fargate",
+          "type": "service",
+          "path": "services/containers/fargate.md",
+          "aws_service_code": null,
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon EKS Anywhere",
+          "slug": "eks-anywhere",
+          "type": "service",
+          "path": "services/containers/eks-anywhere.md",
+          "aws_service_code": "AmazonEKSAnywhere",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        }
+      ]
+    },
+    "storage": {
+      "title": "Storage",
+      "services": [
+        {
+          "name": "Amazon S3",
+          "slug": "s3",
+          "type": "service",
+          "path": "services/storage/s3.md",
+          "aws_service_code": "AmazonS3",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon S3 Glacier",
+          "slug": "s3-glacier",
+          "type": "service",
+          "path": "services/storage/s3-glacier.md",
+          "aws_service_code": "AmazonGlacier",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon EBS",
+          "slug": "ebs",
+          "type": "service",
+          "path": "services/storage/ebs.md",
+          "aws_service_code": null,
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon EFS",
+          "slug": "efs",
+          "type": "service",
+          "path": "services/storage/efs.md",
+          "aws_service_code": "AmazonEFS",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon FSx",
+          "slug": "fsx",
+          "type": "service",
+          "path": "services/storage/fsx.md",
+          "aws_service_code": "AmazonFSx",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Backup",
+          "slug": "backup",
+          "type": "service",
+          "path": "services/storage/backup.md",
+          "aws_service_code": "AWSBackup",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Storage Gateway",
+          "slug": "storage-gateway",
+          "type": "service",
+          "path": "services/storage/storage-gateway.md",
+          "aws_service_code": "AWSStorageGateway",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Elastic Disaster Recovery",
+          "slug": "elastic-disaster-recovery",
+          "type": "service",
+          "path": "services/storage/elastic-disaster-recovery.md",
+          "aws_service_code": "AWSElasticDisasterRecovery",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Snow Family",
+          "slug": "snow-family",
+          "type": "service",
+          "path": "services/storage/snow-family.md",
+          "aws_service_code": "IngestionServiceSnowball",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        }
+      ]
+    },
+    "database": {
+      "title": "Database",
+      "services": [
+        {
+          "name": "Amazon RDS",
+          "slug": "rds",
+          "type": "service",
+          "path": "services/database/rds.md",
+          "aws_service_code": "AmazonRDS",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon Aurora",
+          "slug": "aurora",
+          "type": "service",
+          "path": "services/database/aurora.md",
+          "aws_service_code": null,
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon Aurora DSQL",
+          "slug": "aurora-dsql",
+          "type": "service",
+          "path": "services/database/aurora-dsql.md",
+          "aws_service_code": "AuroraDSQL",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon DynamoDB",
+          "slug": "dynamodb",
+          "type": "service",
+          "path": "services/database/dynamodb.md",
+          "aws_service_code": "AmazonDynamoDB",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon DynamoDB Accelerator (DAX)",
+          "slug": "dax",
+          "type": "service",
+          "path": "services/database/dax.md",
+          "aws_service_code": "AmazonDAX",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon ElastiCache",
+          "slug": "elasticache",
+          "type": "service",
+          "path": "services/database/elasticache.md",
+          "aws_service_code": "AmazonElastiCache",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon MemoryDB",
+          "slug": "memorydb",
+          "type": "service",
+          "path": "services/database/memorydb.md",
+          "aws_service_code": "AmazonMemoryDB",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon Redshift",
+          "slug": "redshift",
+          "type": "service",
+          "path": "services/database/redshift.md",
+          "aws_service_code": "AmazonRedshift",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon DocumentDB",
+          "slug": "documentdb",
+          "type": "service",
+          "path": "services/database/documentdb.md",
+          "aws_service_code": "AmazonDocDB",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon Neptune",
+          "slug": "neptune",
+          "type": "service",
+          "path": "services/database/neptune.md",
+          "aws_service_code": "AmazonNeptune",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon Timestream",
+          "slug": "timestream",
+          "type": "service",
+          "path": "services/database/timestream.md",
+          "aws_service_code": "AmazonTimestream",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon Keyspaces",
+          "slug": "keyspaces",
+          "type": "service",
+          "path": "services/database/keyspaces.md",
+          "aws_service_code": "AmazonMCS",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon QLDB",
+          "slug": "qldb",
+          "type": "service",
+          "path": "services/database/qldb.md",
+          "aws_service_code": "AmazonQLDB",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        }
+      ]
+    },
+    "networking-content-delivery": {
+      "title": "Networking & Content Delivery",
+      "services": [
+        {
+          "name": "Amazon VPC",
+          "slug": "vpc",
+          "type": "service",
+          "path": "services/networking-content-delivery/vpc.md",
+          "aws_service_code": "AmazonVPC",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon CloudFront",
+          "slug": "cloudfront",
+          "type": "service",
+          "path": "services/networking-content-delivery/cloudfront.md",
+          "aws_service_code": "AmazonCloudFront",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon Route 53",
+          "slug": "route-53",
+          "type": "service",
+          "path": "services/networking-content-delivery/route-53.md",
+          "aws_service_code": "AmazonRoute53",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Elastic Load Balancing",
+          "slug": "elastic-load-balancing",
+          "type": "service",
+          "path": "services/networking-content-delivery/elastic-load-balancing.md",
+          "aws_service_code": "AWSELB",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon API Gateway",
+          "slug": "api-gateway",
+          "type": "service",
+          "path": "services/networking-content-delivery/api-gateway.md",
+          "aws_service_code": "AmazonApiGateway",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Direct Connect",
+          "slug": "direct-connect",
+          "type": "service",
+          "path": "services/networking-content-delivery/direct-connect.md",
+          "aws_service_code": "AWSDirectConnect",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Global Accelerator",
+          "slug": "global-accelerator",
+          "type": "service",
+          "path": "services/networking-content-delivery/global-accelerator.md",
+          "aws_service_code": "AWSGlobalAccelerator",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Transit Gateway",
+          "slug": "transit-gateway",
+          "type": "service",
+          "path": "services/networking-content-delivery/transit-gateway.md",
+          "aws_service_code": null,
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS PrivateLink",
+          "slug": "privatelink",
+          "type": "service",
+          "path": "services/networking-content-delivery/privatelink.md",
+          "aws_service_code": null,
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Cloud Map",
+          "slug": "cloud-map",
+          "type": "service",
+          "path": "services/networking-content-delivery/cloud-map.md",
+          "aws_service_code": "AWSCloudMap",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Cloud WAN",
+          "slug": "cloud-wan",
+          "type": "service",
+          "path": "services/networking-content-delivery/cloud-wan.md",
+          "aws_service_code": "AWSCloudWAN",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Network Firewall",
+          "slug": "network-firewall",
+          "type": "service",
+          "path": "services/networking-content-delivery/network-firewall.md",
+          "aws_service_code": "AWSNetworkFirewall",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS App Mesh",
+          "slug": "app-mesh",
+          "type": "service",
+          "path": "services/networking-content-delivery/app-mesh.md",
+          "aws_service_code": null,
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        }
+      ]
+    },
+    "security-identity-compliance": {
+      "title": "Security, Identity & Compliance",
+      "services": [
+        {
+          "name": "AWS IAM",
+          "slug": "iam",
+          "type": "service",
+          "path": "services/security-identity-compliance/iam.md",
+          "aws_service_code": null,
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS IAM Identity Center",
+          "slug": "iam-identity-center",
+          "type": "service",
+          "path": "services/security-identity-compliance/iam-identity-center.md",
+          "aws_service_code": null,
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon Cognito",
+          "slug": "cognito",
+          "type": "service",
+          "path": "services/security-identity-compliance/cognito.md",
+          "aws_service_code": "AmazonCognito",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS KMS",
+          "slug": "kms",
+          "type": "service",
+          "path": "services/security-identity-compliance/kms.md",
+          "aws_service_code": "awskms",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Secrets Manager",
+          "slug": "secrets-manager",
+          "type": "service",
+          "path": "services/security-identity-compliance/secrets-manager.md",
+          "aws_service_code": "AWSSecretsManager",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Certificate Manager",
+          "slug": "certificate-manager",
+          "type": "service",
+          "path": "services/security-identity-compliance/certificate-manager.md",
+          "aws_service_code": "AWSCertificateManager",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS WAF",
+          "slug": "waf",
+          "type": "service",
+          "path": "services/security-identity-compliance/waf.md",
+          "aws_service_code": "awswaf",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Shield",
+          "slug": "shield",
+          "type": "service",
+          "path": "services/security-identity-compliance/shield.md",
+          "aws_service_code": "AWSShield",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon GuardDuty",
+          "slug": "guardduty",
+          "type": "service",
+          "path": "services/security-identity-compliance/guardduty.md",
+          "aws_service_code": "AmazonGuardDuty",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Security Hub",
+          "slug": "security-hub",
+          "type": "service",
+          "path": "services/security-identity-compliance/security-hub.md",
+          "aws_service_code": "AWSSecurityHub",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon Macie",
+          "slug": "macie",
+          "type": "service",
+          "path": "services/security-identity-compliance/macie.md",
+          "aws_service_code": "AmazonMacie",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon Inspector",
+          "slug": "inspector",
+          "type": "service",
+          "path": "services/security-identity-compliance/inspector.md",
+          "aws_service_code": "AmazonInspectorV2",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon Detective",
+          "slug": "detective",
+          "type": "service",
+          "path": "services/security-identity-compliance/detective.md",
+          "aws_service_code": "AmazonDetective",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS IAM Access Analyzer",
+          "slug": "iam-access-analyzer",
+          "type": "service",
+          "path": "services/security-identity-compliance/iam-access-analyzer.md",
+          "aws_service_code": "AWSIAMAccessAnalyzer",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Firewall Manager",
+          "slug": "firewall-manager",
+          "type": "service",
+          "path": "services/security-identity-compliance/firewall-manager.md",
+          "aws_service_code": "AWSFMS",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS CloudHSM",
+          "slug": "cloudhsm",
+          "type": "service",
+          "path": "services/security-identity-compliance/cloudhsm.md",
+          "aws_service_code": "CloudHSM",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon Verified Permissions",
+          "slug": "verified-permissions",
+          "type": "service",
+          "path": "services/security-identity-compliance/verified-permissions.md",
+          "aws_service_code": "AmazonVerifiedPermissions",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Security Incident Response",
+          "slug": "security-incident-response",
+          "type": "service",
+          "path": "services/security-identity-compliance/security-incident-response.md",
+          "aws_service_code": "AWSSecurityIncidentResponse",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon Security Lake",
+          "slug": "security-lake",
+          "type": "service",
+          "path": "services/security-identity-compliance/security-lake.md",
+          "aws_service_code": "AmazonSecurityLake",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Directory Service",
+          "slug": "directory-service",
+          "type": "service",
+          "path": "services/security-identity-compliance/directory-service.md",
+          "aws_service_code": "AWSDirectoryService",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Audit Manager",
+          "slug": "audit-manager",
+          "type": "service",
+          "path": "services/security-identity-compliance/audit-manager.md",
+          "aws_service_code": "auditmanager",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Payment Cryptography",
+          "slug": "payment-cryptography",
+          "type": "service",
+          "path": "services/security-identity-compliance/payment-cryptography.md",
+          "aws_service_code": "PaymentCryptography",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        }
+      ]
+    },
+    "management-governance": {
+      "title": "Management & Governance",
+      "services": [
+        {
+          "name": "Amazon CloudWatch",
+          "slug": "cloudwatch",
+          "type": "service",
+          "path": "services/management-governance/cloudwatch.md",
+          "aws_service_code": "AmazonCloudWatch",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS CloudTrail",
+          "slug": "cloudtrail",
+          "type": "service",
+          "path": "services/management-governance/cloudtrail.md",
+          "aws_service_code": "AWSCloudTrail",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Config",
+          "slug": "config",
+          "type": "service",
+          "path": "services/management-governance/config.md",
+          "aws_service_code": "AWSConfig",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS CloudFormation",
+          "slug": "cloudformation",
+          "type": "service",
+          "path": "services/management-governance/cloudformation.md",
+          "aws_service_code": "AWSCloudFormation",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Systems Manager",
+          "slug": "systems-manager",
+          "type": "service",
+          "path": "services/management-governance/systems-manager.md",
+          "aws_service_code": "AWSSystemsManager",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Organizations",
+          "slug": "organizations",
+          "type": "service",
+          "path": "services/management-governance/organizations.md",
+          "aws_service_code": null,
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Control Tower",
+          "slug": "control-tower",
+          "type": "service",
+          "path": "services/management-governance/control-tower.md",
+          "aws_service_code": null,
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Trusted Advisor",
+          "slug": "trusted-advisor",
+          "type": "service",
+          "path": "services/management-governance/trusted-advisor.md",
+          "aws_service_code": null,
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Service Catalog",
+          "slug": "service-catalog",
+          "type": "service",
+          "path": "services/management-governance/service-catalog.md",
+          "aws_service_code": "AWSServiceCatalog",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Compute Optimizer",
+          "slug": "compute-optimizer",
+          "type": "service",
+          "path": "services/management-governance/compute-optimizer.md",
+          "aws_service_code": "AWSComputeOptimizer",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Resilience Hub",
+          "slug": "resilience-hub",
+          "type": "service",
+          "path": "services/management-governance/resilience-hub.md",
+          "aws_service_code": "AWSResilienceHub",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Fault Injection Service",
+          "slug": "fault-injection-service",
+          "type": "service",
+          "path": "services/management-governance/fault-injection-service.md",
+          "aws_service_code": "AWSFIS",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon Managed Grafana",
+          "slug": "managed-grafana",
+          "type": "service",
+          "path": "services/management-governance/managed-grafana.md",
+          "aws_service_code": "AmazonGrafana",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon Managed Service for Prometheus",
+          "slug": "managed-prometheus",
+          "type": "service",
+          "path": "services/management-governance/managed-prometheus.md",
+          "aws_service_code": "AmazonPrometheus",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS OpsWorks",
+          "slug": "opsworks",
+          "type": "service",
+          "path": "services/management-governance/opsworks.md",
+          "aws_service_code": "OpsWorks",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon DevOps Guru",
+          "slug": "devops-guru",
+          "type": "service",
+          "path": "services/management-governance/devops-guru.md",
+          "aws_service_code": "AmazonDevOpsGuru",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Resource Access Manager",
+          "slug": "resource-access-manager",
+          "type": "service",
+          "path": "services/management-governance/resource-access-manager.md",
+          "aws_service_code": null,
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Route 53 Application Recovery Controller",
+          "slug": "route53-arc",
+          "type": "service",
+          "path": "services/management-governance/route53-arc.md",
+          "aws_service_code": "AWSR53AppRecoveryController",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        }
+      ]
+    },
+    "application-integration": {
+      "title": "Application Integration",
+      "services": [
+        {
+          "name": "Amazon SQS",
+          "slug": "sqs",
+          "type": "service",
+          "path": "services/application-integration/sqs.md",
+          "aws_service_code": "AWSQueueService",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon SNS",
+          "slug": "sns",
+          "type": "service",
+          "path": "services/application-integration/sns.md",
+          "aws_service_code": "AmazonSNS",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon EventBridge",
+          "slug": "eventbridge",
+          "type": "service",
+          "path": "services/application-integration/eventbridge.md",
+          "aws_service_code": "AWSEvents",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Step Functions",
+          "slug": "step-functions",
+          "type": "service",
+          "path": "services/application-integration/step-functions.md",
+          "aws_service_code": "AmazonStates",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon MQ",
+          "slug": "mq",
+          "type": "service",
+          "path": "services/application-integration/mq.md",
+          "aws_service_code": "AmazonMQ",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon AppFlow",
+          "slug": "appflow",
+          "type": "service",
+          "path": "services/application-integration/appflow.md",
+          "aws_service_code": "AppFlow",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon SWF",
+          "slug": "swf",
+          "type": "service",
+          "path": "services/application-integration/swf.md",
+          "aws_service_code": "AmazonSWF",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon MWAA",
+          "slug": "mwaa",
+          "type": "service",
+          "path": "services/application-integration/mwaa.md",
+          "aws_service_code": "AmazonMWAA",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS B2B Data Interchange",
+          "slug": "b2b-data-interchange",
+          "type": "service",
+          "path": "services/application-integration/b2b-data-interchange.md",
+          "aws_service_code": "AWSB2Bi",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        }
+      ]
+    },
+    "analytics": {
+      "title": "Analytics",
+      "services": [
+        {
+          "name": "Amazon Athena",
+          "slug": "athena",
+          "type": "service",
+          "path": "services/analytics/athena.md",
+          "aws_service_code": "AmazonAthena",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon EMR",
+          "slug": "emr",
+          "type": "service",
+          "path": "services/analytics/emr.md",
+          "aws_service_code": "ElasticMapReduce",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon Kinesis Data Streams",
+          "slug": "kinesis-data-streams",
+          "type": "service",
+          "path": "services/analytics/kinesis-data-streams.md",
+          "aws_service_code": "AmazonKinesis",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon Data Firehose",
+          "slug": "data-firehose",
+          "type": "service",
+          "path": "services/analytics/data-firehose.md",
+          "aws_service_code": "AmazonKinesisFirehose",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon Managed Service for Apache Flink",
+          "slug": "managed-flink",
+          "type": "service",
+          "path": "services/analytics/managed-flink.md",
+          "aws_service_code": "AmazonKinesisAnalytics",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon Kinesis Video Streams",
+          "slug": "kinesis-video-streams",
+          "type": "service",
+          "path": "services/analytics/kinesis-video-streams.md",
+          "aws_service_code": "AmazonKinesisVideo",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Glue",
+          "slug": "glue",
+          "type": "service",
+          "path": "services/analytics/glue.md",
+          "aws_service_code": "AWSGlue",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon QuickSight",
+          "slug": "quicksight",
+          "type": "service",
+          "path": "services/analytics/quicksight.md",
+          "aws_service_code": "AmazonQuickSight",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Lake Formation",
+          "slug": "lake-formation",
+          "type": "service",
+          "path": "services/analytics/lake-formation.md",
+          "aws_service_code": "AWSLakeFormation",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon OpenSearch Service",
+          "slug": "opensearch",
+          "type": "service",
+          "path": "services/analytics/opensearch.md",
+          "aws_service_code": "AmazonES",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon MSK",
+          "slug": "msk",
+          "type": "service",
+          "path": "services/analytics/msk.md",
+          "aws_service_code": "AmazonMSK",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Data Exchange",
+          "slug": "data-exchange",
+          "type": "service",
+          "path": "services/analytics/data-exchange.md",
+          "aws_service_code": "AWSDataExchange",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon DataZone",
+          "slug": "datazone",
+          "type": "service",
+          "path": "services/analytics/datazone.md",
+          "aws_service_code": "AmazonDataZone",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Clean Rooms",
+          "slug": "clean-rooms",
+          "type": "service",
+          "path": "services/analytics/clean-rooms.md",
+          "aws_service_code": "AWSCleanRooms",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Data Pipeline",
+          "slug": "data-pipeline",
+          "type": "service",
+          "path": "services/analytics/data-pipeline.md",
+          "aws_service_code": "datapipeline",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        }
+      ]
+    },
+    "machine-learning": {
+      "title": "Machine Learning",
+      "services": [
+        {
+          "name": "Amazon SageMaker",
+          "slug": "sagemaker",
+          "type": "service",
+          "path": "services/machine-learning/sagemaker.md",
+          "aws_service_code": "AmazonSageMaker",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon Bedrock",
+          "slug": "bedrock",
+          "type": "service",
+          "path": "services/machine-learning/bedrock.md",
+          "aws_service_code": "AmazonBedrock",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon Q",
+          "slug": "q",
+          "type": "service",
+          "path": "services/machine-learning/q.md",
+          "aws_service_code": "AmazonQ",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon Comprehend",
+          "slug": "comprehend",
+          "type": "service",
+          "path": "services/machine-learning/comprehend.md",
+          "aws_service_code": "comprehend",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon Rekognition",
+          "slug": "rekognition",
+          "type": "service",
+          "path": "services/machine-learning/rekognition.md",
+          "aws_service_code": "AmazonRekognition",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon Polly",
+          "slug": "polly",
+          "type": "service",
+          "path": "services/machine-learning/polly.md",
+          "aws_service_code": "AmazonPolly",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon Transcribe",
+          "slug": "transcribe",
+          "type": "service",
+          "path": "services/machine-learning/transcribe.md",
+          "aws_service_code": "transcribe",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon Translate",
+          "slug": "translate",
+          "type": "service",
+          "path": "services/machine-learning/translate.md",
+          "aws_service_code": "translate",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon Textract",
+          "slug": "textract",
+          "type": "service",
+          "path": "services/machine-learning/textract.md",
+          "aws_service_code": "AmazonTextract",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon Forecast",
+          "slug": "forecast",
+          "type": "service",
+          "path": "services/machine-learning/forecast.md",
+          "aws_service_code": "AmazonForecast",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon Personalize",
+          "slug": "personalize",
+          "type": "service",
+          "path": "services/machine-learning/personalize.md",
+          "aws_service_code": "AmazonPersonalize",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon Lex",
+          "slug": "lex",
+          "type": "service",
+          "path": "services/machine-learning/lex.md",
+          "aws_service_code": "AmazonLex",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon Kendra",
+          "slug": "kendra",
+          "type": "service",
+          "path": "services/machine-learning/kendra.md",
+          "aws_service_code": "AmazonKendra",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon Fraud Detector",
+          "slug": "fraud-detector",
+          "type": "service",
+          "path": "services/machine-learning/fraud-detector.md",
+          "aws_service_code": "AmazonFraudDetector",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon HealthLake",
+          "slug": "healthlake",
+          "type": "service",
+          "path": "services/machine-learning/healthlake.md",
+          "aws_service_code": "AmazonHealthLake",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon Omics",
+          "slug": "omics",
+          "type": "service",
+          "path": "services/machine-learning/omics.md",
+          "aws_service_code": "AmazonOmics",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        }
+      ]
+    },
+    "developer-tools": {
+      "title": "Developer Tools",
+      "services": [
+        {
+          "name": "AWS CodeCommit",
+          "slug": "codecommit",
+          "type": "service",
+          "path": "services/developer-tools/codecommit.md",
+          "aws_service_code": "AWSCodeCommit",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS CodeBuild",
+          "slug": "codebuild",
+          "type": "service",
+          "path": "services/developer-tools/codebuild.md",
+          "aws_service_code": "CodeBuild",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS CodeDeploy",
+          "slug": "codedeploy",
+          "type": "service",
+          "path": "services/developer-tools/codedeploy.md",
+          "aws_service_code": "AWSCodeDeploy",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS CodePipeline",
+          "slug": "codepipeline",
+          "type": "service",
+          "path": "services/developer-tools/codepipeline.md",
+          "aws_service_code": "AWSCodePipeline",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS CodeArtifact",
+          "slug": "codeartifact",
+          "type": "service",
+          "path": "services/developer-tools/codeartifact.md",
+          "aws_service_code": "AWSCodeArtifact",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon CodeCatalyst",
+          "slug": "codecatalyst",
+          "type": "service",
+          "path": "services/developer-tools/codecatalyst.md",
+          "aws_service_code": "CodeCatalyst",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon CodeGuru",
+          "slug": "codeguru",
+          "type": "service",
+          "path": "services/developer-tools/codeguru.md",
+          "aws_service_code": "CodeGuru",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS X-Ray",
+          "slug": "x-ray",
+          "type": "service",
+          "path": "services/developer-tools/x-ray.md",
+          "aws_service_code": "AWSXRay",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        }
+      ]
+    },
+    "migration-transfer": {
+      "title": "Migration & Transfer",
+      "services": [
+        {
+          "name": "AWS Database Migration Service",
+          "slug": "database-migration-service",
+          "type": "service",
+          "path": "services/migration-transfer/database-migration-service.md",
+          "aws_service_code": "AWSDatabaseMigrationSvc",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS DataSync",
+          "slug": "datasync",
+          "type": "service",
+          "path": "services/migration-transfer/datasync.md",
+          "aws_service_code": "AWSDataSync",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Transfer Family",
+          "slug": "transfer-family",
+          "type": "service",
+          "path": "services/migration-transfer/transfer-family.md",
+          "aws_service_code": "AWSTransfer",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Application Migration Service",
+          "slug": "application-migration-service",
+          "type": "service",
+          "path": "services/migration-transfer/application-migration-service.md",
+          "aws_service_code": "AWSApplicationMigrationSvc",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Migration Hub",
+          "slug": "migration-hub",
+          "type": "service",
+          "path": "services/migration-transfer/migration-hub.md",
+          "aws_service_code": null,
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Mainframe Modernization",
+          "slug": "mainframe-modernization",
+          "type": "service",
+          "path": "services/migration-transfer/mainframe-modernization.md",
+          "aws_service_code": "AWSM2",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        }
+      ]
+    },
+    "frontend-web-mobile": {
+      "title": "Front-End Web & Mobile",
+      "services": [
+        {
+          "name": "AWS Amplify",
+          "slug": "amplify",
+          "type": "service",
+          "path": "services/frontend-web-mobile/amplify.md",
+          "aws_service_code": "AWSAmplify",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS AppSync",
+          "slug": "appsync",
+          "type": "service",
+          "path": "services/frontend-web-mobile/appsync.md",
+          "aws_service_code": "AWSAppSync",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon Location Service",
+          "slug": "location-service",
+          "type": "service",
+          "path": "services/frontend-web-mobile/location-service.md",
+          "aws_service_code": "AmazonLocationService",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Device Farm",
+          "slug": "device-farm",
+          "type": "service",
+          "path": "services/frontend-web-mobile/device-farm.md",
+          "aws_service_code": "AWSDeviceFarm",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon Pinpoint",
+          "slug": "pinpoint",
+          "type": "service",
+          "path": "services/frontend-web-mobile/pinpoint.md",
+          "aws_service_code": "AmazonPinpoint",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        }
+      ]
+    },
+    "iot": {
+      "title": "Internet of Things",
+      "services": [
+        {
+          "name": "AWS IoT Core",
+          "slug": "iot-core",
+          "type": "service",
+          "path": "services/iot/iot-core.md",
+          "aws_service_code": "AWSIoT",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS IoT Greengrass",
+          "slug": "iot-greengrass",
+          "type": "service",
+          "path": "services/iot/iot-greengrass.md",
+          "aws_service_code": "AWSGreengrass",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS IoT Analytics",
+          "slug": "iot-analytics",
+          "type": "service",
+          "path": "services/iot/iot-analytics.md",
+          "aws_service_code": "AWSIoTAnalytics",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS IoT Device Management",
+          "slug": "iot-device-management",
+          "type": "service",
+          "path": "services/iot/iot-device-management.md",
+          "aws_service_code": "IoTDeviceManagement",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS IoT Device Defender",
+          "slug": "iot-device-defender",
+          "type": "service",
+          "path": "services/iot/iot-device-defender.md",
+          "aws_service_code": "IoTDeviceDefender",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS IoT SiteWise",
+          "slug": "iot-sitewise",
+          "type": "service",
+          "path": "services/iot/iot-sitewise.md",
+          "aws_service_code": "AWSIoTSiteWise",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS IoT Events",
+          "slug": "iot-events",
+          "type": "service",
+          "path": "services/iot/iot-events.md",
+          "aws_service_code": "AWSIoTEvents",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS IoT FleetWise",
+          "slug": "iot-fleetwise",
+          "type": "service",
+          "path": "services/iot/iot-fleetwise.md",
+          "aws_service_code": "AWSIoTFleetWise",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS IoT TwinMaker",
+          "slug": "iot-twinmaker",
+          "type": "service",
+          "path": "services/iot/iot-twinmaker.md",
+          "aws_service_code": "IoTTwinMaker",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        }
+      ]
+    },
+    "media-services": {
+      "title": "Media Services",
+      "services": [
+        {
+          "name": "AWS Elemental MediaConvert",
+          "slug": "mediaconvert",
+          "type": "service",
+          "path": "services/media-services/mediaconvert.md",
+          "aws_service_code": "AWSElementalMediaConvert",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Elemental MediaLive",
+          "slug": "medialive",
+          "type": "service",
+          "path": "services/media-services/medialive.md",
+          "aws_service_code": "AWSElementalMediaLive",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Elemental MediaPackage",
+          "slug": "mediapackage",
+          "type": "service",
+          "path": "services/media-services/mediapackage.md",
+          "aws_service_code": "AWSElementalMediaPackage",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Elemental MediaStore",
+          "slug": "mediastore",
+          "type": "service",
+          "path": "services/media-services/mediastore.md",
+          "aws_service_code": "AWSElementalMediaStore",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Elemental MediaTailor",
+          "slug": "mediatailor",
+          "type": "service",
+          "path": "services/media-services/mediatailor.md",
+          "aws_service_code": "AWSElementalMediaTailor",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Elemental MediaConnect",
+          "slug": "mediaconnect",
+          "type": "service",
+          "path": "services/media-services/mediaconnect.md",
+          "aws_service_code": "AWSMediaConnect",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon IVS",
+          "slug": "ivs",
+          "type": "service",
+          "path": "services/media-services/ivs.md",
+          "aws_service_code": "AmazonIVS",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        }
+      ]
+    },
+    "end-user-computing": {
+      "title": "End User Computing",
+      "services": [
+        {
+          "name": "Amazon WorkSpaces",
+          "slug": "workspaces",
+          "type": "service",
+          "path": "services/end-user-computing/workspaces.md",
+          "aws_service_code": "AmazonWorkSpaces",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon AppStream 2.0",
+          "slug": "appstream",
+          "type": "service",
+          "path": "services/end-user-computing/appstream.md",
+          "aws_service_code": "AmazonAppStream",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon WorkSpaces Web",
+          "slug": "workspaces-web",
+          "type": "service",
+          "path": "services/end-user-computing/workspaces-web.md",
+          "aws_service_code": "AmazonWorkSpacesWeb",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        }
+      ]
+    },
+    "business-applications": {
+      "title": "Business Applications",
+      "services": [
+        {
+          "name": "Amazon Connect",
+          "slug": "connect",
+          "type": "service",
+          "path": "services/business-applications/connect.md",
+          "aws_service_code": "AmazonConnect",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon SES",
+          "slug": "ses",
+          "type": "service",
+          "path": "services/business-applications/ses.md",
+          "aws_service_code": "AmazonSES",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon WorkMail",
+          "slug": "workmail",
+          "type": "service",
+          "path": "services/business-applications/workmail.md",
+          "aws_service_code": "AmazonWorkMail",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Amazon Chime SDK",
+          "slug": "chime-sdk",
+          "type": "service",
+          "path": "services/business-applications/chime-sdk.md",
+          "aws_service_code": "AmazonChime",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Supply Chain",
+          "slug": "supply-chain",
+          "type": "service",
+          "path": "services/business-applications/supply-chain.md",
+          "aws_service_code": "AWSSupplyChain",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        }
+      ]
+    },
+    "cloud-financial-management": {
+      "title": "Cloud Financial Management",
+      "services": [
+        {
+          "name": "AWS Cost Explorer",
+          "slug": "cost-explorer",
+          "type": "service",
+          "path": "services/cloud-financial-management/cost-explorer.md",
+          "aws_service_code": "AWSCostExplorer",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Budgets",
+          "slug": "budgets",
+          "type": "service",
+          "path": "services/cloud-financial-management/budgets.md",
+          "aws_service_code": "AWSBudgets",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Cost and Usage Report",
+          "slug": "cost-and-usage-report",
+          "type": "service",
+          "path": "services/cloud-financial-management/cost-and-usage-report.md",
+          "aws_service_code": null,
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "AWS Billing Conductor",
+          "slug": "billing-conductor",
+          "type": "service",
+          "path": "services/cloud-financial-management/billing-conductor.md",
+          "aws_service_code": "AWSBillingConductor",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        }
+      ]
+    },
+    "blockchain": {
+      "title": "Blockchain",
+      "services": [
+        {
+          "name": "Amazon Managed Blockchain",
+          "slug": "managed-blockchain",
+          "type": "service",
+          "path": "services/blockchain/managed-blockchain.md",
+          "aws_service_code": "AmazonManagedBlockchain",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        }
+      ]
+    },
+    "quantum-technologies": {
+      "title": "Quantum Technologies",
+      "services": [
+        {
+          "name": "Amazon Braket",
+          "slug": "braket",
+          "type": "service",
+          "path": "services/quantum-technologies/braket.md",
+          "aws_service_code": "AmazonBraket",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        }
+      ]
+    },
+    "robotics": {
+      "title": "Robotics",
+      "services": [
+        {
+          "name": "AWS RoboMaker",
+          "slug": "robomaker",
+          "type": "service",
+          "path": "services/robotics/robomaker.md",
+          "aws_service_code": "AWSRoboMaker",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        }
+      ]
+    },
+    "satellite": {
+      "title": "Satellite",
+      "services": [
+        {
+          "name": "AWS Ground Station",
+          "slug": "ground-station",
+          "type": "service",
+          "path": "services/satellite/ground-station.md",
+          "aws_service_code": "AWSGroundStation",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        }
+      ]
+    },
+    "game-tech": {
+      "title": "Game Tech",
+      "services": [
+        {
+          "name": "Amazon GameLift",
+          "slug": "gamelift",
+          "type": "service",
+          "path": "services/game-tech/gamelift.md",
+          "aws_service_code": "AmazonGameLift",
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        }
+      ]
+    },
+    "general": {
+      "title": "General AWS Best Practices",
+      "services": [
+        {
+          "name": "AWS Well-Architected Framework",
+          "slug": "well-architected",
+          "type": "general",
+          "path": "general/well-architected.md",
+          "aws_service_code": null,
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Account Security Baseline",
+          "slug": "security-baseline",
+          "type": "general",
+          "path": "general/security-baseline.md",
+          "aws_service_code": null,
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Multi-Account & AWS Organizations",
+          "slug": "multi-account-organizations",
+          "type": "general",
+          "path": "general/multi-account-organizations.md",
+          "aws_service_code": null,
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Cost Governance",
+          "slug": "cost-governance",
+          "type": "general",
+          "path": "general/cost-governance.md",
+          "aws_service_code": null,
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Networking Baseline",
+          "slug": "networking-baseline",
+          "type": "general",
+          "path": "general/networking-baseline.md",
+          "aws_service_code": null,
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Reliability & Disaster Recovery",
+          "slug": "reliability-dr",
+          "type": "general",
+          "path": "general/reliability-dr.md",
+          "aws_service_code": null,
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Observability",
+          "slug": "observability",
+          "type": "general",
+          "path": "general/observability.md",
+          "aws_service_code": null,
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Tagging Strategy",
+          "slug": "tagging-strategy",
+          "type": "general",
+          "path": "general/tagging-strategy.md",
+          "aws_service_code": null,
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        },
+        {
+          "name": "Sustainability",
+          "slug": "sustainability",
+          "type": "general",
+          "path": "general/sustainability.md",
+          "aws_service_code": null,
+          "pillars": [],
+          "last_reviewed": null,
+          "sources": 0
+        }
+      ]
+    }
+  }
+}
