@@ -22,11 +22,13 @@ until `python3 scripts/check.py` passes. Limit the scope with `/goal <category>`
 
 ## Validate before commit (gate)
 ```bash
-python3 scripts/check.py                 # coverage + conformance
-python3 scripts/check.py --check-links   # validate links (network)
+python3 scripts/check.py                 # per-push: conformance of existing files (missing = warning)
+python3 scripts/check.py --strict        # release gate: every catalog entry must have a file
+python3 scripts/check.py --check-links    # validate links (network)
 ```
-Everything green before bumping the version. CI runs `check.py` on every push/PR
-(`.github/workflows/check.yml`).
+CI runs the non-strict `check.py` on every push/PR (`.github/workflows/check.yml`),
+so the badge stays green while content is being filled in. Run `--strict` (full
+coverage) before tagging a release.
 
 ## Scripts (utilities only)
 The loop logic lives in `.claude/commands/goal.md`. The scripts are just utilities

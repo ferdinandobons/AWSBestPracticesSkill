@@ -66,12 +66,15 @@ def strip_emoji_h2(h2: str) -> str:
     return re.sub(r"^[^0-9A-Za-z]+", "", h2).strip()
 
 
-def check_coverage(cat: dict, rep: Report):
+def check_coverage(cat: dict, rep: Report, strict: bool):
     declared = set()
     for _, s in iter_entries(cat):
         declared.add(s["path"])
         if not (ROOT / s["path"]).exists():
-            rep.err(f"[coverage] missing file for {s['name']}: {s['path']}")
+            # missing content is a hard error only under --strict (release/coverage gate);
+            # by default it's a warning so per-push CI stays green while content is filled in.
+            (rep.err if strict else rep.warn)(
+                f"[coverage] missing file for {s['name']}: {s['path']}")
     on_disk = set()
     for base in (SERVICES, GENERAL):
         if base.exists():
@@ -203,6 +206,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("scope", nargs="?", help="optional category to scope --missing")
     ap.add_argument("--missing", action="store_true", help="print missing entries as JSON and exit")
+    ap.add_argument("--strict", action="store_true", help="treat missing files as errors (release/coverage gate)")
     ap.add_argument("--check-links", action="store_true")
     ap.add_argument("--baseline")
     ap.add_argument("--write-index", action="store_true")
@@ -216,7 +220,7 @@ def main():
     rep = Report()
     if args.write_index:
         write_index(cat, rep)
-    check_coverage(cat, rep)
+    check_coverage(cat, rep, args.strict)
     for _, s in iter_entries(cat):
         p = ROOT / s["path"]
         if p.exists():
