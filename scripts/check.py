@@ -187,8 +187,22 @@ def write_index(cat: dict, rep: Report):
             rep.note("[index] SKILL.md index updated")
 
 
+def list_missing(cat: dict, scope):
+    out = []
+    for ckey, s in iter_entries(cat):
+        if scope and ckey != scope:
+            continue
+        if not (ROOT / s["path"]).exists():
+            out.append({"name": s["name"], "slug": s["slug"], "path": s["path"],
+                        "abspath": str(ROOT / s["path"]),
+                        "type": s.get("type", "service"), "category": ckey})
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
+    ap.add_argument("scope", nargs="?", help="optional category to scope --missing")
+    ap.add_argument("--missing", action="store_true", help="print missing entries as JSON and exit")
     ap.add_argument("--check-links", action="store_true")
     ap.add_argument("--baseline")
     ap.add_argument("--write-index", action="store_true")
@@ -196,6 +210,9 @@ def main():
     args = ap.parse_args()
 
     cat = load_catalog()
+    if args.missing:
+        print(json.dumps(list_missing(cat, args.scope), ensure_ascii=False, indent=2))
+        sys.exit(0)
     rep = Report()
     if args.write_index:
         write_index(cat, rep)

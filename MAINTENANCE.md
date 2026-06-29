@@ -28,6 +28,16 @@ python3 scripts/check.py --check-links   # validate links (network)
 Everything green before bumping the version. CI runs `check.py` on every push/PR
 (`.github/workflows/check.yml`).
 
+## Scripts (utilities only)
+The loop logic lives in `.claude/commands/goal.md`. The scripts are just utilities
+the loop calls:
+- `scripts/check.py` — validate (coverage/conformance/links), `--missing [category]`
+  to list entries still to generate, `--write-index` to regenerate the indexes,
+  `--baseline DIR` to diff a regeneration.
+- `scripts/cost.py` — token ledger: `add --name --tokens --agents --files` records a
+  workflow run's `subagent_tokens` and re-renders the cost section of the README and
+  `docs/build-cost.md`; `render` re-renders from the ledger.
+
 ## Release
 Bump `version` in `catalog.json`, add a `CHANGELOG.md` entry, sync `README.md`,
 tag `vX.Y.Z` only when stable. Never force-push a released tag.
