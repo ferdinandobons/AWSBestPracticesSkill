@@ -77,6 +77,7 @@ catalog.json                       # machine-readable source of truth
 - [Amazon ECS](services/containers/ecs.md)
 - [Amazon EKS](services/containers/eks.md)
 - [Amazon EKS Anywhere](services/containers/eks-anywhere.md)
+- [Red Hat OpenShift Service on AWS (ROSA)](services/containers/rosa.md)
 
 ### Storage
 - [AWS Backup](services/storage/backup.md)
@@ -86,6 +87,7 @@ catalog.json                       # machine-readable source of truth
 - [Amazon EBS](services/storage/ebs.md)
 - [Amazon EFS](services/storage/efs.md)
 - [Amazon FSx](services/storage/fsx.md)
+- [Amazon File Cache](services/storage/file-cache.md)
 - [Amazon S3](services/storage/s3.md)
 - [Amazon S3 Glacier](services/storage/s3-glacier.md)
 
@@ -99,7 +101,7 @@ catalog.json                       # machine-readable source of truth
 - [Amazon Keyspaces](services/database/keyspaces.md)
 - [Amazon MemoryDB](services/database/memorydb.md)
 - [Amazon Neptune](services/database/neptune.md)
-- [Amazon QLDB](services/database/qldb.md)
+- [Amazon Neptune Analytics](services/database/neptune-analytics.md)
 - [Amazon RDS](services/database/rds.md)
 - [Amazon Redshift](services/database/redshift.md)
 - [Amazon Timestream](services/database/timestream.md)
@@ -114,13 +116,17 @@ catalog.json                       # machine-readable source of truth
 - [AWS Network Firewall](services/networking-content-delivery/network-firewall.md)
 - [AWS PrivateLink](services/networking-content-delivery/privatelink.md)
 - [AWS Transit Gateway](services/networking-content-delivery/transit-gateway.md)
+- [AWS Verified Access](services/networking-content-delivery/verified-access.md)
 - [Amazon API Gateway](services/networking-content-delivery/api-gateway.md)
+- [Amazon Application Recovery Controller (ARC)](services/networking-content-delivery/route53-arc.md)
 - [Amazon CloudFront](services/networking-content-delivery/cloudfront.md)
 - [Amazon Route 53](services/networking-content-delivery/route-53.md)
 - [Amazon VPC](services/networking-content-delivery/vpc.md)
+- [Amazon VPC Lattice](services/networking-content-delivery/vpc-lattice.md)
 - [Elastic Load Balancing](services/networking-content-delivery/elastic-load-balancing.md)
 
 ### Security, Identity & Compliance
+- [AWS Artifact](services/security-identity-compliance/artifact.md)
 - [AWS Audit Manager](services/security-identity-compliance/audit-manager.md)
 - [AWS Certificate Manager](services/security-identity-compliance/certificate-manager.md)
 - [AWS CloudHSM](services/security-identity-compliance/cloudhsm.md)
@@ -145,27 +151,28 @@ catalog.json                       # machine-readable source of truth
 - [Amazon Verified Permissions](services/security-identity-compliance/verified-permissions.md)
 
 ### Management & Governance
+- [AWS Auto Scaling](services/management-governance/auto-scaling.md)
 - [AWS CloudFormation](services/management-governance/cloudformation.md)
 - [AWS CloudTrail](services/management-governance/cloudtrail.md)
 - [AWS Compute Optimizer](services/management-governance/compute-optimizer.md)
 - [AWS Config](services/management-governance/config.md)
 - [AWS Control Tower](services/management-governance/control-tower.md)
 - [AWS Fault Injection Service](services/management-governance/fault-injection-service.md)
-- [AWS OpsWorks](services/management-governance/opsworks.md)
+- [AWS Health](services/management-governance/health.md)
+- [AWS License Manager](services/management-governance/license-manager.md)
 - [AWS Organizations](services/management-governance/organizations.md)
 - [AWS Resilience Hub](services/management-governance/resilience-hub.md)
 - [AWS Resource Access Manager](services/management-governance/resource-access-manager.md)
 - [AWS Service Catalog](services/management-governance/service-catalog.md)
 - [AWS Systems Manager](services/management-governance/systems-manager.md)
 - [AWS Trusted Advisor](services/management-governance/trusted-advisor.md)
+- [AWS Well-Architected Tool](services/management-governance/well-architected-tool.md)
 - [Amazon CloudWatch](services/management-governance/cloudwatch.md)
 - [Amazon DevOps Guru](services/management-governance/devops-guru.md)
 - [Amazon Managed Grafana](services/management-governance/managed-grafana.md)
 - [Amazon Managed Service for Prometheus](services/management-governance/managed-prometheus.md)
-- [Route 53 Application Recovery Controller](services/management-governance/route53-arc.md)
 
 ### Application Integration
-- [AWS AppFabric](services/application-integration/app-fabric.md)
 - [AWS B2B Data Interchange](services/application-integration/b2b-data-interchange.md)
 - [AWS Step Functions](services/application-integration/step-functions.md)
 - [Amazon AppFlow](services/application-integration/appflow.md)
@@ -194,11 +201,14 @@ catalog.json                       # machine-readable source of truth
 - [Amazon Managed Service for Apache Flink](services/analytics/managed-flink.md)
 - [Amazon OpenSearch Service](services/analytics/opensearch.md)
 - [Amazon QuickSight](services/analytics/quicksight.md)
+- [Amazon S3 Tables](services/analytics/s3-tables.md)
 
 ### Machine Learning
 - [AWS HealthImaging](services/machine-learning/healthimaging.md)
 - [Amazon Bedrock](services/machine-learning/bedrock.md)
+- [Amazon Bedrock AgentCore](services/machine-learning/bedrock-agentcore.md)
 - [Amazon Comprehend](services/machine-learning/comprehend.md)
+- [Amazon Comprehend Medical](services/machine-learning/comprehend-medical.md)
 - [Amazon Forecast](services/machine-learning/forecast.md)
 - [Amazon Fraud Detector](services/machine-learning/fraud-detector.md)
 - [Amazon HealthLake](services/machine-learning/healthlake.md)
@@ -215,11 +225,13 @@ catalog.json                       # machine-readable source of truth
 - [Amazon Translate](services/machine-learning/translate.md)
 
 ### Developer Tools
+- [AWS CloudShell](services/developer-tools/cloudshell.md)
 - [AWS CodeArtifact](services/developer-tools/codeartifact.md)
 - [AWS CodeBuild](services/developer-tools/codebuild.md)
 - [AWS CodeCommit](services/developer-tools/codecommit.md)
 - [AWS CodeDeploy](services/developer-tools/codedeploy.md)
 - [AWS CodePipeline](services/developer-tools/codepipeline.md)
+- [AWS Infrastructure Composer](services/developer-tools/infrastructure-composer.md)
 - [AWS X-Ray](services/developer-tools/x-ray.md)
 - [Amazon CodeCatalyst](services/developer-tools/codecatalyst.md)
 - [Amazon CodeGuru](services/developer-tools/codeguru.md)
@@ -241,15 +253,15 @@ catalog.json                       # machine-readable source of truth
 - [Amazon Pinpoint](services/frontend-web-mobile/pinpoint.md)
 
 ### Internet of Things
-- [AWS IoT Analytics](services/iot/iot-analytics.md)
 - [AWS IoT Core](services/iot/iot-core.md)
 - [AWS IoT Device Defender](services/iot/iot-device-defender.md)
 - [AWS IoT Device Management](services/iot/iot-device-management.md)
-- [AWS IoT Events](services/iot/iot-events.md)
+- [AWS IoT ExpressLink](services/iot/iot-expresslink.md)
 - [AWS IoT FleetWise](services/iot/iot-fleetwise.md)
 - [AWS IoT Greengrass](services/iot/iot-greengrass.md)
 - [AWS IoT SiteWise](services/iot/iot-sitewise.md)
 - [AWS IoT TwinMaker](services/iot/iot-twinmaker.md)
+- [FreeRTOS](services/iot/freertos.md)
 
 ### Media Services
 - [AWS Deadline Cloud](services/media-services/deadline-cloud.md)
@@ -262,11 +274,13 @@ catalog.json                       # machine-readable source of truth
 - [Amazon IVS](services/media-services/ivs.md)
 
 ### End User Computing
-- [Amazon AppStream 2.0](services/end-user-computing/appstream.md)
 - [Amazon WorkSpaces](services/end-user-computing/workspaces.md)
-- [Amazon WorkSpaces Web](services/end-user-computing/workspaces-web.md)
+- [Amazon WorkSpaces Applications](services/end-user-computing/appstream.md)
+- [Amazon WorkSpaces Secure Browser](services/end-user-computing/workspaces-web.md)
+- [Amazon WorkSpaces Thin Client](services/end-user-computing/workspaces-thin-client.md)
 
 ### Business Applications
+- [AWS AppFabric](services/business-applications/app-fabric.md)
 - [AWS Supply Chain](services/business-applications/supply-chain.md)
 - [AWS Wickr](services/business-applications/wickr.md)
 - [Amazon Chime SDK](services/business-applications/chime-sdk.md)
@@ -277,7 +291,9 @@ catalog.json                       # machine-readable source of truth
 ### Cloud Financial Management
 - [AWS Billing Conductor](services/cloud-financial-management/billing-conductor.md)
 - [AWS Budgets](services/cloud-financial-management/budgets.md)
+- [AWS Cost Anomaly Detection](services/cloud-financial-management/cost-anomaly-detection.md)
 - [AWS Cost Explorer](services/cloud-financial-management/cost-explorer.md)
+- [AWS Cost Optimization Hub](services/cloud-financial-management/cost-optimization-hub.md)
 - [AWS Cost and Usage Report](services/cloud-financial-management/cost-and-usage-report.md)
 
 ### Blockchain
@@ -286,14 +302,11 @@ catalog.json                       # machine-readable source of truth
 ### Quantum Technologies
 - [Amazon Braket](services/quantum-technologies/braket.md)
 
-### Robotics
-- [AWS RoboMaker](services/robotics/robomaker.md)
-
 ### Satellite
 - [AWS Ground Station](services/satellite/ground-station.md)
 
 ### Game Tech
-- [Amazon GameLift](services/game-tech/gamelift.md)
+- [Amazon GameLift Servers](services/game-tech/gamelift.md)
 - [Amazon GameLift Streams](services/game-tech/gamelift-streams.md)
 
 ### General AWS Best Practices

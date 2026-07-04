@@ -1,6 +1,6 @@
 {
   "version": "0.1.0-dev",
-  "generated": "2026-06-29",
+  "generated": "2026-07-04",
   "categories": {
     "compute": {
       "title": "Compute",
@@ -128,6 +128,13 @@
           "type": "service",
           "path": "services/containers/ecr-public.md",
           "aws_service_code": "AmazonECRPublic"
+        },
+        {
+          "name": "Red Hat OpenShift Service on AWS (ROSA)",
+          "slug": "rosa",
+          "type": "service",
+          "path": "services/containers/rosa.md",
+          "aws_service_code": null
         }
       ]
     },
@@ -196,6 +203,13 @@
           "type": "service",
           "path": "services/storage/snow-family.md",
           "aws_service_code": "IngestionServiceSnowball"
+        },
+        {
+          "name": "Amazon File Cache",
+          "slug": "file-cache",
+          "type": "service",
+          "path": "services/storage/file-cache.md",
+          "aws_service_code": null
         }
       ]
     },
@@ -287,18 +301,18 @@
           "aws_service_code": "AmazonMCS"
         },
         {
-          "name": "Amazon QLDB",
-          "slug": "qldb",
-          "type": "service",
-          "path": "services/database/qldb.md",
-          "aws_service_code": "AmazonQLDB"
-        },
-        {
           "name": "Oracle Database@AWS",
           "slug": "oracle-database-at-aws",
           "type": "service",
           "path": "services/database/oracle-database-at-aws.md",
           "aws_service_code": "OracleDbAtAWS"
+        },
+        {
+          "name": "Amazon Neptune Analytics",
+          "slug": "neptune-analytics",
+          "type": "service",
+          "path": "services/database/neptune-analytics.md",
+          "aws_service_code": null
         }
       ]
     },
@@ -394,6 +408,27 @@
           "slug": "app-mesh",
           "type": "service",
           "path": "services/networking-content-delivery/app-mesh.md",
+          "aws_service_code": null
+        },
+        {
+          "name": "Amazon Application Recovery Controller (ARC)",
+          "slug": "route53-arc",
+          "type": "service",
+          "path": "services/networking-content-delivery/route53-arc.md",
+          "aws_service_code": "AWSR53AppRecoveryController"
+        },
+        {
+          "name": "Amazon VPC Lattice",
+          "slug": "vpc-lattice",
+          "type": "service",
+          "path": "services/networking-content-delivery/vpc-lattice.md",
+          "aws_service_code": null
+        },
+        {
+          "name": "AWS Verified Access",
+          "slug": "verified-access",
+          "type": "service",
+          "path": "services/networking-content-delivery/verified-access.md",
           "aws_service_code": null
         }
       ]
@@ -554,6 +589,13 @@
           "type": "service",
           "path": "services/security-identity-compliance/payment-cryptography.md",
           "aws_service_code": "PaymentCryptography"
+        },
+        {
+          "name": "AWS Artifact",
+          "slug": "artifact",
+          "type": "service",
+          "path": "services/security-identity-compliance/artifact.md",
+          "aws_service_code": null
         }
       ]
     },
@@ -659,13 +701,6 @@
           "aws_service_code": "AmazonPrometheus"
         },
         {
-          "name": "AWS OpsWorks",
-          "slug": "opsworks",
-          "type": "service",
-          "path": "services/management-governance/opsworks.md",
-          "aws_service_code": "OpsWorks"
-        },
-        {
           "name": "Amazon DevOps Guru",
           "slug": "devops-guru",
           "type": "service",
@@ -680,11 +715,32 @@
           "aws_service_code": null
         },
         {
-          "name": "Route 53 Application Recovery Controller",
-          "slug": "route53-arc",
+          "name": "AWS Well-Architected Tool",
+          "slug": "well-architected-tool",
           "type": "service",
-          "path": "services/management-governance/route53-arc.md",
-          "aws_service_code": "AWSR53AppRecoveryController"
+          "path": "services/management-governance/well-architected-tool.md",
+          "aws_service_code": null
+        },
+        {
+          "name": "AWS License Manager",
+          "slug": "license-manager",
+          "type": "service",
+          "path": "services/management-governance/license-manager.md",
+          "aws_service_code": null
+        },
+        {
+          "name": "AWS Health",
+          "slug": "health",
+          "type": "service",
+          "path": "services/management-governance/health.md",
+          "aws_service_code": null
+        },
+        {
+          "name": "AWS Auto Scaling",
+          "slug": "auto-scaling",
+          "type": "service",
+          "path": "services/management-governance/auto-scaling.md",
+          "aws_service_code": null
         }
       ]
     },
@@ -753,13 +809,6 @@
           "type": "service",
           "path": "services/application-integration/b2b-data-interchange.md",
           "aws_service_code": "AWSB2Bi"
-        },
-        {
-          "name": "AWS AppFabric",
-          "slug": "app-fabric",
-          "type": "service",
-          "path": "services/application-integration/app-fabric.md",
-          "aws_service_code": "AWSAppFabric"
         }
       ]
     },
@@ -884,6 +933,13 @@
           "type": "service",
           "path": "services/analytics/finspace.md",
           "aws_service_code": "AmazonFinSpace"
+        },
+        {
+          "name": "Amazon S3 Tables",
+          "slug": "s3-tables",
+          "type": "service",
+          "path": "services/analytics/s3-tables.md",
+          "aws_service_code": null
         }
       ]
     },
@@ -1008,6 +1064,20 @@
           "type": "service",
           "path": "services/machine-learning/healthimaging.md",
           "aws_service_code": "AmazonMedicalImaging"
+        },
+        {
+          "name": "Amazon Bedrock AgentCore",
+          "slug": "bedrock-agentcore",
+          "type": "service",
+          "path": "services/machine-learning/bedrock-agentcore.md",
+          "aws_service_code": null
+        },
+        {
+          "name": "Amazon Comprehend Medical",
+          "slug": "comprehend-medical",
+          "type": "service",
+          "path": "services/machine-learning/comprehend-medical.md",
+          "aws_service_code": null
         }
       ]
     },
@@ -1069,6 +1139,20 @@
           "type": "service",
           "path": "services/developer-tools/x-ray.md",
           "aws_service_code": "AWSXRay"
+        },
+        {
+          "name": "AWS CloudShell",
+          "slug": "cloudshell",
+          "type": "service",
+          "path": "services/developer-tools/cloudshell.md",
+          "aws_service_code": null
+        },
+        {
+          "name": "AWS Infrastructure Composer",
+          "slug": "infrastructure-composer",
+          "type": "service",
+          "path": "services/developer-tools/infrastructure-composer.md",
+          "aws_service_code": null
         }
       ]
     },
@@ -1184,13 +1268,6 @@
           "aws_service_code": "AWSGreengrass"
         },
         {
-          "name": "AWS IoT Analytics",
-          "slug": "iot-analytics",
-          "type": "service",
-          "path": "services/iot/iot-analytics.md",
-          "aws_service_code": "AWSIoTAnalytics"
-        },
-        {
           "name": "AWS IoT Device Management",
           "slug": "iot-device-management",
           "type": "service",
@@ -1212,13 +1289,6 @@
           "aws_service_code": "AWSIoTSiteWise"
         },
         {
-          "name": "AWS IoT Events",
-          "slug": "iot-events",
-          "type": "service",
-          "path": "services/iot/iot-events.md",
-          "aws_service_code": "AWSIoTEvents"
-        },
-        {
           "name": "AWS IoT FleetWise",
           "slug": "iot-fleetwise",
           "type": "service",
@@ -1231,6 +1301,20 @@
           "type": "service",
           "path": "services/iot/iot-twinmaker.md",
           "aws_service_code": "IoTTwinMaker"
+        },
+        {
+          "name": "AWS IoT ExpressLink",
+          "slug": "iot-expresslink",
+          "type": "service",
+          "path": "services/iot/iot-expresslink.md",
+          "aws_service_code": null
+        },
+        {
+          "name": "FreeRTOS",
+          "slug": "freertos",
+          "type": "service",
+          "path": "services/iot/freertos.md",
+          "aws_service_code": null
         }
       ]
     },
@@ -1306,18 +1390,25 @@
           "aws_service_code": "AmazonWorkSpaces"
         },
         {
-          "name": "Amazon AppStream 2.0",
+          "name": "Amazon WorkSpaces Applications",
           "slug": "appstream",
           "type": "service",
           "path": "services/end-user-computing/appstream.md",
           "aws_service_code": "AmazonAppStream"
         },
         {
-          "name": "Amazon WorkSpaces Web",
+          "name": "Amazon WorkSpaces Secure Browser",
           "slug": "workspaces-web",
           "type": "service",
           "path": "services/end-user-computing/workspaces-web.md",
           "aws_service_code": "AmazonWorkSpacesWeb"
+        },
+        {
+          "name": "Amazon WorkSpaces Thin Client",
+          "slug": "workspaces-thin-client",
+          "type": "service",
+          "path": "services/end-user-computing/workspaces-thin-client.md",
+          "aws_service_code": null
         }
       ]
     },
@@ -1365,6 +1456,13 @@
           "type": "service",
           "path": "services/business-applications/wickr.md",
           "aws_service_code": "AWSWickr"
+        },
+        {
+          "name": "AWS AppFabric",
+          "slug": "app-fabric",
+          "type": "service",
+          "path": "services/business-applications/app-fabric.md",
+          "aws_service_code": "AWSAppFabric"
         }
       ]
     },
@@ -1398,6 +1496,20 @@
           "type": "service",
           "path": "services/cloud-financial-management/billing-conductor.md",
           "aws_service_code": "AWSBillingConductor"
+        },
+        {
+          "name": "AWS Cost Optimization Hub",
+          "slug": "cost-optimization-hub",
+          "type": "service",
+          "path": "services/cloud-financial-management/cost-optimization-hub.md",
+          "aws_service_code": null
+        },
+        {
+          "name": "AWS Cost Anomaly Detection",
+          "slug": "cost-anomaly-detection",
+          "type": "service",
+          "path": "services/cloud-financial-management/cost-anomaly-detection.md",
+          "aws_service_code": null
         }
       ]
     },
@@ -1425,18 +1537,6 @@
         }
       ]
     },
-    "robotics": {
-      "title": "Robotics",
-      "services": [
-        {
-          "name": "AWS RoboMaker",
-          "slug": "robomaker",
-          "type": "service",
-          "path": "services/robotics/robomaker.md",
-          "aws_service_code": "AWSRoboMaker"
-        }
-      ]
-    },
     "satellite": {
       "title": "Satellite",
       "services": [
@@ -1453,7 +1553,7 @@
       "title": "Game Tech",
       "services": [
         {
-          "name": "Amazon GameLift",
+          "name": "Amazon GameLift Servers",
           "slug": "gamelift",
           "type": "service",
           "path": "services/game-tech/gamelift.md",

@@ -59,7 +59,7 @@ Browse the full index in [`catalog.md`](catalog.md).
 
 ## Coverage
 
-- **182 services** across 24 AWS categories + **9 general** cross-service docs.
+- **208 services** across 23 AWS categories + **9 general** cross-service docs.
 - Best practices sourced from official AWS documentation and the
   Well-Architected Framework.
 
