@@ -1,0 +1,47 @@
+# Amazon GameLift Streams — Best Practices
+
+## Common scenarios
+- Cloud-streaming existing PC/console games or interactive apps to browsers without rewriting them        → Performance Efficiency, Cost Optimization
+- Scaling concurrent stream sessions globally to match variable player demand        → Reliability, Cost Optimization, Performance Efficiency
+- Running the same title across multiple graphics-quality tiers or multiple linked titles on shared capacity        → Cost Optimization, Operational Excellence
+- Troubleshooting and auditing live or completed stream sessions        → Operational Excellence, Security
+
+## 🔒 Security
+- **[IAM]** Start from AWS managed policies and progressively narrow to least-privilege customer-managed policies scoped to specific Amazon GameLift Streams actions and resources. [doc](https://docs.aws.amazon.com/gameliftstreams/latest/developerguide/security_iam_id-based-policy-examples.html)
+- **[IAM]** Add IAM policy conditions (e.g. require SSL, restrict to specific calling services) to further restrict who can create, modify, or delete stream groups and applications. [doc](https://docs.aws.amazon.com/gameliftstreams/latest/developerguide/security_iam_id-based-policy-examples.html)
+- **[IAM]** Validate identity-based policies with IAM Access Analyzer before applying them, and require MFA for any IAM or root user with access to Amazon GameLift Streams resources. [doc](https://docs.aws.amazon.com/gameliftstreams/latest/developerguide/security_iam_id-based-policy-examples.html)
+- **[Transport security]** Require clients to use TLS 1.2 at minimum (TLS 1.3 recommended) with perfect-forward-secrecy cipher suites (DHE/ECDHE) when calling Amazon GameLift Streams APIs. [doc](https://docs.aws.amazon.com/gameliftstreams/latest/developerguide/infrastructure-security.html)
+- **[Patch hygiene]** Recycle (recreate) stream groups every 2-4 weeks regardless of application update cadence — the underlying OS and runtime environment is only patched when a stream group is newly created, and groups older than 180 days can't accept new application links. [doc](https://docs.aws.amazon.com/gameliftstreams/latest/developerguide/security-best-practices.html)
+- **[Shared responsibility]** Keep customer-provided application content, software, and SDKs (AWS SDK and Web Client SDK) up to date with the latest security patches — customers are responsible for maintaining their own deployed application content. [doc](https://docs.aws.amazon.com/gameliftstreams/latest/developerguide/vulnerability-analysis-management.html)
+- **[Data protection]** Rely on default server-side encryption for application content stored in S3 and AWS Signature Version 4 authentication for all API calls; use customer-named S3 buckets for session log/file exports only when needed for debugging. [doc](https://docs.aws.amazon.com/gameliftstreams/latest/developerguide/data-protection.html)
+- **[Networking]** Use VPC connectivity via AWS Transit Gateway to reach private resources from a stream group location, and scope security groups to allow inbound traffic only from the Amazon GameLift Streams service-managed VPC CIDR block. [doc](https://docs.aws.amazon.com/gameliftstreams/latest/developerguide/vpc-connectivity-how-it-works.html)
+- **[Auditing]** Enable a multi-Region AWS CloudTrail trail (beyond the default 90-day event history) to retain a durable, ongoing record of who called which Amazon GameLift Streams API, from where, and when. [doc](https://docs.aws.amazon.com/gameliftstreams/latest/developerguide/logging-using-cloudtrail.html)
+
+## 🛡️ Reliability
+- **[Topology]** Rely on Amazon GameLift Streams' multi-Availability Zone infrastructure, which continues load-balancing new sessions across healthy AZs if one AZ has an outage (existing sessions in the affected AZ may still be impacted). [doc](https://docs.aws.amazon.com/gameliftstreams/latest/developerguide/disaster-recovery-resiliency.html)
+- **[Geographic placement]** Add remote locations to a stream group and host sessions in locations geographically near end users to minimize latency and improve stream quality. [doc](https://docs.aws.amazon.com/gameliftstreams/latest/developerguide/stream-groups.html)
+- **[Capacity buffer]** Configure target-idle (pre-warmed) capacity so a buffer of pre-allocated resources is maintained beyond current usage, allowing immediate response to new stream requests during demand spikes. [doc](https://docs.aws.amazon.com/help-panel/gameliftstreams/latest/console/hp-stream-group-details-locations-capacity.html)
+- **[Maintenance]** Recreate stream groups every 3-4 weeks to pick up service updates and fixes, and treat the console's "Maintenance required" notice as an action item before the 180-day hard limit blocks new application links. [doc](https://docs.aws.amazon.com/gameliftstreams/latest/developerguide/stream-groups.html)
+
+## ⚡ Performance Efficiency
+- **[Configuration]** Match runtime environment (Windows, Linux, or Proton) and stream class (CPU/GPU/RAM/tenancy) to the application's actual graphical and compatibility requirements rather than defaulting to the highest tier. [doc](https://docs.aws.amazon.com/gameliftstreams/latest/developerguide/choosing-configuration.html)
+- **[Tenancy]** Use multi-tenant "high"/"medium"/"small" stream classes for titles that don't need a full dedicated GPU, reserving single-tenant "Ultra" classes for graphically intensive, latency-sensitive titles. [doc](https://docs.aws.amazon.com/gameliftstreams/latest/developerguide/configuration-options.html)
+- **[Latency]** Place stream capacity in locations close to end users using multi-location stream groups to reduce network latency and improve perceived stream quality. [doc](https://docs.aws.amazon.com/gameliftstreams/latest/developerguide/stream-groups.html)
+- **[Observability]** Use real-time performance stats (CPU, memory, GPU, VRAM) during active sessions, and exported post-session CSVs, to identify and correct application-level performance bottlenecks. [doc](https://docs.aws.amazon.com/gameliftstreams/latest/developerguide/monitoring-overview.html)
+
+## 💰 Cost Optimization
+- **[Capacity management]** Scale stream group capacity to zero when streams aren't needed, and drive scaling from actual demand — via the console, API, EventBridge Scheduler for time-based patterns, or CloudWatch Alarms for utilization-based patterns — instead of leaving capacity provisioned idle. [doc](https://aws.amazon.com/blogs/gametech/deploy-your-first-web-application-with-amazon-gamelift-streams/)
+- **[Capacity model]** Use always-on capacity only where instant (sub-10-second) start times are required; use on-demand capacity (tolerating up to ~5 minute starts) for cost-sensitive or internal use cases where allocated-but-idle capacity isn't acceptable to pay for. [doc](https://docs.aws.amazon.com/gameliftstreams/latest/developerguide/getting-started.html)
+- **[Tenancy]** Adopt multi-tenant stream classes and, for Linux/Proton runtimes, avoid unnecessary Windows licensing costs when the application doesn't require Windows-specific compatibility. [doc](https://aws.amazon.com/blogs/gametech/streaming-windows-games-using-proton-9-on-amazon-gamelift-streams/)
+- **[Right-sizing]** Set stream capacity at or close to actual concurrent-stream needs rather than over-provisioning, and monitor idle vs. in-use capacity in CloudWatch to catch unused allocated capacity. [doc](https://aws.amazon.com/blogs/gametech/streaming-windows-games-using-proton-9-on-amazon-gamelift-streams/)
+- **[Shared capacity]** Use multi-application stream groups to share one pool of compute resources across multiple titles or versions instead of provisioning separate capacity for each. [doc](https://docs.aws.amazon.com/gameliftstreams/latest/developerguide/manage-streams.html)
+
+## ⚙️ Operational Excellence
+- **[Monitoring]** Use Amazon CloudWatch metrics to track stream group capacity/usage, stream performance, stream status, and data-channel usage, and set alarms on thresholds that matter to your operation. [doc](https://docs.aws.amazon.com/gameliftstreams/latest/developerguide/monitoring-cloudwatch.html)
+- **[Logging]** Configure application logging through the application resource so game-engine output logs are captured for crash diagnosis and production troubleshooting. [doc](https://docs.aws.amazon.com/gameliftstreams/latest/developerguide/troubleshoot.html)
+- **[Debugging]** Use the Stream Session Admin Shell (via AWS Systems Manager Session Manager) to inspect logs, processes, and GPU utilization on a live session without managing SSH keys or open ports. [doc](https://aws.amazon.com/gamelift/streams/features/)
+- **[Post-incident analysis]** Enable stream session file export to a customer-owned S3 bucket to capture filesystem changes and artifacts for post-session debugging and verification. [doc](https://docs.aws.amazon.com/gameliftstreams/latest/developerguide/troubleshoot.html)
+- **[Auditing]** Track API activity with CloudTrail and correlate it with CloudWatch metrics and AWS Billing/Cost Management data to maintain operational oversight and respond quickly to anomalies. [doc](https://aws.amazon.com/gamelift/streams/faqs/)
+- **[Naming/tagging]** Use meaningful, human-readable descriptions and tags on stream groups so resources stay identifiable and organized as the number of groups and applications grows. [doc](https://docs.aws.amazon.com/gameliftstreams/latest/developerguide/streaming-process.html)
+
+<!-- meta: last_reviewed=2026-07-05; sources=22 -->

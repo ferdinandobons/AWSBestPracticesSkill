@@ -114,6 +114,12 @@
       "agents": 12,
       "tokens": 705398,
       "files": 6
+    },
+    {
+      "name": "blockchain-quantum-satellite-gametech",
+      "agents": 10,
+      "tokens": 621738,
+      "files": 5
     }
   ]
 }
