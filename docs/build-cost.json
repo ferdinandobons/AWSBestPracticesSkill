@@ -72,6 +72,12 @@
       "agents": 20,
       "tokens": 1363837,
       "files": 10
+    },
+    {
+      "name": "migration-transfer",
+      "agents": 14,
+      "tokens": 928859,
+      "files": 7
     }
   ]
 }
