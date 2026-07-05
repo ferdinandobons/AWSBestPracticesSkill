@@ -1,0 +1,47 @@
+# Amazon Comprehend — Best Practices
+
+## Common scenarios
+- Extracting entities, key phrases, sentiment, and language from unstructured text        → Performance Efficiency, Cost Optimization
+- Detecting and redacting PII in documents before indexing or downstream processing        → Security
+- Training and hosting custom classifiers or entity recognizers for domain-specific data        → Reliability, Operational Excellence
+- Running real-time inference at scale behind a Comprehend endpoint        → Performance Efficiency, Cost Optimization
+
+## 🔒 Security
+- **[data in transit]** Require TLS 1.2 (prefer TLS 1.3) and cipher suites with perfect forward secrecy (DHE/ECDHE) for all client connections to the Comprehend API — protects data as it moves between your application and the service. [doc](https://docs.aws.amazon.com/comprehend/latest/dg/comp-infrastructure-security.html)
+- **[data at rest]** Configure a customer managed AWS KMS key for volume, model, and output encryption (`VolumeKmsKey`, `ModelKmsKey`, `OutputKmsKey`) on every `Start*`/`Create*` job — ensures customer data and trained models are encrypted with keys you control. [doc](https://docs.aws.amazon.com/comprehend/latest/dg/comp-data-protection.html)
+- **[data at rest]** Enforce encryption using an SCP or IAM policy condition (e.g. `comprehend:VolumeKmsKey` `StringNotLike`) that denies job creation unless a KMS key is supplied — prevents unencrypted jobs from being created by mistake. [doc](https://aws.amazon.com/blogs/industries/fsi-service-spotlight-amazon-comprehend/)
+- **[network isolation]** Run Comprehend jobs inside a VPC with no internet route, specifying subnets and security groups, so job containers and their access to S3 stay off the public internet — also enables VPC Flow Logs for traffic auditing. [doc](https://docs.aws.amazon.com/comprehend/latest/dg/usingVPC.html)
+- **[network isolation]** Use an interface VPC endpoint (AWS PrivateLink) for Comprehend so API traffic between your VPC and the service never traverses the internet, and attach a restrictive endpoint policy to it. [doc](https://aws.amazon.com/blogs/industries/fsi-service-spotlight-amazon-comprehend/)
+- **[access control]** Enforce `comprehend:VpcSubnets` and `comprehend:VpcSecurityGroupIds` IAM condition keys so that jobs cannot be created without the required VPC configuration — closes the gap where a user could bypass network isolation. [doc](https://aws.amazon.com/blogs/machine-learning/enforce-vpc-rules-for-amazon-comprehend-jobs-and-cmk-encryption-for-custom-models/)
+- **[IAM]** Start from AWS managed policies and then author customer managed policies scoped to least privilege for the specific Comprehend actions and resources each role needs. [doc](https://docs.aws.amazon.com/comprehend/latest/dg/security_iam_id-based-policy-examples.html)
+- **[IAM]** Scope the data access role's trust policy with `aws:SourceAccount` and `aws:SourceArn` conditions to prevent confused-deputy issues when Comprehend assumes the role to read/write your S3 buckets. [doc](https://docs.aws.amazon.com/comprehend/latest/dg/security_iam_id-based-policy-examples.html)
+- **[IAM]** Grant the data access role only `s3:GetObject`/`s3:ListBucket` on the input bucket and `s3:PutObject` on the output bucket — avoid broad S3 permissions for the role Comprehend assumes. [doc](https://docs.aws.amazon.com/comprehend/latest/dg/tutorial-reviews-create-role.html)
+- **[IAM]** Validate identity-based policies with IAM Access Analyzer before attaching them, and require MFA for users who can create or manage Comprehend resources. [doc](https://docs.aws.amazon.com/comprehend/latest/dg/security_iam_id-based-policy-examples.html)
+- **[cross-account]** When sharing a custom model across accounts, attach a narrowly scoped resource-based policy (`PutResourcePolicy`) that authorizes only `comprehend:ImportModel` for the specific target principal and model version ARN. [doc](https://docs.aws.amazon.com/comprehend/latest/dg/security_iam_service-with-iam.html)
+- **[sensitive data]** Use the DetectPiiEntities/ContainsPiiEntities APIs (or asynchronous PII redaction jobs) to identify and redact PII such as names, financial data, and national IDs before storing or indexing documents downstream. [doc](https://docs.aws.amazon.com/comprehend/latest/dg/trust-safety.html)
+- **[sensitive data]** Never place confidential or sensitive information (such as customer emails) into tags or free-form name fields — this data can surface in billing or diagnostic logs. [doc](https://docs.aws.amazon.com/comprehend/latest/dg/comp-data-protection.html)
+- **[auditability]** Enable AWS CloudTrail trails covering Comprehend API events (including `Start*`, `Create*`, and `Detect*` calls) to maintain an ongoing record of who accessed or modified resources. [doc](https://docs.aws.amazon.com/comprehend/latest/dg/logging-using-cloudtrail.html)
+
+## 🛡️ Reliability
+- **[quotas]** Design batch pipelines around the documented per-region, per-account request-per-second and 10-concurrent-active-job quotas for asynchronous operations, and request quota increases proactively for high-volume workloads. [doc](https://docs.aws.amazon.com/comprehend/latest/dg/guidelines-and-limits.html)
+- **[job design]** Use asynchronous batch jobs (S3-based) for large document sets and synchronous multi-document calls (up to 25 documents) for smaller, latency-sensitive workloads, matching document size limits to the API you choose. [doc](https://aws.amazon.com/blogs/machine-learning/amazon-comprehend-now-supports-asynchronous-processing-along-with-larger-document-sizes/)
+- **[endpoints]** Monitor `ProvisionedInferenceUnits`, `RequestedInferenceUnits`, `ConsumedInferenceUnits`, and `InferenceUtilization` in CloudWatch for each endpoint to detect under-provisioning before it causes throttled requests. [doc](https://docs.aws.amazon.com/comprehend/latest/dg/manage-endpoints-monitor.html)
+- **[model lifecycle]** Use model versioning to track training data and performance changes over time before promoting a new custom classifier or entity recognizer version to production. [doc](https://docs.aws.amazon.com/comprehend/latest/dg/model-versioning.html)
+- **[model lifecycle]** Use Flywheels to automate continuous retraining and evaluation, and only promote a new active model version via `UpdateFlywheel` after confirming its evaluation metrics improve on the current version. [doc](https://aws.amazon.com/blogs/machine-learning/simplify-continuous-learning-of-amazon-comprehend-custom-models-using-comprehend-flywheel/)
+
+## ⚡ Performance Efficiency
+- **[endpoints]** Size real-time endpoints using inference units (1 IU = 100 characters/second) based on the character counts returned by `ClassifyDocument`/`DetectEntities` responses, rather than guessing throughput needs. [doc](https://docs.aws.amazon.com/comprehend/latest/dg/using-endpoints.html)
+- **[endpoints]** Register Comprehend document classifier or entity recognizer endpoints as Application Auto Scaling scalable targets so inference units scale with demand instead of being statically over- or under-provisioned. [doc](https://docs.aws.amazon.com/autoscaling/application/userguide/services-that-can-integrate-comprehend.html)
+- **[job type selection]** Choose asynchronous jobs for large corpora and synchronous APIs only for real-time, low-latency needs — asynchronous jobs are optimized for throughput on bulk text while synchronous calls trade batch efficiency for immediacy. [doc](https://aws.amazon.com/blogs/machine-learning/amazon-comprehend-now-supports-asynchronous-processing-along-with-larger-document-sizes/)
+
+## 💰 Cost Optimization
+- **[endpoints]** Delete real-time inference endpoints as soon as analysis is complete — endpoints accrue charges continuously from creation until deletion regardless of usage. [doc](https://docs.aws.amazon.com/comprehend/latest/dg/using-endpoints.html)
+- **[endpoints]** Use CloudWatch endpoint metrics combined with Application Auto Scaling to scale inference units down automatically during low-demand periods instead of leaving fixed capacity provisioned. [doc](https://docs.aws.amazon.com/comprehend/latest/dg/manage-endpoints-monitor.html)
+- **[job type selection]** Batch documents into asynchronous jobs where real-time results aren't required, since per-request minimum character charges apply to every synchronous call regardless of actual document size. [doc](https://aws.amazon.com/comprehend/pricing/)
+
+## ⚙️ Operational Excellence
+- **[monitoring]** Send Comprehend API activity to CloudTrail and configure ongoing trails (not just event history) so job creation, encryption configuration, and data access role usage are auditable over time. [doc](https://docs.aws.amazon.com/comprehend/latest/dg/logging-using-cloudtrail.html)
+- **[monitoring]** Track key job-related API calls (e.g. `CreateDocumentClassifier`, `StartPiiEntitiesDetectionJob`, `StartEntitiesDetectionJob`) in CloudTrail to confirm only approved jobs run and that correct S3 buckets and KMS keys are configured for input/output. [doc](https://aws.amazon.com/blogs/industries/fsi-service-spotlight-amazon-comprehend/)
+- **[compliance automation]** Use AWS Config managed rules for S3 encryption compliance on the input and output buckets used by Comprehend jobs to continuously verify configuration drift. [doc](https://aws.amazon.com/blogs/industries/fsi-service-spotlight-amazon-comprehend/)
+
+<!-- meta: last_reviewed=2026-07-05; sources=18 -->

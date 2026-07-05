@@ -15,4 +15,5 @@ and accumulated here — generation agents only (research + write + verify).
 | application-integration | 9 | 18 | 1,167,666 |
 | analytics (partial) | 13 | 28 | 1,229,736 |
 | analytics (finish) | 5 | 23 | 1,668,960 |
-| **Total** | **128** | **302** | **18,672,400 (~18.67M)** |
+| machine-learning | 19 | 38 | 2,500,092 |
+| **Total** | **147** | **340** | **21,172,492 (~21.17M)** |

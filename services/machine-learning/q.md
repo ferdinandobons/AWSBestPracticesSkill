@@ -1,0 +1,44 @@
+# Amazon Q — Best Practices
+
+## Common scenarios
+- Enterprise assistant answering questions over internal knowledge/documents        → Security, Operational Excellence
+- AI coding companion for inline suggestions, chat, and code reviews in the IDE        → Security, Operational Excellence
+- Automating code security scanning and vulnerability remediation in the SDLC        → Security, Reliability
+- Governing per-user licensing and access at organizational scale        → Cost Optimization, Security
+
+## 🔒 Security
+- **[Identity & access]** Federate users through an organization instance of AWS IAM Identity Center rather than per-account IAM Federation — it centralizes governance and scales cleanly across accounts and future integrations. [doc](https://docs.aws.amazon.com/amazonq/latest/qbusiness-ug/how-it-works.html)
+- **[Identity & access]** Provision individual users through IAM Identity Center or IAM and enforce multi-factor authentication — this avoids shared credentials and gives each user only the permissions needed. [doc](https://docs.aws.amazon.com/amazonq/latest/qbusiness-ug/data-protection.html)
+- **[Data source connectors]** Ensure every indexed document is unique across all connected data sources — duplicate documents can degrade retrieval quality and leak content across boundaries. [doc](https://docs.aws.amazon.com/amazonq/latest/qbusiness-ug/connector-best-practices.html)
+- **[Data source connectors]** Regularly rotate data source credentials and secrets and avoid reusing them across data sources — this limits the blast radius if one credential is compromised. [doc](https://docs.aws.amazon.com/amazonq/latest/qbusiness-ug/connector-best-practices.html)
+- **[Data source connectors]** Use a dedicated IAM role for each retriever and a separate one for each data source — reusing a retriever role for a data source (or vice versa) causes errors and unclear access boundaries. [doc](https://docs.aws.amazon.com/amazonq/latest/qbusiness-ug/connector-best-practices.html)
+- **[Data source connectors]** Keep the endpoint stored in Secrets Manager synchronized with your data source configuration, creating a new secret if the endpoint changes — this guards against the confused-deputy problem on on-premises/server connectors. [doc](https://docs.aws.amazon.com/amazonq/latest/qbusiness-ug/connector-best-practices.html)
+- **[Cross-service access]** Use the `aws:SourceArn` and `aws:SourceAccount` global condition keys in resource policies — they prevent the confused-deputy problem when Amazon Q Business calls other services on your behalf. [doc](https://aws.amazon.com/blogs/machine-learning/email-your-conversations-from-amazon-q/)
+- **[Encryption]** Require TLS 1.2 or later for all communication with AWS resources and rely on AWS KMS-backed encryption at rest — this keeps enterprise content protected in transit and at rest. [doc](https://docs.aws.amazon.com/amazonq/latest/qbusiness-ug/data-protection.html)
+- **[Encryption]** Grant the application's IAM role permission to describe, encrypt, and decrypt with your customer-managed KMS key before enabling it — missing key permissions break ingestion and retrieval. [doc](https://docs.aws.amazon.com/amazonq/latest/qbusiness-ug/connector-best-practices.html)
+- **[Guardrails]** Configure global controls and topic-level chat controls, including blocked topics and blocked phrases — this keeps chat responses scoped to enterprise data and prevents disclosure of sensitive content. [doc](https://docs.aws.amazon.com/amazonq/latest/qbusiness-ug/guardrails.html)
+- **[Guardrails]** Restrict responses to enterprise data only rather than falling back to underlying model knowledge — this reduces hallucination risk when accuracy and governance matter most. [doc](https://docs.aws.amazon.com/amazonq/latest/qbusiness-ug/guardrails-concepts.html)
+- **[Sensitive data]** Never place confidential or sensitive information into tags or free-form text fields such as name fields — this content can be captured in billing or diagnostic logs. [doc](https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/data-protection.html)
+- **[Network]** Access Amazon Q Business through an AWS PrivateLink VPC endpoint — this keeps traffic off the public internet. [doc](https://aws.amazon.com/q/business/features/)
+- **[Compliance]** Use FIPS endpoints for CLI/API access — this satisfies requirements for FIPS 140-3 validated cryptographic modules. [doc](https://docs.aws.amazon.com/amazonq/latest/qbusiness-ug/data-protection.html)
+- **[Code suggestions]** Review every Amazon Q Developer code suggestion before accepting it and run the built-in code security scanning — generated code can still contain vulnerabilities despite filtering. [doc](https://aws.amazon.com/blogs/devops/code-security-scanning-with-amazon-q-developer/)
+
+## 🛡️ Reliability
+- **[Monitoring]** Enable Amazon CloudWatch logging for data source connectors — this surfaces document-level errors and failed ingestion jobs before they cause data loss in the knowledge base. [doc](https://aws.amazon.com/blogs/machine-learning/amazon-q-business-simplifies-integration-of-enterprise-knowledge-bases-at-scale/)
+- **[Auditability]** Integrate AWS CloudTrail to record Amazon Q API and user activity — this supports incident investigation and long-term audit trails. [doc](https://docs.aws.amazon.com/amazonq/latest/qbusiness-ug/data-protection.html)
+- **[Cross-region inference]** Account for Amazon Q Developer's use of cross-Region inference on Amazon Bedrock — it increases throughput and resilience during high-demand periods while keeping requests within your data's geography. [doc](https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/cross-region-processing.html)
+- **[Code quality]** Enable automated Amazon Q Developer code reviews throughout the development cycle — continuous rule-based and generative-AI review catches quality and security issues earlier than a single pre-release pass. [doc](https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/code-reviews.html)
+
+## 💰 Cost Optimization
+- **[Licensing tier]** Choose the Amazon Q Business or Amazon Q Developer subscription tier based on an analysis of actual feature needs — defaulting to the higher tier can waste a large share of licensing spend. [doc](https://aws.amazon.com/blogs/aws-cloud-financial-management/optimizing-cost-for-deploying-amazon-q/)
+- **[User management]** Regularly audit user subscriptions and remove access for departed or low-usage users — Amazon Q is billed per user, so inactive licenses translate directly into wasted spend. [doc](https://aws.amazon.com/blogs/aws-cloud-financial-management/optimizing-cost-for-deploying-amazon-q/)
+- **[User management]** Consolidate on a single organization instance of IAM Identity Center rather than per-account instances or IAM Federation — each user is billed once across the whole AWS Organization instead of once per account. [doc](https://aws.amazon.com/blogs/machine-learning/build-private-and-secure-enterprise-generative-ai-applications-with-amazon-q-business-using-iam-federation/)
+
+## ⚙️ Operational Excellence
+- **[Onboarding]** Give Amazon Q Developer relevant context (languages, frameworks, tools in use) and break complex problems into smaller components — vague prompts produce less accurate responses. [doc](https://docs.aws.amazon.com/prescriptive-guidance/latest/best-practices-code-generation/onboarding.html)
+- **[Customization]** Build customizations from your internal libraries, APIs, and architectural patterns, and review each customization's evaluation score before relying on it — recommendation accuracy tracks the quality of the source repository. [doc](https://docs.aws.amazon.com/prescriptive-guidance/latest/best-practices-code-generation/advanced-capabilities.html)
+- **[Customization]** Supply a substantial, representative code repository (real source files rather than config/metadata) when creating a customization — thin or unrepresentative inputs produce weak suggestions. [doc](https://docs.aws.amazon.com/prescriptive-guidance/latest/best-practices-code-generation/advanced-capabilities.html)
+- **[Prompting]** Iterate on prompts and supply error messages plus surrounding code as context — this consistently improves the relevance of Amazon Q Developer's answers. [doc](https://docs.aws.amazon.com/prescriptive-guidance/latest/best-practices-code-generation/code-recommendations.html)
+- **[Governance at scale]** Monitor S3 buckets and other feeding data sources with EventBridge rules and server access logging — this detects unauthorized modification of content that Amazon Q Business indexes. [doc](https://aws.amazon.com/blogs/machine-learning/amazon-q-business-simplifies-integration-of-enterprise-knowledge-bases-at-scale/)
+
+<!-- meta: last_reviewed=2026-07-05; sources=17 -->
