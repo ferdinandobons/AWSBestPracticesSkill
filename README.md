@@ -1,13 +1,27 @@
 # AWS Best Practices Skill
 
-A skill for **Claude** and **Codex** that collects the **best practices of every
-AWS service** — and nothing else. Find recommendations by **use case**:
-security, reliability, performance, cost, operations, sustainability.
+**Ask your AI coding agent "how should I secure my S3 bucket" and get a sourced, current best practice — not a guess from stale training data.**
+
+A skill for **Claude Code** and **OpenAI Codex CLI** that collects the **best
+practices of every AWS service** — and nothing else. Find recommendations by
+**use case**: security, reliability, performance, cost, operations,
+sustainability, each one linked to its official AWS source.
 
 > **Scope:** this skill contains **only best practices**. No service
 > descriptions, no pricing, no tutorials, no code walkthroughs. Just what AWS
 > recommends you do, organized so you can act on it, each item linked to its
 > official AWS source.
+
+## Why this instead of just asking the model directly
+
+An AI agent's training data goes stale the moment AWS ships a new feature,
+renames a service, or updates its Well-Architected guidance — and left to its
+own devices, it will still answer confidently. This repo is a living,
+source-linked reference the agent reads instead of recalling from memory: 208
+services across 23 categories, plus 9 cross-service topics, every practice
+traceable to an official `docs.aws.amazon.com` / `aws.amazon.com` /
+`wa.aws.amazon.com` page — and a documented refresh loop (below) that keeps it
+that way over time.
 
 ## What it contains / does NOT contain
 
@@ -20,48 +34,73 @@ security, reliability, performance, cost, operations, sustainability.
 
 ## Quick start
 
-Clone the repo into your tool's skills directory — the same folder works for both:
-
+**Claude Code:**
 ```bash
-# Claude Code
 git clone https://github.com/ferdinandobons/AWSBestPracticesSkill ~/.claude/skills/aws-best-practices
+```
 
-# OpenAI Codex
+**OpenAI Codex CLI:**
+```bash
 git clone https://github.com/ferdinandobons/AWSBestPracticesSkill ~/.codex/skills/aws-best-practices
 ```
 
 Restart the tool if it's open, then just ask in natural language:
 
-> *"best practices for securing my S3 bucket"* · *"how should I run DynamoDB for high traffic"* · *"AWS account security baseline"*
+> *"best practices for securing my S3 bucket"* · *"how should I run DynamoDB for high traffic"* · *"AWS account security baseline"* · *"is my Lambda function set up correctly for production"*
 
-The model reads `SKILL.md`, opens the matching `services/<category>/<service>.md`
-(or `general/<topic>.md`), and answers with sourced best practices.
+The model reads [`SKILL.md`](SKILL.md), opens the matching
+`services/<category>/<service>.md` (or `general/<topic>.md`), and answers with
+sourced best practices — it won't need to open anything else in this repo.
 
-Update anytime: `git -C ~/.claude/skills/aws-best-practices pull`.
+Update anytime:
+```bash
+git -C ~/.claude/skills/aws-best-practices pull   # or ~/.codex/skills/aws-best-practices
+```
 
 ## How navigation works
 
-`SKILL.md` is a router. The model identifies the service + concern from your use
-case, opens the matching file under `services/`, reads the **Common scenarios**
-map, then the relevant pillar sections.
+`SKILL.md` is a router. The model identifies the service + concern from your
+use case, opens the matching file under `services/`, reads the **Common
+scenarios** map, then the relevant pillar sections.
 
 ```
-SKILL.md                          # router / index
+SKILL.md                          # router / index — what the model reads first
 catalog.md                        # human-readable index (generated)
 catalog.json                      # machine-readable source of truth
 services/<category>/<service>.md  # per-service best practices
 general/<topic>.md                # cross-service best practices
 scripts/                          # maintainer utilities (check.py, cost.py)
-GENERATE.md                       # generation loop prompt (maintainers)
+GENERATE.md                       # fills in missing files (maintainers)
+REFRESH.md                        # periodic refresh: new services + stale content (maintainers)
 ```
 
 Browse the full index in [`catalog.md`](catalog.md).
 
 ## Coverage
 
-- **208 services** across 23 AWS categories + **9 general** cross-service docs.
-- Best practices sourced from official AWS documentation and the
-  Well-Architected Framework.
+- **208 services** across 23 AWS categories + **9 general** cross-service docs — 217 files, all complete.
+- Best practices sourced from official AWS documentation and the Well-Architected Framework.
+- Every source link verified live (HTTP 200, official AWS host) as of the last full check.
+
+## How the catalog stays current
+
+This isn't a one-time snapshot. Two portable, tool-agnostic prompts drive the
+catalog's lifecycle — paste either into a Claude Code / Codex CLI chat in this
+repo:
+
+- **[`GENERATE.md`](GENERATE.md)** fills in any catalog entry that doesn't
+  have a file yet, researching official AWS docs per service.
+- **[`REFRESH.md`](REFRESH.md)** runs periodically to (1) diff `catalog.json`
+  against AWS's current service list — picking up new services, catching
+  renamed or recategorized ones, dropping fully-retired ones — and (2)
+  re-review existing files whose content has gone stale, per
+  `scripts/check.py --stale` (default: no review in the last 180 days).
+
+Both are gated by [`scripts/check.py`](scripts/check.py), which validates
+structure, coverage, freshness, and link health with zero external
+dependencies (`--check-links` hits the network; everything else is a pure
+stdlib parse), so a maintenance pass can't silently drift from the "only
+best practices, always sourced" rule.
 
 ## Build cost
 
@@ -74,13 +113,19 @@ into a coding agent's chat. Token usage is tracked from each generation run.
 
 ## Maintenance
 
-This is a living collection. The update procedure, the [`GENERATE.md`](GENERATE.md)
-generation prompt, and the validation gate are documented in
+This is a living collection. The update procedure — generating missing
+entries with [`GENERATE.md`](GENERATE.md), keeping the catalog current with
+[`REFRESH.md`](REFRESH.md), and the validation gate — is documented in
 [`MAINTENANCE.md`](MAINTENANCE.md). Validate locally with:
 
 ```bash
-python scripts/check.py
+python3 scripts/check.py                # coverage + conformance + freshness summary
+python3 scripts/check.py --strict       # release gate: every catalog entry has a file
+python3 scripts/check.py --check-links  # validate all source links (network)
+python3 scripts/check.py --stale        # list entries due for a REFRESH.md pass
 ```
+
+Contributions welcome — see [`MAINTENANCE.md`](MAINTENANCE.md) before opening a PR.
 
 ## License
 

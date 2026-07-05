@@ -2,9 +2,13 @@
 """check.py — validator + index generator for AWSBestPracticesSkill.
 
 Pure stdlib. Commands:
-  python scripts/check.py                  # coverage + conformance
+  python scripts/check.py                  # coverage + conformance + freshness summary
   python scripts/check.py --check-links    # also validate links (needs network)
   python scripts/check.py --baseline DIR   # diff service/general files vs DIR (staging)
+  python scripts/check.py --missing [cat]  # JSON list of catalog entries with no file yet
+  python scripts/check.py --stale [cat]    # JSON list of entries due for a REFRESH.md pass
+                                            # (missing/unparseable last_reviewed, or older
+                                            # than --stale-days; default 180)
   python scripts/check.py --write-index    # regenerate catalog.md and the SKILL.md index
   python scripts/check.py --json           # JSON output
 
@@ -12,6 +16,7 @@ Exit code != 0 when there are errors (CI gate / `/goal` stop condition).
 """
 from __future__ import annotations
 import argparse
+import datetime
 import difflib
 import json
 import re
@@ -39,6 +44,8 @@ H1_RE = re.compile(r"^#\s+(.+?)\s*$", re.M)
 H2_LINE_RE = re.compile(r"^##\s+(.+?)\s*$")
 H2_FIND_RE = re.compile(r"^##\s+(.+?)\s*$", re.M)
 BULLET_RE = re.compile(r"^\s*[-*]\s+\S")
+LAST_REVIEWED_RE = re.compile(r"last_reviewed=(\d{4}-\d{2}-\d{2})")
+DEFAULT_STALE_DAYS = 180
 
 
 class Report:
@@ -202,10 +209,57 @@ def list_missing(cat: dict, scope):
     return out
 
 
+def last_reviewed(path: Path) -> datetime.date | None:
+    m = LAST_REVIEWED_RE.search(path.read_text(encoding="utf-8"))
+    if not m:
+        return None
+    try:
+        return datetime.date.fromisoformat(m.group(1))
+    except ValueError:
+        return None
+
+
+def list_stale(cat: dict, scope, max_age_days: int):
+    """Entries whose file exists but is due for a REFRESH.md pass: either the
+    trailing `<!-- meta: last_reviewed=... -->` line is missing/unparseable, or
+    its date is older than max_age_days. Missing files are NOT included here —
+    those are `--missing`'s job (generate first, then refresh)."""
+    today = datetime.date.today()
+    out = []
+    for ckey, s in iter_entries(cat):
+        if scope and ckey != scope:
+            continue
+        p = ROOT / s["path"]
+        if not p.exists():
+            continue
+        lr = last_reviewed(p)
+        age_days = (today - lr).days if lr else None
+        if lr is None or age_days > max_age_days:
+            out.append({"name": s["name"], "slug": s["slug"], "path": s["path"],
+                        "abspath": str(p), "type": s.get("type", "service"),
+                        "category": ckey,
+                        "last_reviewed": lr.isoformat() if lr else None,
+                        "age_days": age_days})
+    out.sort(key=lambda e: (e["age_days"] is not None, e["age_days"] or 0), reverse=True)
+    return out
+
+
+def check_freshness(cat: dict, rep: Report, max_age_days: int):
+    stale = list_stale(cat, None, max_age_days)
+    total = sum(1 for _, s in iter_entries(cat) if (ROOT / s["path"]).exists())
+    if stale:
+        rep.note(f"[freshness] {len(stale)}/{total} files due for review "
+                 f"(missing or >{max_age_days}d old last_reviewed) — see --stale")
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("scope", nargs="?", help="optional category to scope --missing")
+    ap.add_argument("scope", nargs="?", help="optional category to scope --missing/--stale")
     ap.add_argument("--missing", action="store_true", help="print missing entries as JSON and exit")
+    ap.add_argument("--stale", action="store_true",
+                     help="print entries due for a REFRESH.md pass as JSON and exit")
+    ap.add_argument("--stale-days", type=int, default=DEFAULT_STALE_DAYS,
+                     help=f"freshness threshold in days for --stale (default {DEFAULT_STALE_DAYS})")
     ap.add_argument("--strict", action="store_true", help="treat missing files as errors (release/coverage gate)")
     ap.add_argument("--check-links", action="store_true")
     ap.add_argument("--baseline")
@@ -217,6 +271,9 @@ def main():
     if args.missing:
         print(json.dumps(list_missing(cat, args.scope), ensure_ascii=False, indent=2))
         sys.exit(0)
+    if args.stale:
+        print(json.dumps(list_stale(cat, args.scope, args.stale_days), ensure_ascii=False, indent=2))
+        sys.exit(0)
     rep = Report()
     if args.write_index:
         write_index(cat, rep)
@@ -225,6 +282,7 @@ def main():
         p = ROOT / s["path"]
         if p.exists():
             check_conformance(p, s.get("type") == "general", rep)
+    check_freshness(cat, rep, args.stale_days)
     if args.check_links:
         check_links(cat, rep)
     if args.baseline:

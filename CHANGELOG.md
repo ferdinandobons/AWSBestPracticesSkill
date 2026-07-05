@@ -8,12 +8,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Added
 - Repository skeleton: `SKILL.md` router, `_TEMPLATE.md`, `MAINTENANCE.md`, CI.
 - `catalog.json` source of truth: 208 services across 23 categories + 9 general docs.
-- `scripts/check.py` validator + diff-checker (coverage, conformance, freshness,
-  links, AWS-catalog comparison, baseline diff, index generation).
-- `GENERATE.md`: a portable, tool-agnostic prompt for the generation/update
-  loop — copy-paste into any terminal coding agent's chat (Claude Code, Codex
-  CLI, etc.), no dependency on Claude Code's slash-command mechanism.
-- Per-service and general best-practice content.
+- `scripts/check.py` validator + diff-checker (coverage, conformance, links,
+  baseline diff, index generation).
+- `GENERATE.md`: a portable, tool-agnostic prompt for the generation loop —
+  copy-paste into any terminal coding agent's chat (Claude Code, Codex CLI,
+  etc.), no dependency on Claude Code's slash-command mechanism.
+- Full content generation: all 217 catalog entries (208 services + 9 general
+  docs) researched against official AWS documentation, each practice bullet
+  source-linked; verified with `scripts/check.py --strict` (0 errors) and a
+  full network link check (0 broken links across ~3,200 URLs).
+- `scripts/check.py --stale [category] [--stale-days N]`: freshness check that
+  reads each file's trailing `last_reviewed` date and flags entries missing it
+  or older than the threshold (default 180 days); surfaced as a non-blocking
+  summary line in the default `check.py` run too.
+- `REFRESH.md`: a portable prompt (sibling of `GENERATE.md`) for the periodic
+  maintenance pass — diffs `catalog.json` against AWS's current service list
+  to catch new/renamed/retired services, then re-reviews entries flagged by
+  `--stale` against current official docs.
 - Catalog audit against the live AWS service list: added 20 services confirmed
   missing (e.g. ROSA, Amazon File Cache, Amazon VPC Lattice, AWS Verified Access,
   AWS Artifact, AWS Well-Architected Tool, Amazon Bedrock AgentCore).
