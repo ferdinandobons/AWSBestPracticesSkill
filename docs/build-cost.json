@@ -126,6 +126,12 @@
       "agents": 18,
       "tokens": 1303664,
       "files": 9
+    },
+    {
+      "name": "media-services (mediastore migration guide)",
+      "agents": 1,
+      "tokens": 80005,
+      "files": 1
     }
   ]
 }

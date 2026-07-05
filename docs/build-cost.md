@@ -26,4 +26,5 @@ and accumulated here — generation agents only (research + write + verify).
 | cloud-financial-management | 6 | 12 | 705,398 |
 | blockchain-quantum-satellite-gametech | 5 | 10 | 621,738 |
 | general | 9 | 18 | 1,303,664 |
-| **Total** | **216** | **480** | **30,430,964 (~30.43M)** |
+| media-services (mediastore migration guide) | 1 | 1 | 80,005 |
+| **Total** | **217** | **481** | **30,510,969 (~30.51M)** |
