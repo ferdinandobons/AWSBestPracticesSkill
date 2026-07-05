@@ -1,6 +1,6 @@
 # Generate / update the AWS best-practices catalog
 
-Self-contained instructions — paste this whole file into a new chat with any
+Self-contained instructions: paste this whole file into a new chat with any
 terminal coding agent (Claude Code, Codex CLI, etc.) whose working directory is
 this repository, to generate or refresh the best-practices files.
 
@@ -23,12 +23,12 @@ making progress until that holds for the given scope.
    - If a Workflow tool (or equivalent parallel-agent orchestration) is
      available, use it to generate in parallel: embed the entries directly in
      the workflow script (tool `args` are not always delivered reliably); run
-     `pipeline(entries, generate, verify)` — one agent per entry.
+     `pipeline(entries, generate, verify)`, one agent per entry.
    - If no such tool is available in this environment, process entries one at
      a time in sequence, still following the `generate` → `verify` steps below
      for each.
    - **generate** (one entry): look up the official AWS documentation for that
-     service — if an AWS documentation MCP/tool is available, use it
+     service. If an AWS documentation MCP/tool is available, use it
      (`search_documentation` + `read_documentation`); otherwise use web search
      for `"<name> best practices"`, `"<name> security best practices"`,
      `"<name> Well-Architected"`, `"<name> reliability"`,
@@ -58,14 +58,14 @@ making progress until that holds for the given scope.
 Repeat steps 1–3 until `python3 scripts/check.py --missing <scope-or-empty>`
 returns an empty list for the given scope. If the scope was the whole catalog,
 the project's overall finish line is `python3 scripts/check.py --strict`
-reporting 0 errors (every catalog entry has a file) — a scoped run's own
+reporting 0 errors (every catalog entry has a file); a scoped run's own
 "done" is just that scope's missing list being empty, not the whole catalog.
 
-Rules that always apply: only best practices — never service descriptions,
+Rules that always apply: only best practices, never service descriptions,
 pricing, tutorials, or extended code (cost-optimization practices are fine;
 prices are not). Every non–`Common scenarios` bullet links to an official AWS
 URL (`docs.aws.amazon.com`, `aws.amazon.com`, `wa.aws.amazon.com`). Never
 invent a URL. Skip an entry only if it genuinely has no published AWS best
 practices. Before adding brand-new catalog entries, check whether the service
-is still active and open to new customers — don't spend a generation pass on
+is still active and open to new customers; don't spend a generation pass on
 a service AWS has already deprecated or closed to new customers.

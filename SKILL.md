@@ -2,7 +2,7 @@
 name: aws-best-practices
 description: >-
   Use when the user needs AWS best practices for any AWS service, based on their
-  use case — security, reliability, performance, cost, operations, or
+  use case: security, reliability, performance, cost, operations, or
   sustainability. Trigger on "best practices for <AWS service>", "how should I
   configure <service>", "is my <service> setup correct", "AWS Well-Architected
   guidance for <service>", "harden / optimize / secure my <service>", or any
@@ -27,7 +27,7 @@ matters **for a specific use case**.
   the official AWS source.
 - ❌ No service descriptions/overviews, no pricing or cost estimates, no
   tutorials or getting-started guides, no extended code samples. If you need
-  those, go to the AWS docs directly — this skill is best practices only.
+  those, go to the AWS docs directly; this skill is best practices only.
 
 ## How to use this skill
 
@@ -44,7 +44,7 @@ matters **for a specific use case**.
    DR, observability, tagging), use the **General** section under `general/`.
 6. When you cite a best practice, include its source link.
 
-If a service is not yet covered, say so plainly — do not invent best practices.
+If a service is not yet covered, say so plainly; do not invent best practices.
 
 ## File layout
 

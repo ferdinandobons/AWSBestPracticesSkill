@@ -1,6 +1,6 @@
 # Refresh the AWS best-practices catalog
 
-Self-contained instructions — paste this whole file into a new chat with any
+Self-contained instructions: paste this whole file into a new chat with any
 terminal coding agent (Claude Code, Codex CLI, etc.) whose working directory is
 this repository, to run a periodic maintenance pass: pick up AWS services that
 didn't exist when the catalog was last built, drop ones AWS has fully retired,
@@ -11,12 +11,12 @@ reports stale entries.
 This is the sibling of [`GENERATE.md`](GENERATE.md): that file fills in files
 that don't exist yet; this one keeps files that already exist correct and
 current, and grows the catalog itself when AWS grows. Read `MAINTENANCE.md`
-first if you haven't — it explains the file layout and validation gate this
+first if you haven't; it explains the file layout and validation gate this
 prompt assumes.
 
 ---
 
-## Part 1 — Catalog drift: new, renamed, and retired services
+## Part 1. Catalog drift: new, renamed, and retired services
 
 Goal: `catalog.json` matches AWS's current service lineup before you refresh
 any content. Skipping this step means you might spend a whole pass polishing
@@ -32,7 +32,7 @@ shipped this quarter stays invisible.
      `"AWS What's New"` (filtered to the last 6–12 months) and read the
      official `aws.amazon.com/products/` category pages.
 2. Diff that list against `catalog.json`'s `categories.*.services[]` (match on
-   `name` / `aws_service_code`, not just `slug` — AWS renames products; see
+   `name` / `aws_service_code`, not just `slug`: AWS renames products; see
    `CHANGELOG.md` for precedent like `Amazon GameLift` → `Amazon GameLift
    Servers`). For each mismatch, classify it as one of:
    - **New**: a GA, generally-available-to-new-customers service with no
@@ -40,13 +40,13 @@ shipped this quarter stays invisible.
      covered under a different name.
    - **Renamed**: same underlying service, new official product name. Update
      `name` (and `slug`/`path` only if the old ones would be actively
-     misleading) in place — do not create a duplicate entry, and do not touch
+     misleading) in place; do not create a duplicate entry, and do not touch
      the existing `.md` file's content just for the rename (a follow-up
      refresh pass will pick up the file's `# <name>` line naturally).
    - **Retired**: fully shut down, no longer operable at all (compare against
      the precedent in `CHANGELOG.md`: AWS QLDB, OpsWorks, RoboMaker, IoT
      Analytics, IoT Events were removed this way). This is different from
-     "closed to new customers" — a service still usable by existing customers
+     "closed to new customers": a service still usable by existing customers
      (e.g. AWS Elemental MediaStore's discontinuation, or a service closed to
      new sign-ups) keeps its catalog entry; write/keep migration- or
      lifecycle-planning-focused best practices for it instead of removing it.
@@ -59,10 +59,10 @@ shipped this quarter stays invisible.
    step 2 (`generate` → `verify`, Workflow fan-out if available). For removed
    entries, delete the `.md` file if one exists.
 
-## Part 2 — Refresh stale content
+## Part 2. Refresh stale content
 
 Goal: every existing file's `last_reviewed` date is recent, and its content
-reflects AWS's current guidance — not what was true when it was last written.
+reflects AWS's current guidance, not what was true when it was last written.
 
 1. List what's due: `python3 scripts/check.py --stale <scope-or-empty>` → a
    JSON array of entries `{ name, slug, path, abspath, type, category,
@@ -70,7 +70,7 @@ reflects AWS's current guidance — not what was true when it was last written.
    `<!-- meta: last_reviewed=... -->` is missing or older than the default
    180-day threshold (override with `--stale-days N`).
 2. Refresh a batch (Workflow fan-out if available, one agent per entry,
-   otherwise sequential — same pattern as `GENERATE.md`):
+   otherwise sequential, same pattern as `GENERATE.md`):
    - **re-research**: look up the same official AWS sources as a fresh
      generation would (AWS documentation MCP if available, otherwise web
      search for `"<name> best practices"`, `"<name> security best practices"`,
@@ -79,7 +79,7 @@ reflects AWS's current guidance — not what was true when it was last written.
      before, practices that no longer apply (superseded features, deprecated
      APIs), and whether every existing `[doc]` link still resolves and still
      supports its bullet's claim.
-   - **update**: edit the file in place — add genuinely new practices, remove
+   - **update**: edit the file in place: add genuinely new practices, remove
      ones AWS no longer recommends or that reference a retired feature, fix or
      replace any broken/mismatched link. Don't rewrite bullets that are still
      accurate just to reword them; a refresh is a content diff, not a rewrite.
@@ -89,7 +89,7 @@ reflects AWS's current guidance — not what was true when it was last written.
    - **stamp**: update the trailing line to
      `<!-- meta: last_reviewed=<today>; sources=<n> -->` with the current date
      and the current distinct-source count, whether or not the content
-     changed — a completed review is itself worth recording.
+     changed; a completed review is itself worth recording.
    - return `{ path, changed: true|false, notes: <one-line summary of what, if anything, changed> }`.
 3. After the batch: run `python3 scripts/check.py` and fix anything it flags;
    record token usage with `python3 scripts/cost.py add --name "refresh:
@@ -98,13 +98,13 @@ reflects AWS's current guidance — not what was true when it was last written.
 
 Repeat steps 1–3 until `python3 scripts/check.py --stale <scope-or-empty>`
 returns an empty list for the given scope (or until you've covered the batch
-size you intended for this pass — a partial refresh that's committed is
+size you intended for this pass; a partial refresh that's committed is
 better than an uncommitted one, since `--stale` picks up exactly where you
 left off next time).
 
 ---
 
-Rules that always apply (same as `GENERATE.md`): only best practices — never
+Rules that always apply (same as `GENERATE.md`): only best practices, never
 service descriptions, pricing, tutorials, or extended code. Every
 non–`Common scenarios` bullet links to an official AWS URL
 (`docs.aws.amazon.com`, `aws.amazon.com`, `wa.aws.amazon.com`). Never invent a

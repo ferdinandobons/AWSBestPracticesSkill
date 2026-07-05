@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""cost.py — token-ledger utility for AWSBestPracticesSkill.
+"""cost.py: token-ledger utility for AWSBestPracticesSkill.
 
-A utility called by the `/goal` loop after each batch — it holds no
+A utility called after each GENERATE.md/REFRESH.md batch; it holds no
 orchestration logic. Extracts nothing itself: you pass the workflow run's
 `subagent_tokens` / `agent_count`; it stores them and re-renders the cost view.
 
@@ -46,7 +46,7 @@ def render(L: dict):
     tf = sum(p.get("files", 0) for p in ph)
     md = ["# Build cost (token usage)\n\n",
           "Tokens are extracted from each `GENERATE.md` generation run (`subagent_tokens`)\n",
-          "and accumulated here — generation agents only (research + write + verify).\n\n",
+          "and accumulated here: generation agents only (research + write + verify).\n\n",
           "| Phase | Files | Agents | Tokens |\n|---|--:|--:|--:|\n"]
     for p in ph:
         md.append(f"| {p['name']} | {p.get('files', 0)} | {p['agents']} | {p['tokens']:,} |\n")

@@ -1,6 +1,6 @@
 # Maintaining AWSBestPracticesSkill
 
-Only AWS best practices, each with an official AWS source link — no service
+Only AWS best practices, each with an official AWS source link: no service
 descriptions, pricing, or tutorials. `catalog.json` is the source of truth;
 `scripts/check.py` is the gate.
 
@@ -20,7 +20,7 @@ by `python3 scripts/check.py --stale` (missing or >180-day-old `last_reviewed`)
 against current official docs, updating content and bumping `last_reviewed`.
 
 Run it:
-- **Periodically** — every 3–6 months.
+- **Periodically**: every 3–6 months.
 - **When you notice a new AWS service** that isn't in the catalog yet.
 - **When `check.py --stale` reports entries** (it always runs as part of the
   default `check.py`, as a non-blocking summary line).
@@ -56,12 +56,12 @@ coverage) before tagging a release.
 ## Scripts (utilities only)
 The loop logic lives in `GENERATE.md` and `REFRESH.md`. The scripts are just
 utilities the loops call:
-- `scripts/check.py` — validate (coverage/conformance/links/freshness),
+- `scripts/check.py`: validate (coverage/conformance/links/freshness),
   `--missing [category]` to list entries still to generate, `--stale
   [category] [--stale-days N]` to list entries due for a `REFRESH.md` pass,
   `--write-index` to regenerate the indexes, `--baseline DIR` to diff a
   regeneration.
-- `scripts/cost.py` — token ledger: `add --name --tokens --agents --files` records a
+- `scripts/cost.py`: token ledger. `add --name --tokens --agents --files` records a
   workflow run's `subagent_tokens` and re-renders the cost section of the README and
   `docs/build-cost.md`; `render` re-renders from the ledger.
 

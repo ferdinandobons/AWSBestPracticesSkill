@@ -10,7 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - `catalog.json` source of truth: 208 services across 23 categories + 9 general docs.
 - `scripts/check.py` validator + diff-checker (coverage, conformance, links,
   baseline diff, index generation).
-- `GENERATE.md`: a portable, tool-agnostic prompt for the generation loop —
+- `GENERATE.md`: a portable, tool-agnostic prompt for the generation loop,
   copy-paste into any terminal coding agent's chat (Claude Code, Codex CLI,
   etc.), no dependency on Claude Code's slash-command mechanism.
 - Full content generation: all 217 catalog entries (208 services + 9 general
@@ -22,7 +22,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   or older than the threshold (default 180 days); surfaced as a non-blocking
   summary line in the default `check.py` run too.
 - `REFRESH.md`: a portable prompt (sibling of `GENERATE.md`) for the periodic
-  maintenance pass — diffs `catalog.json` against AWS's current service list
+  maintenance pass. Diffs `catalog.json` against AWS's current service list
   to catch new/renamed/retired services, then re-reviews entries flagged by
   `--stale` against current official docs.
 - Catalog audit against the live AWS service list: added 20 services confirmed
