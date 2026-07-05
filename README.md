@@ -1,6 +1,6 @@
 # AWS Best Practices Skill
 
-**Ask your AI coding agent "how should I secure my S3 bucket" and get a sourced, current AWS best practice, not a guess from stale training data.**
+**Ask your AI coding agent "how should I secure my S3 bucket" and get a sourced, current AWS best practice, skipping both stale training data and costly live research.**
 
 A skill for **Claude Code** and **OpenAI Codex CLI** that collects the **best
 practices of every AWS service**, and nothing else. Find recommendations by
@@ -46,8 +46,21 @@ this AWS service":
 
 ## Quick start
 
-Clone this repo into your agent's skills directory:
+**Claude Code** (plugin, recommended):
+```bash
+/plugin marketplace add ferdinandobons/AWSBestPracticesSkill
+/plugin install aws-best-practices@aws-best-practices-skill
+```
+Update with `/plugin update aws-best-practices`, remove with `/plugin uninstall aws-best-practices`.
 
+**OpenAI Codex CLI** (plugin, recommended):
+```bash
+codex plugin marketplace add ferdinandobons/AWSBestPracticesSkill
+codex plugin add aws-best-practices@aws-best-practices-skill
+```
+Update with `codex plugin marketplace upgrade aws-best-practices-skill`, remove with `codex plugin remove aws-best-practices@aws-best-practices-skill`.
+
+**Manual install (backup, works for both):**
 ```bash
 # Claude Code
 git clone https://github.com/ferdinandobons/AWSBestPracticesSkill ~/.claude/skills/aws-best-practices
@@ -55,6 +68,7 @@ git clone https://github.com/ferdinandobons/AWSBestPracticesSkill ~/.claude/skil
 # OpenAI Codex CLI
 git clone https://github.com/ferdinandobons/AWSBestPracticesSkill ~/.codex/skills/aws-best-practices
 ```
+Update anytime with `git -C <path-above> pull`.
 
 Restart the tool if it's open, then just ask in natural language:
 
@@ -63,11 +77,6 @@ Restart the tool if it's open, then just ask in natural language:
 The model reads [`SKILL.md`](SKILL.md), opens the matching
 `services/<category>/<service>.md` (or `general/<topic>.md`), and answers with
 sourced best practices; it won't need to open anything else in this repo.
-
-Update anytime:
-```bash
-git -C ~/.claude/skills/aws-best-practices pull   # or ~/.codex/skills/aws-best-practices
-```
 
 ## How navigation works
 
@@ -84,6 +93,9 @@ general/<topic>.md                # cross-service best practices
 scripts/                          # maintainer utilities (check.py, cost.py)
 GENERATE.md                       # fills in missing files (maintainers)
 REFRESH.md                        # periodic refresh: new services + stale content (maintainers)
+.claude-plugin/                   # Claude Code plugin + marketplace manifest
+.codex-plugin/                    # Codex CLI plugin manifest
+.agents/plugins/                  # Codex CLI marketplace manifest
 ```
 
 Browse the full index in [`catalog.md`](catalog.md).

@@ -1,0 +1,21 @@
+{
+  "name": "aws-best-practices-skill",
+  "description": "Marketplace for the AWS Best Practices Skill: source-linked best practices for every AWS service.",
+  "owner": {
+    "name": "Ferdinando Bons"
+  },
+  "plugins": [
+    {
+      "name": "aws-best-practices",
+      "source": "./",
+      "description": "Source-linked AWS best practices for every service, organized by Well-Architected pillar and use case.",
+      "keywords": [
+        "aws",
+        "best-practices",
+        "well-architected",
+        "security",
+        "cost-optimization"
+      ]
+    }
+  ]
+}

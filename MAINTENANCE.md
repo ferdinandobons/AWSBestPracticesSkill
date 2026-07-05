@@ -66,5 +66,19 @@ utilities the loops call:
   `docs/build-cost.md`; `render` re-renders from the ledger.
 
 ## Release
-Bump `version` in `catalog.json`, add a `CHANGELOG.md` entry, sync `README.md`,
-tag `vX.Y.Z` only when stable. Never force-push a released tag.
+Bump `version` in `catalog.json`, `.claude-plugin/plugin.json`, and
+`.codex-plugin/plugin.json` in lockstep, add a `CHANGELOG.md` entry, sync
+`README.md`, tag `vX.Y.Z` only when stable. Never force-push a released tag.
+
+## Plugin manifests (Claude Code + Codex CLI installability)
+This repo doubles as an installable plugin for both tools, in addition to the
+manual `git clone` into a skills directory:
+- `.claude-plugin/plugin.json` + `.claude-plugin/marketplace.json`: Claude
+  Code's plugin + single-plugin-marketplace manifest. Validate with
+  `claude plugin validate .`.
+- `.codex-plugin/plugin.json` + `.agents/plugins/marketplace.json`: the Codex
+  CLI equivalents.
+Both point `source`/`skills` at the repo root (`./`), since `SKILL.md` lives
+there directly rather than under a `skills/<name>/` subdirectory. Keep the
+`name`/`version`/`description` fields in sync across all four files when you
+change them.

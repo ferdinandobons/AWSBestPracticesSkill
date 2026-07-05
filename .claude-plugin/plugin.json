@@ -1,0 +1,21 @@
+{
+  "name": "aws-best-practices",
+  "displayName": "AWS Best Practices",
+  "version": "1.0.0",
+  "description": "Source-linked AWS best practices for every service, organized by Well-Architected pillar and use case. No service descriptions, no pricing, no tutorials, just what AWS recommends and why.",
+  "author": {
+    "name": "Ferdinando Bons"
+  },
+  "homepage": "https://github.com/ferdinandobons/AWSBestPracticesSkill",
+  "repository": "https://github.com/ferdinandobons/AWSBestPracticesSkill",
+  "license": "MIT",
+  "keywords": [
+    "aws",
+    "best-practices",
+    "well-architected",
+    "security",
+    "cost-optimization",
+    "reliability",
+    "skill"
+  ]
+}

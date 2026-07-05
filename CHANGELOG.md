@@ -28,6 +28,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Catalog audit against the live AWS service list: added 20 services confirmed
   missing (e.g. ROSA, Amazon File Cache, Amazon VPC Lattice, AWS Verified Access,
   AWS Artifact, AWS Well-Architected Tool, Amazon Bedrock AgentCore).
+- Plugin installability for both Claude Code (`.claude-plugin/plugin.json` +
+  `.claude-plugin/marketplace.json`) and Codex CLI (`.codex-plugin/plugin.json`
+  + `.agents/plugins/marketplace.json`), verified end to end with
+  `claude plugin marketplace add`/`install` and `codex plugin marketplace
+  add`/`add`. Manual `git clone` into a skills directory remains as a backup
+  install method.
 
 ### Changed
 - Renamed catalog entries to match current official AWS product names: Amazon
