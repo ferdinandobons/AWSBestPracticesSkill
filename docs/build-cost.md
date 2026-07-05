@@ -21,4 +21,5 @@ and accumulated here — generation agents only (research + write + verify).
 | frontend-web-mobile | 5 | 10 | 628,777 |
 | iot | 9 | 18 | 1,196,570 |
 | media-services | 7 | 16 | 1,030,501 |
-| **Total** | **185** | **418** | **26,321,036 (~26.32M)** |
+| end-user-computing | 4 | 8 | 600,460 |
+| **Total** | **189** | **426** | **26,921,496 (~26.92M)** |
