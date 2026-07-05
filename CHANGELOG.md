@@ -10,7 +10,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - `catalog.json` source of truth: 208 services across 23 categories + 9 general docs.
 - `scripts/check.py` validator + diff-checker (coverage, conformance, freshness,
   links, AWS-catalog comparison, baseline diff, index generation).
-- `/goal` command and recursive/parallel generation workflows.
+- `GENERATE.md`: a portable, tool-agnostic prompt for the generation/update
+  loop — copy-paste into any terminal coding agent's chat (Claude Code, Codex
+  CLI, etc.), no dependency on Claude Code's slash-command mechanism.
 - Per-service and general best-practice content.
 - Catalog audit against the live AWS service list: added 20 services confirmed
   missing (e.g. ROSA, Amazon File Cache, Amazon VPC Lattice, AWS Verified Access,

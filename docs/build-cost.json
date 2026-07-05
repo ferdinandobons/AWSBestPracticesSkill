@@ -1,4 +1,4 @@
 {
-  "note": "Token usage extracted from /goal workflow runs (subagent_tokens). One row per generation batch.",
+  "note": "Token usage extracted from GENERATE.md generation runs (subagent_tokens). One row per generation batch.",
   "phases": []
 }

@@ -27,7 +27,7 @@ README = ROOT / "README.md"
 def load() -> dict:
     if LEDGER.exists():
         return json.loads(LEDGER.read_text(encoding="utf-8"))
-    return {"note": "Token usage extracted from /goal workflow runs (subagent_tokens).",
+    return {"note": "Token usage extracted from GENERATE.md generation runs (subagent_tokens).",
             "phases": []}
 
 
@@ -45,8 +45,8 @@ def render(L: dict):
     ta = sum(p["agents"] for p in ph)
     tf = sum(p.get("files", 0) for p in ph)
     md = ["# Build cost (token usage)\n\n",
-          "Tokens are extracted from each `/goal` workflow run (`subagent_tokens`) and\n",
-          "accumulated here — generation agents only (research + write + verify).\n\n",
+          "Tokens are extracted from each `GENERATE.md` generation run (`subagent_tokens`)\n",
+          "and accumulated here — generation agents only (research + write + verify).\n\n",
           "| Phase | Files | Agents | Tokens |\n|---|--:|--:|--:|\n"]
     for p in ph:
         md.append(f"| {p['name']} | {p.get('files', 0)} | {p['agents']} | {p['tokens']:,} |\n")
