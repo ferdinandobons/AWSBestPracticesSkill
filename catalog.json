@@ -1,6 +1,6 @@
 {
-  "version": "0.1.0-dev",
-  "generated": "2026-07-04",
+  "version": "0.1.0",
+  "generated": "2026-07-05",
   "categories": {
     "compute": {
       "title": "Compute",
