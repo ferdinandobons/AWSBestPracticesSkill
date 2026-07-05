@@ -1,0 +1,45 @@
+# AWS Data Exchange — Best Practices
+
+## Common scenarios
+- Subscribing to and automatically ingesting third-party datasets into a data lake        → Reliability, Operational Excellence, Cost Optimization
+- Publishing and monetizing first-party data products to external customers        → Security, Operational Excellence
+- Governing which users and accounts can find, subscribe to, or export licensed data        → Security
+- Auditing and tracking access to shared or licensed data for compliance        → Security, Operational Excellence
+
+## 🔒 Security
+- **[Credentials]** Set up individual users with AWS IAM Identity Center or IAM instead of sharing root/account credentials, and grant only the permissions necessary for each user's job duties. [doc](https://docs.aws.amazon.com/data-exchange/latest/userguide/data-protection.html)
+- **[MFA]** Require multi-factor authentication (MFA) on accounts that own or subscribe to AWS Data Exchange resources. [doc](https://docs.aws.amazon.com/data-exchange/latest/userguide/data-protection.html)
+- **[IAM policies]** Use resource-level permissions (ARNs) in IAM policies to scope AWS Data Exchange actions to specific data sets, revisions, or jobs rather than granting account-wide access — note that AWS Data Exchange does not support resource-based policies, so access must be controlled entirely through identity-based IAM policies. [doc](https://docs.aws.amazon.com/data-exchange/latest/userguide/access-control.html)
+- **[Federation]** For subscribers or providers who need to onboard many external users without issuing full AWS accounts, use IAM Identity Center for authentication and AWS Organizations OUs with service control policies for fine-grained authorization boundaries. [doc](https://aws.amazon.com/blogs/awsmarketplace/how-to-access-aws-data-exchange-data-products-without-owning-an-aws-account/)
+- **[Transport security]** Require clients to use TLS 1.2 (TLS 1.3 recommended) with cipher suites supporting perfect forward secrecy (such as DHE or ECDHE) for all API calls to AWS Data Exchange. [doc](https://docs.aws.amazon.com/data-exchange/latest/userguide/infrastructure-security.html)
+- **[Network isolation]** Use interface VPC endpoints (AWS PrivateLink) to access AWS Data Exchange APIs privately from your VPC, and attach an endpoint policy that restricts which principals and actions are allowed through the endpoint. [doc](https://docs.aws.amazon.com/data-exchange/latest/userguide/vpc-interface-endpoints.html)
+- **[Data at rest]** When exporting revisions to Amazon S3, choose server-side encryption with KMS keys (SSE-KMS) instead of the default SSE-S3 where you need centralized key management and audit control over exported data. [doc](https://docs.aws.amazon.com/data-exchange/latest/userguide/exporting-revisions.html)
+- **[Sensitive data]** Never place confidential or sensitive information (such as customer email addresses) into tags or free-form text fields like data set or asset names — these may be captured in billing or diagnostic logs. [doc](https://docs.aws.amazon.com/data-exchange/latest/userguide/data-protection.html)
+- **[Data discovery]** Use Amazon Macie to discover and help secure sensitive data stored in the Amazon S3 buckets that back your published or exported AWS Data Exchange data sets. [doc](https://docs.aws.amazon.com/data-exchange/latest/userguide/data-protection.html)
+- **[Compliance]** Independently verify that any data product you publish or subscribe to complies with applicable data privacy laws and the AWS Data Exchange publishing guidelines — security and compliance are a shared responsibility between AWS, providers, and subscribers. [doc](https://docs.aws.amazon.com/data-exchange/latest/userguide/publishing-guidelines.html)
+
+## 🛡️ Reliability
+- **[Event-driven ingestion]** Subscribe to Amazon EventBridge events emitted by AWS Data Exchange when new revisions are published, and trigger automated jobs to export the new assets — avoids manual polling and ensures downstream systems pick up updates reliably. [doc](https://aws.amazon.com/blogs/big-data/find-and-acquire-new-data-sets-and-retrieve-new-updates-automatically-using-aws-data-exchange/)
+- **[Auto-export]** Configure automatic export of new revisions to up to five Amazon S3 destination buckets per data set so downstream pipelines always receive the latest data without manual intervention. [doc](https://aws.amazon.com/blogs/awsmarketplace/automate-ingesting-updates-from-third-party-data-providers-with-aws-data-exchange/)
+- **[Error notifications]** Monitor the root account email (or configure AWS User Notifications) for auto-export error alerts, such as a deleted destination bucket or revoked permissions, so failures are remediated promptly. [doc](https://aws.amazon.com/blogs/awsmarketplace/automate-ingesting-updates-from-third-party-data-providers-with-aws-data-exchange/)
+- **[Revision lifecycle]** Treat revisions as immutable once finalized and published — plan downstream consumers to handle revision-level updates rather than in-place data mutation, since a provider can revoke and delete a revision's assets at any time. [doc](https://docs.aws.amazon.com/data-exchange/latest/userguide/dynamically-updated-products.html)
+- **[Job retention awareness]** Design automation so it does not depend on querying job details after 90 days, since AWS Data Exchange jobs are deleted 90 days after creation. [doc](https://docs.aws.amazon.com/data-exchange/latest/userguide/jobs.html)
+
+## ⚡ Performance Efficiency
+- **[Export batching]** Batch exports within the documented per-job limits (up to 100 assets per export job from Amazon S3) rather than issuing many single-asset jobs, to reduce job overhead. [doc](https://docs.aws.amazon.com/general/latest/gr/dataexchange.html)
+- **[Concurrency]** Account for the account-level quota on concurrently in-progress jobs when designing bulk import/export automation, and stagger or queue job submissions to avoid throttling. [doc](https://docs.aws.amazon.com/general/latest/gr/dataexchange.html)
+- **[Direct access patterns]** For large or frequently updated data sets, prefer AWS Data Exchange for Amazon S3 (direct access to the provider's S3 objects) over export-and-copy workflows, so consumers always query the latest data without duplicating storage or running export jobs. [doc](https://aws.amazon.com/data-exchange/why-aws-data-exchange/s3/)
+
+## 💰 Cost Optimization
+- **[Storage avoidance]** Use AWS Data Exchange for Amazon S3 data sets to query provider data in place instead of copying it into your own S3 buckets, avoiding duplicate storage costs. [doc](https://aws.amazon.com/data-exchange/why-aws-data-exchange/s3/)
+- **[Entitlement automation]** Rely on AWS Data Exchange's automatic entitlement management (granting and revoking S3 access on subscription start/end) instead of building and maintaining custom per-subscriber bucket policies, reducing operational and engineering overhead. [doc](https://aws.amazon.com/data-exchange/faqs/)
+- **[Targeted exports]** Configure auto-export key naming patterns and destination buckets deliberately so only the needed revisions and assets are exported, avoiding unnecessary S3 storage and data transfer charges. [doc](https://aws.amazon.com/blogs/awsmarketplace/automate-ingesting-updates-from-third-party-data-providers-with-aws-data-exchange/)
+- **[Open Data]** Check whether a needed data set is available through the Open Data on AWS program before subscribing to a paid product, since Open Data data sets on AWS Data Exchange are free to use. [doc](https://docs.aws.amazon.com/data-exchange/latest/userguide/product-subscriptions.html)
+
+## ⚙️ Operational Excellence
+- **[Audit logging]** Enable AWS CloudTrail to capture AWS Data Exchange API calls (including a subset of console-only Marketplace-backed actions like publish/subscribe) so you can determine who made which request, from where, and when. [doc](https://docs.aws.amazon.com/data-exchange/latest/userguide/logging-api-calls-with-cloudtrail.html)
+- **[Monitoring]** Use Amazon CloudWatch Events and CloudWatch Logs alongside CloudTrail to build a complete monitoring picture — near-real-time system events for automation, and durable log storage for later analysis. [doc](https://docs.aws.amazon.com/data-exchange/latest/userguide/monitoring-overview.html)
+- **[Event-driven automation]** Build EventBridge rules that match on the `aws.dataexchange` event source and `dataexchange.amazonaws.com` event source field to trigger automated workflows (e.g., Lambda) on specific API actions like new revision publication. [doc](https://docs.aws.amazon.com/eventbridge/latest/ref/events-ref-dataexchange.html)
+- **[Infrastructure as code]** Package auto-export automation (S3 bucket, Lambda function, IAM role/policy, EventBridge rule) as an AWS CloudFormation template so the same pattern can be repeated consistently for each new data set subscription. [doc](https://aws.amazon.com/blogs/big-data/find-and-acquire-new-data-sets-and-retrieve-new-updates-automatically-using-aws-data-exchange/)
+
+<!-- meta: last_reviewed=2026-07-05; sources=18 -->

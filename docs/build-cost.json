@@ -48,6 +48,12 @@
       "agents": 18,
       "tokens": 1167666,
       "files": 9
+    },
+    {
+      "name": "analytics (partial)",
+      "agents": 28,
+      "tokens": 1229736,
+      "files": 13
     }
   ]
 }

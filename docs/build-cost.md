@@ -13,4 +13,5 @@ and accumulated here — generation agents only (research + write + verify).
 | security-identity-compliance | 23 | 46 | 2,892,048 |
 | management-governance | 20 | 40 | 2,633,854 |
 | application-integration | 9 | 18 | 1,167,666 |
-| **Total** | **110** | **251** | **15,773,704 (~15.77M)** |
+| analytics (partial) | 13 | 28 | 1,229,736 |
+| **Total** | **123** | **279** | **17,003,440 (~17.00M)** |
