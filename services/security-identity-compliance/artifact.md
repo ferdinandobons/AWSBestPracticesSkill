@@ -1,0 +1,28 @@
+# AWS Artifact — Best Practices
+
+## Common scenarios
+- Downloading SOC, PCI, ISO, and other compliance reports for auditors and regulators        → Security, Operational Excellence
+- Reviewing and accepting agreements (BAA, NDA) for an account or an AWS Organization        → Security, Operational Excellence
+- Delegating audit and compliance report access to security/compliance teams and external auditors        → Security
+- Tracking new or updated reports and agreements across a multi-account environment        → Operational Excellence, Reliability
+
+## 🔒 Security
+- **[Identity and access]** Prefer the `AWSArtifactReportsReadOnlyAccess` AWS managed policy for users who only need to list, view, and download reports instead of writing a custom policy — it grants exactly `artifact:GetReport`, `GetReportMetadata`, `GetTermForReport`, `ListReports`, and `ListReportVersions`. [doc](https://docs.aws.amazon.com/artifact/latest/ug/security-iam-awsmanpol.html)
+- **[Identity and access]** Create individual IAM users, groups, or roles for anyone who needs AWS Artifact access instead of sharing root credentials — grant each identity only the reports and agreement actions it needs. [doc](https://docs.aws.amazon.com/artifact/latest/ug/security-iam.html)
+- **[Identity and access]** Use IAM condition keys `artifact:ReportSeries` and `artifact:ReportCategory` to scope report access to specific series (for example SOC, PCI, ISO) rather than granting blanket access to every report in the catalog. [doc](https://docs.aws.amazon.com/artifact/latest/ug/using-condition-keys.html)
+- **[Multi-account]** Restrict users in the AWS Organizations management account to only the Agreements feature of AWS Artifact and nothing else, since agreements accepted at the management account flow down to all member accounts. [doc](https://docs.aws.amazon.com/prescriptive-guidance/latest/security-reference-architecture/org-management.html)
+- **[Multi-account]** Host AWS Artifact report access in a dedicated Security Tooling (or security audit) account, separate from the Org Management account, and delegate fine-grained IAM permissions there to your compliance stakeholders and external auditors — this enforces segregation of duties between agreement management and report retrieval. [doc](https://docs.aws.amazon.com/prescriptive-guidance/latest/security-reference-architecture/security-tooling.html)
+- **[Document handling]** Treat downloaded AWS Artifact reports as confidential: only share them internally, with your regulators, or with your auditors, never with customers or on a public website, and use a secure sharing service rather than email or unsecured file hosting — each download carries a unique, traceable watermark. [doc](https://docs.aws.amazon.com/artifact/latest/ug/downloading-documents.html)
+- **[Least privilege]** Grant compliance and audit teams narrowly scoped `artifact:*` permissions matched to their actual duties (view/download reports, or accept/track agreements) rather than full administrative access, and use the example commercial-Region and GovCloud (US) IAM policies as a starting point. [doc](https://docs.aws.amazon.com/artifact/latest/ug/example-iam-policies.html)
+
+## 🛡️ Reliability
+- **[Multi-account]** Use AWS Artifact's integration with AWS Organizations so a user in the management account can accept agreements on behalf of all member accounts automatically, including as new accounts and reports are added — this avoids gaps in agreement coverage as the organization grows. [doc](https://docs.aws.amazon.com/organizations/latest/userguide/services-that-can-integrate-artifact.html)
+- **[Event-driven monitoring]** Consume the `aws.artifact` EventBridge events (`AWS Artifact Document Update`, `AWS Artifact Report Update`, `AWS Artifact Agreement Update`, `AWS Artifact Agreement Status Changed`) to react automatically to new or updated reports and agreements instead of relying on manual console checks. [doc](https://docs.aws.amazon.com/eventbridge/latest/ref/events-ref-artifact.html)
+
+## ⚙️ Operational Excellence
+- **[Notifications]** Configure AWS Artifact notification settings with verified recipient email addresses to be alerted when new or updated reports and agreements become available, scoping subscriptions to the specific report categories/series your organization tracks. [doc](https://docs.aws.amazon.com/artifact/latest/ug/notifications-configuration-create.html)
+- **[Audit readiness]** Use AWS Artifact reports as evidence for the specific controls AWS is responsible for (for example data center physical security) and pair them with the responsibility guidance in each report to determine which additional controls you must implement for your own workload. [doc](https://aws.amazon.com/blogs/mt/prepare-for-an-audit-in-aws-part-1-aws-audit-manager-aws-config-and-aws-artifact/)
+- **[Compliance mapping]** Use AWS Artifact's Customer Compliance Guides (CCGs) to map service-level security configuration guidance to frameworks such as NIST 800-53, PCI-DSS, HIPAA, or ISO 27001, helping scope assessments and identify configuration responsibilities before drafting compliance documentation. [doc](https://aws.amazon.com/blogs/security/customer-compliance-guides-now-available-on-aws-artifact/)
+- **[Multi-account]** Standardize a single administrator or delegated account for AWS Artifact agreement and report management across your organization, and document which teams (audit, compliance, security tooling) hold which IAM permissions, since AWS Artifact does not support the delegated administrator feature natively. [doc](https://docs.aws.amazon.com/prescriptive-guidance/latest/security-reference-architecture/security-tooling.html)
+
+<!-- meta: last_reviewed=2026-07-05; sources=12 -->

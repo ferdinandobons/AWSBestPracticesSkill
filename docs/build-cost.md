@@ -10,4 +10,5 @@ and accumulated here — generation agents only (research + write + verify).
 | storage | 10 | 28 | 1,742,112 |
 | database | 14 | 36 | 2,180,054 |
 | networking-content-delivery | 16 | 32 | 2,100,215 |
-| **Total** | **58** | **147** | **9,080,136 (~9.08M)** |
+| security-identity-compliance | 23 | 46 | 2,892,048 |
+| **Total** | **81** | **193** | **11,972,184 (~11.97M)** |

@@ -30,6 +30,12 @@
       "agents": 32,
       "tokens": 2100215,
       "files": 16
+    },
+    {
+      "name": "security-identity-compliance",
+      "agents": 46,
+      "tokens": 2892048,
+      "files": 23
     }
   ]
 }
