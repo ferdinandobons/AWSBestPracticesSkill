@@ -1,0 +1,46 @@
+# Amazon DynamoDB Accelerator (DAX) — Best Practices
+
+## Common scenarios
+- Sub-millisecond caching for read-heavy, eventually-consistent DynamoDB workloads        → Performance Efficiency, Cost Optimization
+- Absorbing hot-key/bursty traffic spikes to avoid partition-level read throttling        → Reliability, Performance Efficiency
+- Reducing DynamoDB provisioned/on-demand read costs via high cache-hit rates        → Cost Optimization
+- Adding a caching layer to an existing app with minimal code changes (DynamoDB API compatible)        → Operational Excellence
+
+## 🔒 Security
+- **[IAM]** Scope the DAX cluster's service role to only the specific DynamoDB tables and operations (e.g. GetItem, PutItem) it needs — DAX has no user-level access separation, so all clients inherit the cluster role's permissions. [doc](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DAX.access-control.html)
+- **[IAM]** Create separate DAX clusters per isolation boundary when different applications need different table access — a single cluster's IAM policy applies to every caller and can subvert table-level access restrictions you rely on elsewhere. [doc](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DAX.access-control.html)
+- **[IAM]** Restrict DAX management-API actions (cluster create/modify/delete) separately from data-plane access, and apply least-privilege scoping since management actions cannot be resource-scoped (`Resource` must be `"*"`). [doc](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DAX.cluster-management.html)
+- **[Encryption]** Keep encryption at rest and encryption in transit enabled (both are on by default at cluster creation) unless a specific business requirement prevents it. [doc](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/dax-deploy-cluster.html)
+- **[Encryption]** Enable encryption in transit at cluster creation time — it cannot be added to an existing cluster, so migrating requires creating a new encrypted cluster and shifting traffic to it. [doc](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DAXEncryptionInTransit.html)
+- **[Networking]** Deploy DAX within a VPC using security groups and subnet/NACL segmentation as the trust boundary, since traffic between application and cluster stays inside the VPC. [doc](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DAXEncryptionInTransit.html)
+
+## 🛡️ Reliability
+- **[Cluster topology]** Provision at least three nodes spread across multiple Availability Zones for production workloads so the cluster tolerates a single node or AZ failure without losing read availability. [doc](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/dax-cluster-sizing.html)
+- **[Networking]** Place DAX subnets/Availability Zones the same as your application servers, and use automatic subnet-group allocation to spread nodes across AZs. [doc](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/dax-deploy-cluster.html)
+- **[Application design]** Design applications to tolerate eventually consistent reads across cluster nodes — updates replicate to read replicas asynchronously (typically under a second), so two clients can briefly see different values. [doc](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DAX.consistency.html)
+- **[Maintenance]** Set the weekly maintenance window to a predictable low-traffic period, since rolling node updates reduce cluster capacity (though multi-node clusters stay available) during that window. [doc](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/dax-deploy-cluster.html)
+- **[Scaling]** Pre-scale the cluster ahead of expected traffic peaks — adding read replicas requires syncing cache data from a peer node, and sync time grows with cache size and load. [doc](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DAX.cluster-management.html)
+
+## ⚡ Performance Efficiency
+- **[Suitability]** Use DAX for read-heavy, key-value (GetItem/BatchGetItem) access patterns with high read-to-write ratios and repeated reads of the same keys — this is where cache-hit rates and latency gains are greatest. [doc](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/evaluate-dax-suitability.html)
+- **[Suitability]** Avoid routing write-heavy, bulk read/write, strongly-consistent, or transactional (TransactGetItems) traffic through DAX — writes consume roughly 25x more cluster resources than cache-hit reads, and strongly consistent reads pass through uncached. [doc](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/dax-cluster-sizing.html)
+- **[Client configuration]** Use a singleton DAX client instance per application process so connections are reused instead of repeatedly re-established. [doc](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/dax-config-dax-client.html)
+- **[Client configuration]** Keep default request and connection timeout settings; if lower timeouts are required, isolate them in separate threads with exponential-backoff retries rather than lowering the global timeout, since aggressive timeouts trigger costly reconnection storms. [doc](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/dax-config-dax-client.html)
+- **[Client configuration]** Start with default concurrent-connection settings and validate any changes with production-like load testing — large client fleets combined with high concurrent connections can overwhelm the cluster's 40,000-connection-per-node limit. [doc](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/dax-config-dax-client.html)
+- **[Cluster sizing]** Choose node type based on write-capacity needs before creation, since only the primary node serves writes and adding read replicas does not increase write throughput; node type cannot be changed without a new cluster. [doc](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/dax-cluster-sizing.html)
+- **[Caching strategy]** Tune item-cache and query-cache TTL to your access pattern — longer TTLs favor read-heavy, latency-sensitive workloads while shorter TTLs suit write-heavy workloads where staleness risk matters more. [doc](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/dax-config-considerations.html)
+- **[Monitoring]** Track `ItemCacheHits`/`ItemCacheMisses` (and Query/Scan cache equivalents) via CloudWatch metric math to compute cache-hit rate, and monitor `CacheMemoryUtilization` to catch eviction before it degrades hit rate or throttles writes. [doc](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/dax-monitoring-cloudwatch.html)
+
+## 💰 Cost Optimization
+- **[Suitability]** Adopt DAX specifically for read-heavy or bursty workloads where a high cache-hit rate can reduce DynamoDB read costs enough to offset DAX cluster node cost. [doc](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/evaluate-dax-suitability.html)
+- **[Caching strategy]** Avoid adding DAX for infrequently accessed ("cold") data or simple applications with modest performance needs — low cache-hit ratios mean cluster cost isn't justified by the performance gain. [doc](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/evaluate-dax-suitability.html)
+- **[Caching strategy]** Route strongly consistent reads and bulk scans/table scans directly to DynamoDB rather than through DAX, since these bypass the cache entirely and only consume cluster resources without benefit. [doc](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/evaluate-dax-suitability.html)
+- **[Cluster sizing]** Right-size node count and node type using the DAX sizing guide's traffic estimation and load-testing process instead of over-provisioning, since every node is billed hourly regardless of utilization. [doc](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DAX.sizing-guide.html)
+
+## ⚙️ Operational Excellence
+- **[Deployment]** Use the prescriptive DAX integration workflow (evaluate suitability → configure client → configure cluster → size cluster → deploy → manage → monitor) rather than ad hoc configuration. [doc](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/dax-prescriptive-guidance.html)
+- **[Monitoring]** Monitor `FaultRequestCount` and `ErrorRequestCount` in CloudWatch to distinguish DAX/DynamoDB server-side errors from client-side request errors. [doc](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/dax-monitoring-cloudwatch.html)
+- **[Configuration]** Adjust the parameter group's TTL settings deliberately and account for the fact that parameter group changes require the cluster to be recreated or rebooted to take effect, since they can't be modified on a running cluster in place. [doc](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/dax-deploy-cluster.html)
+- **[Scaling]** Use horizontal scaling (`increase-replication-factor`/`decrease-replication-factor`) to add or remove read replicas on a running cluster to match throughput needs without downtime. [doc](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DAX.cluster-management.html)
+
+<!-- meta: last_reviewed=2026-07-05; sources=12 -->
