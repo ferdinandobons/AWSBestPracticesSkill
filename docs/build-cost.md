@@ -25,4 +25,5 @@ and accumulated here — generation agents only (research + write + verify).
 | business-applications | 7 | 14 | 878,668 |
 | cloud-financial-management | 6 | 12 | 705,398 |
 | blockchain-quantum-satellite-gametech | 5 | 10 | 621,738 |
-| **Total** | **207** | **462** | **29,127,300 (~29.13M)** |
+| general | 9 | 18 | 1,303,664 |
+| **Total** | **216** | **480** | **30,430,964 (~30.43M)** |

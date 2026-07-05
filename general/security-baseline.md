@@ -1,0 +1,53 @@
+# Account Security Baseline — Best Practices
+
+## Common scenarios
+- Hardening a brand-new AWS account before any workloads are deployed
+- Standardizing a security baseline across a multi-account AWS Organizations environment
+- Preparing an account for a compliance audit (CIS AWS Foundations Benchmark, SOC 2, etc.)
+- Establishing the minimum guardrails required before granting team members account access
+
+## Root user protection
+- **[Root user]** Avoid signing in as the root user for everyday tasks — create an administrative IAM Identity Center user (or IAM role) immediately after account creation and reserve root only for the small set of tasks that require it. [doc](https://docs.aws.amazon.com/IAM/latest/UserGuide/root-user-best-practices.html)
+- **[Root user]** Set a strong, unique root user password that is not reused from any other system and is not identical to the account name or email. [doc](https://docs.aws.amazon.com/IAM/latest/UserGuide/root-user-best-practices.html)
+- **[Root user]** Enable multi-factor authentication (MFA) on the root user, preferably registering multiple MFA devices (including phishing-resistant options such as FIDO security keys or passkeys) for resiliency. [doc](https://docs.aws.amazon.com/IAM/latest/UserGuide/root-user-best-practices.html)
+- **[Root user]** Do not create access keys for the root user — the root user has unrestricted access to all resources and billing, so programmatic access keys for it represent an outsized risk. [doc](https://docs.aws.amazon.com/IAM/latest/UserGuide/root-user-best-practices.html)
+- **[Root user]** Use multi-person approval (e.g., a documented process requiring two or more people) for any root user sign-in, and log/monitor access to wherever root credentials are stored. [doc](https://docs.aws.amazon.com/IAM/latest/UserGuide/root-user-best-practices.html)
+- **[Root user]** Use a group email address (distribution list), not an individual's mailbox, for the root user's registered email so account recovery doesn't depend on one person. [doc](https://docs.aws.amazon.com/IAM/latest/UserGuide/root-user-best-practices.html)
+- **[Root user]** Restrict and protect access to account recovery mechanisms (the registered email inbox and phone number), since anyone with access to them can reset the root password or MFA. [doc](https://docs.aws.amazon.com/IAM/latest/UserGuide/root-user-best-practices.html)
+- **[Root user, Organizations]** In multi-account AWS Organizations environments, remove root user credentials (password, access keys, MFA) from member accounts and centrally manage root access from the management account to prevent unauthorized use. [doc](https://docs.aws.amazon.com/IAM/latest/UserGuide/root-user-best-practices.html)
+- **[Root user, Well-Architected]** Prioritize securing the Organizations management account's root user first, then apply preventative controls (e.g., SCPs) to member account root users. [doc](https://docs.aws.amazon.com/wellarchitected/latest/security-pillar/sec_securely_operate_aws_account.html)
+
+## Identity and access management
+- **[IAM]** Require human users to authenticate via federation with an identity provider (ideally centralized through IAM Identity Center) so they use temporary credentials instead of long-lived IAM user passwords or keys. [doc](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html)
+- **[IAM]** Require workloads to obtain temporary credentials via IAM roles (e.g., EC2 instance profiles, Lambda execution roles, IAM Roles Anywhere, or web identity/SAML federation) instead of distributing long-term access keys. [doc](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html)
+- **[IAM]** Enforce multi-factor authentication for any IAM user or root user that must exist, and prefer phishing-resistant MFA (passkeys, security keys) where possible. [doc](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html)
+- **[IAM]** Where long-term credentials (access keys) are unavoidable, rotate them regularly and use IAM access-last-used information to safely retire unused keys, such as when an employee leaves. [doc](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html)
+- **[IAM]** Apply least-privilege permissions, starting from AWS managed policies and narrowing to custom least-privilege policies as actual usage becomes clear. [doc](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html)
+- **[IAM]** Use IAM Access Analyzer to generate least-privilege policies from observed access activity and to validate policies before deployment. [doc](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html)
+- **[IAM]** Regularly review and remove unused IAM users, roles, permissions, policies, and credentials to shrink the account's attack surface. [doc](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html)
+- **[IAM]** Use IAM Access Analyzer to continuously verify which resources are shared publicly or with other accounts, and correct unintended external access. [doc](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html)
+- **[IAM]** Configure an account password policy (minimum length/complexity, rotation period, reuse prevention) for any IAM users who still require console passwords. [doc](https://aws.amazon.com/blogs/security/new-iam-features-enhanced-password-management-and-credential-reports/)
+
+## Multi-account guardrails (AWS Organizations)
+- **[Organizations, SCP]** Isolate workloads and environments into separate AWS accounts organized under OUs, since principals in one account cannot access another account's resources without explicit permission. [doc](https://docs.aws.amazon.com/wellarchitected/latest/security-pillar/sec_permissions_define_guardrails.html)
+- **[Organizations, SCP]** Apply service control policies (SCPs) at the OU or account level to set permission guardrails organization-wide — for example, restricting Regions or blocking deletion of critical security roles — noting that SCPs govern member accounts but not the management account. [doc](https://docs.aws.amazon.com/wellarchitected/latest/security-pillar/sec_permissions_define_guardrails.html)
+- **[Organizations, SCP]** Use AWS Control Tower landing zones and their preventive/detective guardrails as the baseline for a new multi-account environment rather than building account guardrails from scratch. [doc](https://docs.aws.amazon.com/wellarchitected/latest/security-pillar/sec_permissions_define_guardrails.html)
+- **[Organizations]** Centrally manage alternate contacts (billing, operations, security) for all member accounts from the management account or a delegated administrator so notifications reach the right team even for newly created accounts. [doc](https://docs.aws.amazon.com/whitepapers/latest/aws-security-incident-response-guide/update-aws-account-contact-info.html)
+
+## Account contact and recovery hygiene
+- **[Contacts]** Keep the primary and alternate contacts (billing, operations, security) accurate and current for every account, using an email distribution list rather than a single person's mailbox to avoid single points of failure. [doc](https://docs.aws.amazon.com/whitepapers/latest/aws-security-incident-response-guide/update-aws-account-contact-info.html)
+- **[Contacts]** Protect the email inbox and phone number tied to account contact information, since they can be used to reset the root password or MFA via account recovery flows. [doc](https://docs.aws.amazon.com/whitepapers/latest/aws-security-incident-response-guide/update-aws-account-contact-info.html)
+
+## Logging and detection
+- **[CloudTrail]** Configure at least one multi-Region CloudTrail trail per account so management events (including global service events like IAM) are captured in every enabled Region, not just the Region where the trail was created. [doc](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-concepts.html)
+- **[CloudTrail, Organizations]** In an AWS Organizations environment, create an organization trail from the management account so all member accounts are logged consistently without relying on each account to configure its own trail. [doc](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/how-cloudtrail-works.html)
+- **[CloudTrail]** Configure CloudTrail in every account and Region your organization uses so unexpected activity in otherwise-unused Regions is still detected. [doc](https://aws.amazon.com/blogs/mt/aws-cloudtrail-best-practices/)
+- **[AWS Config]** Enable AWS Config in all accounts and Regions and record all supported resource types, recording global resources (such as IAM) in only one Region to avoid redundant items. [doc](https://aws.amazon.com/blogs/mt/aws-config-best-practices/)
+- **[AWS Config]** Deliver AWS Config history/snapshot files to a secure S3 bucket that is not publicly readable or writable, and centralize delivery to a dedicated security/IT account when managing many accounts. [doc](https://aws.amazon.com/blogs/mt/aws-config-best-practices/)
+- **[GuardDuty]** Enable Amazon GuardDuty in every Region you operate in, since it is a Regional service and won't surface findings for unmonitored Regions. [doc](https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_settingup.html)
+- **[GuardDuty, Organizations]** Designate a delegated administrator account (e.g., a dedicated Audit/Security account) for GuardDuty and enable auto-enrollment so new accounts in the organization are automatically protected. [doc](https://aws.amazon.com/blogs/mt/provisioning-access-to-security-and-audit-teams-in-an-aws-multi-account-environment-created-by-aws-control-tower/)
+- **[Security Hub]** Enable AWS Security Hub's Foundational Security Best Practices standard to continuously detect when account resources deviate from security best practices. [doc](https://docs.aws.amazon.com/prescriptive-guidance/latest/transitioning-to-multiple-aws-accounts/security-incident-response.html)
+- **[Security Hub, Organizations]** Designate a Security Hub delegated administrator account, enable automatic enrollment of new accounts, and turn on cross-Region aggregation for a single consolidated view of findings. [doc](https://docs.aws.amazon.com/prescriptive-guidance/latest/transitioning-to-multiple-aws-accounts/security-incident-response.html)
+- **[Monitoring]** Establish an operational process to actually review CloudTrail-derived log findings, Security Hub findings, and GuardDuty findings — enabling the services alone does not provide protection without a review/response mechanism. [doc](https://docs.aws.amazon.com/prescriptive-guidance/latest/essential-eight-maturity/theme-7.html)
+
+<!-- meta: last_reviewed=2026-07-05; sources=14 -->

@@ -120,6 +120,12 @@
       "agents": 10,
       "tokens": 621738,
       "files": 5
+    },
+    {
+      "name": "general",
+      "agents": 18,
+      "tokens": 1303664,
+      "files": 9
     }
   ]
 }
