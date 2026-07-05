@@ -2,7 +2,7 @@
 
 **Ask your AI coding agent "how should I secure my S3 bucket" and get a sourced, current AWS best practice, skipping both stale training data and costly live research.**
 
-A skill for **Claude Code** and **OpenAI Codex CLI** that collects the **best
+A skill for **Claude Code** and **OpenAI Codex** that collects the **best
 practices of every AWS service**, and nothing else. Find recommendations by
 **use case**: security, reliability, performance, cost, operations,
 sustainability, each one linked to its official AWS source.
@@ -77,6 +77,13 @@ Restart the tool if it's open, then just ask in natural language:
 The model reads [`SKILL.md`](SKILL.md), opens the matching
 `services/<category>/<service>.md` (or `general/<topic>.md`), and answers with
 sourced best practices; it won't need to open anything else in this repo.
+
+**Invoking it explicitly.** The skill triggers automatically whenever your
+question matches its description, no special syntax needed. In Claude Code
+you can also call it directly: `/aws-best-practices` if you installed it the
+manual way (standalone skill), or `/aws-best-practices:aws-best-practices` if
+you installed it as a plugin (plugin skills are namespaced as
+`plugin:skill`).
 
 ## How navigation works
 
