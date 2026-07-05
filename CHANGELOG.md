@@ -3,6 +3,16 @@
 All notable changes to this project are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.1.1] - 2026-07-05
+
+### Changed
+- README quickstart: use the `claude plugin`/`codex plugin` CLI syntax
+  consistently for both tools, and split usage into direct invocation
+  (`/aws-best-practices` standalone, `/aws-best-practices:aws-best-practices`
+  as a plugin, or referencing `aws-best-practices` in a Codex CLI prompt) and
+  indirect invocation (asking a natural-language question, which triggers the
+  skill automatically).
+
 ## [0.1.0] - 2026-07-05
 
 ### Added

@@ -70,20 +70,23 @@ git clone https://github.com/ferdinandobons/AWSBestPracticesSkill ~/.codex/skill
 ```
 Update anytime with `git -C <path-above> pull`.
 
-Restart the tool if it's open, then just ask in natural language:
+Restart the tool if it's open. Two ways to use it:
+
+**Direct**, invoke the skill by name:
+- Claude Code: `/aws-best-practices` (manual install) or
+  `/aws-best-practices:aws-best-practices` (plugin install; plugin skills are
+  namespaced as `plugin:skill`).
+- Codex CLI: reference `aws-best-practices` in your prompt (e.g. "use the
+  aws-best-practices skill for...").
+
+**Indirect**, just ask a question about a service and it triggers
+automatically, no invocation needed:
 
 > *"best practices for securing my S3 bucket"* · *"how should I run DynamoDB for high traffic"* · *"AWS account security baseline"* · *"is my Lambda function set up correctly for production"*
 
-The model reads [`SKILL.md`](SKILL.md), opens the matching
+Either way, the model reads [`SKILL.md`](SKILL.md), opens the matching
 `services/<category>/<service>.md` (or `general/<topic>.md`), and answers with
 sourced best practices; it won't need to open anything else in this repo.
-
-**Invoking it explicitly.** The skill triggers automatically whenever your
-question matches its description, no special syntax needed. In Claude Code
-you can also call it directly: `/aws-best-practices` if you installed it the
-manual way (standalone skill), or `/aws-best-practices:aws-best-practices` if
-you installed it as a plugin (plugin skills are namespaced as
-`plugin:skill`).
 
 ## How navigation works
 
