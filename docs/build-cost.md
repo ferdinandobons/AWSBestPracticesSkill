@@ -20,4 +20,5 @@ and accumulated here — generation agents only (research + write + verify).
 | migration-transfer | 7 | 14 | 928,859 |
 | frontend-web-mobile | 5 | 10 | 628,777 |
 | iot | 9 | 18 | 1,196,570 |
-| **Total** | **178** | **402** | **25,290,535 (~25.29M)** |
+| media-services | 7 | 16 | 1,030,501 |
+| **Total** | **185** | **418** | **26,321,036 (~26.32M)** |

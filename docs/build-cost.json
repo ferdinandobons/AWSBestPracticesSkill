@@ -90,6 +90,12 @@
       "agents": 18,
       "tokens": 1196570,
       "files": 9
+    },
+    {
+      "name": "media-services",
+      "agents": 16,
+      "tokens": 1030501,
+      "files": 7
     }
   ]
 }
