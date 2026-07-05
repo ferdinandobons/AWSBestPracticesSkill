@@ -19,4 +19,5 @@ and accumulated here — generation agents only (research + write + verify).
 | developer-tools | 10 | 20 | 1,363,837 |
 | migration-transfer | 7 | 14 | 928,859 |
 | frontend-web-mobile | 5 | 10 | 628,777 |
-| **Total** | **169** | **384** | **24,093,965 (~24.09M)** |
+| iot | 9 | 18 | 1,196,570 |
+| **Total** | **178** | **402** | **25,290,535 (~25.29M)** |

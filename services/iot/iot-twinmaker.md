@@ -1,0 +1,40 @@
+# AWS IoT TwinMaker — Best Practices
+
+## Common scenarios
+- Building 3D digital twins of factories, buildings, and production lines        → Performance Efficiency, Operational Excellence
+- Unifying time-series, video, and document data from multiple stores behind one API        → Performance Efficiency, Security
+- Creating Grafana-based dashboards to monitor physical systems in near real time        → Reliability, Operational Excellence
+- Connecting custom or third-party data sources via Lambda-based data connectors        → Security, Cost Optimization
+
+## 🔒 Security
+- **[Identity and access]** Start from AWS managed policies and then author customer managed least-privilege IAM policies scoped to specific actions, resources, and conditions for each workload — avoids granting broader access than a task actually needs. [doc](https://docs.aws.amazon.com/iot-twinmaker/latest/guide/security_iam_id-based-policy-examples.html)
+- **[Identity and access]** Validate IAM policies with IAM Access Analyzer and require multi-factor authentication (MFA) for IAM users and the root account — catches unintended access grants and hardens against account takeover. [doc](https://docs.aws.amazon.com/iot-twinmaker/latest/guide/security_iam_id-based-policy-examples.html)
+- **[Identity and access]** Use conditions in IAM policies (for example, requiring SSL/TLS or restricting access to calls made through a specific AWS service) to further restrict what a granted permission can actually be used for — narrows exposure beyond action/resource scoping alone. [doc](https://docs.aws.amazon.com/iot-twinmaker/latest/guide/security_iam_id-based-policy-examples.html)
+- **[Workspace roles]** Scope the IAM service role attached to each AWS IoT TwinMaker workspace to only the specific S3 buckets, IoT SiteWise assets, and Lambda functions that workspace's connectors need, rather than wildcard resources — limits blast radius if the role is misused. [doc](https://docs.aws.amazon.com/iot-twinmaker/latest/guide/security-iam.html)
+- **[Data protection]** Require TLS 1.2 or later, and prefer TLS 1.3, for all communication with AWS IoT TwinMaker APIs — protects entity, component, and telemetry data in transit. [doc](https://docs.aws.amazon.com/iot-twinmaker/latest/guide/data-protection.html)
+- **[Data protection]** Set up API and user activity logging with AWS CloudTrail and enable MFA on every account that can manage a workspace — provides an audit trail and reduces credential-compromise risk. [doc](https://docs.aws.amazon.com/iot-twinmaker/latest/guide/data-protection.html)
+- **[Data protection]** Never place confidential or sensitive information such as customer emails into workspace, entity, component, or scene names and other free-form text fields — these values can surface in billing records and diagnostic logs. [doc](https://docs.aws.amazon.com/iot-twinmaker/latest/guide/data-protection.html)
+- **[Data protection]** Use AWS encryption solutions and default service security controls, and consider Amazon Macie to help discover and secure sensitive data stored in the Amazon S3 buckets backing your scenes and documents. [doc](https://docs.aws.amazon.com/iot-twinmaker/latest/guide/data-protection.html)
+- **[Network]** Create an interface VPC endpoint (AWS PrivateLink) for AWS IoT TwinMaker so instances in your VPC can call control-plane and data-plane APIs without traversing the public internet — keeps digital-twin traffic on the Amazon network. [doc](https://docs.aws.amazon.com/iot-twinmaker/latest/guide/vpc-interface-endpoints.html)
+
+## 🛡️ Reliability
+- **[Multi-AZ design]** Rely on the AWS Region and Availability Zone architecture underlying AWS IoT TwinMaker, and design any companion compute (such as Lambda-based connectors or Grafana servers) to fail over across Availability Zones — avoids a single zone failure interrupting digital twin access. [doc](https://docs.aws.amazon.com/iot-twinmaker/latest/guide/disaster-recovery-resiliency.html)
+- **[Data durability]** Keep source-of-truth configuration (entity graphs, component types, scenes) reproducible from version-controlled definitions or exports rather than only from live workspace state — supports recovery if a workspace needs to be rebuilt. [doc](https://docs.aws.amazon.com/iot-twinmaker/latest/guide/disaster-recovery-resiliency.html)
+- **[Auditability]** Enable an AWS CloudTrail trail covering all Regions for AWS IoT TwinMaker API activity so you can identify who made a change, from where, and when — supports fast root-cause analysis when an entity, component type, or scene changes unexpectedly. [doc](https://docs.aws.amazon.com/iot-twinmaker/latest/guide/logging-using-cloudtrail.html)
+
+## ⚡ Performance Efficiency
+- **[Data access]** Design dashboard and application queries around the unified data access APIs' 20 KB per-call response limit and follow pagination tokens for larger result sets, instead of assuming a single call returns all data — avoids truncated results and unnecessary retries. [doc](https://aws.amazon.com/iot-twinmaker/pricing/)
+- **[Data connectors]** Use the built-in connectors for AWS IoT SiteWise (time-series sensor data), Amazon Kinesis Video Streams (video), and Amazon S3 (documents/visual assets) before building a custom Lambda-based connector — reduces integration effort and avoids reinventing schema mapping AWS IoT TwinMaker already provides. [doc](https://docs.aws.amazon.com/iot-twinmaker/latest/guide/data-connector-interfaces.html)
+- **[Throttling]** Design ingestion and query workloads against AWS IoT TwinMaker's published API throttling limits and endpoint quotas, and implement retry with backoff on throttling errors — prevents failed reads/writes when many users or connectors query the same workspace concurrently. [doc](https://docs.aws.amazon.com/iot-twinmaker/latest/guide/endpionts-and-quotas.html)
+
+## 💰 Cost Optimization
+- **[API usage]** Batch property reads and writes where possible and cache frequently accessed, slow-changing data (such as static entity metadata) in the calling application instead of re-querying the unified data access APIs on every render — reduces the number of billed API calls. [doc](https://aws.amazon.com/iot-twinmaker/pricing/)
+- **[Data connectors]** Right-size the AWS Lambda functions backing custom data connectors (memory, timeout, concurrency) to the actual query pattern — avoids paying for over-provisioned compute behind connectors that are called only intermittently. [doc](https://aws.amazon.com/iot-twinmaker/pricing/)
+
+## ⚙️ Operational Excellence
+- **[Monitoring]** Track AWS IoT TwinMaker health with Amazon CloudWatch metrics published to the `AWS/IoTTwinMaker` namespace at one-minute resolution, and set alarms on key thresholds — surfaces service or workload issues before they affect end users. [doc](https://docs.aws.amazon.com/iot-twinmaker/latest/guide/monitor-cloudwatch-metrics.html)
+- **[Monitoring]** Send AWS IoT TwinMaker gateway and related logs to Amazon CloudWatch Logs and use it to monitor for and alert on defined thresholds — centralizes troubleshooting data across workspaces. [doc](https://docs.aws.amazon.com/iot-twinmaker/latest/guide/logging-and-monitoring.html)
+- **[Auditability]** Note that the data-plane operations `GetPropertyValue`, `GetPropertyValueHistory`, and `BatchPutPropertyValues` are not logged by CloudTrail, and plan supplementary application-level logging for these calls if you need a complete audit trail of data access. [doc](https://docs.aws.amazon.com/iot-twinmaker/latest/guide/logging-using-cloudtrail.html)
+- **[Infrastructure as code]** Provision workspaces, component types, and supporting resources (such as AWS IoT SiteWise assets) through AWS CloudFormation rather than manual console steps — ensures consistent, repeatable environments and reduces configuration drift across simulation and production workspaces. [doc](https://aws.amazon.com/solutions/guidance/industrial-digital-twin-on-aws/)
+
+<!-- meta: last_reviewed=2026-07-05; sources=11 -->

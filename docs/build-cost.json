@@ -84,6 +84,12 @@
       "agents": 10,
       "tokens": 628777,
       "files": 5
+    },
+    {
+      "name": "iot",
+      "agents": 18,
+      "tokens": 1196570,
+      "files": 9
     }
   ]
 }
