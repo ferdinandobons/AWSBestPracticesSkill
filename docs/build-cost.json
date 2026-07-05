@@ -66,6 +66,12 @@
       "agents": 38,
       "tokens": 2500092,
       "files": 19
+    },
+    {
+      "name": "developer-tools",
+      "agents": 20,
+      "tokens": 1363837,
+      "files": 10
     }
   ]
 }

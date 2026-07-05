@@ -16,4 +16,5 @@ and accumulated here — generation agents only (research + write + verify).
 | analytics (partial) | 13 | 28 | 1,229,736 |
 | analytics (finish) | 5 | 23 | 1,668,960 |
 | machine-learning | 19 | 38 | 2,500,092 |
-| **Total** | **147** | **340** | **21,172,492 (~21.17M)** |
+| developer-tools | 10 | 20 | 1,363,837 |
+| **Total** | **157** | **360** | **22,536,329 (~22.54M)** |
