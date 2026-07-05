@@ -22,4 +22,5 @@ and accumulated here — generation agents only (research + write + verify).
 | iot | 9 | 18 | 1,196,570 |
 | media-services | 7 | 16 | 1,030,501 |
 | end-user-computing | 4 | 8 | 600,460 |
-| **Total** | **189** | **426** | **26,921,496 (~26.92M)** |
+| business-applications | 7 | 14 | 878,668 |
+| **Total** | **196** | **440** | **27,800,164 (~27.80M)** |

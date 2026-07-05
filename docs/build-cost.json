@@ -102,6 +102,12 @@
       "agents": 8,
       "tokens": 600460,
       "files": 4
+    },
+    {
+      "name": "business-applications",
+      "agents": 14,
+      "tokens": 878668,
+      "files": 7
     }
   ]
 }

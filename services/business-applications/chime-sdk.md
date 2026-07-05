@@ -1,0 +1,45 @@
+# Amazon Chime SDK — Best Practices
+
+## Common scenarios
+- Adding real-time audio/video calling into a web or mobile app        → Security, Performance Efficiency, Reliability
+- Building in-app chat/messaging features                              → Security, Operational Excellence
+- SIP trunking and PSTN calling for an existing phone system            → Reliability, Security
+- Recording, capturing, or live-streaming meetings for compliance/analytics → Security, Cost Optimization
+
+## 🔒 Security
+- **[IAM policies]** Start from AWS managed policies and grant least privilege in custom policies rather than broad access. — Reduces blast radius of compromised credentials. [doc](https://docs.aws.amazon.com/chime-sdk/latest/ag/security_iam_service-with-iam-policy-best-practices.html)
+- **[IAM policies]** Require MFA for sensitive Amazon Chime SDK operations and use policy conditions (e.g., source IP, time window) to scope access further. — Adds defense-in-depth beyond static credentials. [doc](https://docs.aws.amazon.com/chime-sdk/latest/ag/security_iam_service-with-iam-policy-best-practices.html)
+- **[client authentication]** Vend temporary, scoped-down credentials to end users via AWS STS AssumeRole or Amazon Cognito Identity Pools instead of embedding long-lived IAM credentials in clients. — Limits what a compromised client can access. [doc](https://docs.aws.amazon.com/chime-sdk/latest/dg/auth-client-apps.html)
+- **[network transport]** Require clients to use TLS 1.2 at minimum (TLS 1.3 recommended) and cipher suites with perfect forward secrecy (DHE/ECDHE). — Protects signaling and API traffic in transit. [doc](https://docs.aws.amazon.com/chime-sdk/latest/ag/infrastructure-security.html)
+- **[cross-service access]** Use the `aws:SourceAccount` (and `aws:SourceArn` where applicable) global condition keys in resource policies, such as the S3 bucket policy used by media capture pipelines. — Prevents the cross-service confused deputy problem. [doc](https://docs.aws.amazon.com/chime-sdk/latest/ag/confused-deputy.html)
+- **[media capture]** Enable server-side encryption on the Amazon S3 bucket used by media capture pipelines, optionally with a customer-managed KMS key and a key policy scoped to the `mediapipelines.chime.amazonaws.com` service principal. — Protects recorded meeting artifacts at rest under your own key control. [doc](https://docs.aws.amazon.com/chime-sdk/latest/dg/sse-kms.html)
+- **[voice analytics]** Use a customer-managed KMS key for voice analytics audio storage and manage its key policies, rotation, and lifecycle yourself. — Keeps sensitive voice biometric data under customer-controlled encryption. [doc](https://docs.aws.amazon.com/chime-sdk/latest/ag/analytics-encryption.html)
+- **[content security policy]** Apply the required CSP directives when using the Amazon Chime SDK JavaScript client library, especially with `VideoFxProcessor`. — Mitigates injection and cross-origin attacks in browser clients. [doc](https://docs.aws.amazon.com/chime-sdk/latest/dg/content-security.html)
+- **[Voice Connector]** Restrict SIP termination with an IP allowlist (CIDR-scoped) and use TLS/SRTP for signaling and media encryption. — Prevents unauthorized origination of calls through your Voice Connector. [doc](https://docs.aws.amazon.com/chime-sdk/latest/ag/voice-connectors.html)
+- **[messaging]** Integrate an existing identity provider via Amazon Cognito Identity Pools (SAML/OIDC) or a custom STS-based credential vending service rather than building ad hoc authentication. — Ensures Amazon Chime SDK messaging requests are authenticated with properly scoped IAM permissions. [doc](https://docs.aws.amazon.com/chime-sdk/latest/dg/auth-client-apps.html)
+
+## 🛡️ Reliability
+- **[Voice Connector groups]** Group Voice Connectors created in different AWS Regions into a Voice Connector group. — Provides fault-tolerant fallback if an availability event occurs in one Region. [doc](https://docs.aws.amazon.com/chime-sdk/latest/ag/voice-connectors.html)
+- **[meeting placement]** Always specify a `MediaRegion` explicitly in the `CreateMeeting` API call rather than relying on defaults. — Gives predictable control over where meeting media and data are hosted. [doc](https://docs.aws.amazon.com/chime-sdk/latest/dg/chime-sdk-meetings-regions.html)
+- **[API throttling]** Monitor for `ThrottledClientException` (HTTP 429) and use batch operations like `CreateMeetingWithAttendees` or `BatchCreateAttendee` instead of looping single-attendee calls. — Avoids exhausting per-second API quotas under load. [doc](https://docs.aws.amazon.com/chime-sdk/latest/dg/quotas-throttling.html)
+- **[service quotas]** Request quota increases proactively on every API endpoint/Region your application uses as usage grows, since quotas are per API endpoint. — Prevents production capacity surprises as concurrent meetings or attendees scale. [doc](https://docs.aws.amazon.com/chime-sdk/latest/dg/meetings-sdk.html)
+- **[large meetings]** Use media replication when a meeting needs more than the standard 250-attendee limit. — Scales attendee capacity up to 10,000 without redesigning the meeting architecture. [doc](https://docs.aws.amazon.com/chime-sdk/latest/dg/chime-sdk-faq.html)
+
+## ⚡ Performance Efficiency
+- **[media region selection]** Choose the media Region nearest to attendees (or hardcode a Region when regulatory jurisdiction requires it) rather than leaving placement to chance. — Network latency to the hosting Region directly affects perceived meeting quality. [doc](https://docs.aws.amazon.com/chime-sdk/latest/dg/chime-sdk-meetings-regions.html)
+- **[bandwidth policies]** Select an appropriate video uplink/downlink bandwidth policy (e.g., `VideoPriorityBasedPolicy` to prioritize audio, `NoVideoDownlinkBandwidthPolicy` under constrained bandwidth) instead of using a one-size-fits-all default. — Keeps calls usable when attendees have limited bandwidth. [doc](https://docs.aws.amazon.com/chime-sdk/latest/dg/common-issues.html)
+- **[video tiles]** Cap the number of simultaneously displayed video tiles so combined video and content-share bandwidth stays near 6 Mbps or less per the guidance thresholds. — Avoids black/frozen tiles caused by receiver bandwidth exhaustion. [doc](https://docs.aws.amazon.com/chime-sdk/latest/dg/common-issues.html)
+- **[simulcast/SVC]** Use simulcast or scalable video coding (SVC) in the JavaScript/React client libraries so the service can automatically select the right layer per viewer's bandwidth. — Improves video quality adaptively across heterogeneous network conditions. [doc](https://docs.aws.amazon.com/chime-sdk/latest/dg/webrtc-media.html)
+
+## 💰 Cost Optimization
+- **[meeting lifecycle]** Explicitly call `DeleteMeeting` (or ensure your application logic ends idle meetings) instead of relying on clients to disconnect. — Meetings and their media resources should be released promptly once no longer needed. [doc](https://docs.aws.amazon.com/chime-sdk/latest/APIReference/API_meeting-chime_DeleteMeeting.html)
+- **[media pipelines]** Stop media capture, concatenation, or live-connector pipelines with `DeleteMediaPipeline` as soon as capture/streaming is no longer required, rather than letting them run for the full meeting duration unnecessarily. — Avoids paying for pipeline runtime you don't need. [doc](https://aws.amazon.com/blogs/business-productivity/amazon-chime-sdk-launches-live-connector-for-streaming/)
+- **[API usage]** Audit application code for bugs that create meetings or attendees in a loop without cleanup before requesting a quota increase. — Fixes the root cause of excess API usage instead of masking it with higher limits. [doc](https://docs.aws.amazon.com/chime-sdk/latest/dg/quotas-throttling.html)
+
+## ⚙️ Operational Excellence
+- **[monitoring]** Send Amazon Chime SDK meeting and Voice Connector events to Amazon CloudWatch via EventBridge, and build dashboards/alarms on the resulting metrics and logs. — Surfaces join failures, quality issues, and quota pressure before they escalate. [doc](https://docs.aws.amazon.com/chime-sdk/latest/ag/monitoring-overview.html)
+- **[client-side telemetry]** Upload meeting events (join failures, status codes, error messages) from client applications to CloudWatch. — Lets you diagnose why a specific user failed to join without requesting client logs. [doc](https://aws.amazon.com/blogs/business-productivity/monitoring-and-troubleshooting-with-amazon-chime-sdk-meeting-events/)
+- **[auditing]** Enable AWS CloudTrail to capture Amazon Chime SDK API calls, including caller identity and source IP. — Provides an audit trail for who created, modified, or deleted meetings and resources. [doc](https://docs.aws.amazon.com/chime-sdk/latest/ag/monitoring-overview.html)
+- **[event-driven automation]** Use Amazon EventBridge rules to react to Amazon Chime SDK server-side events (meeting/attendee/pipeline changes) instead of polling. — Enables near real-time automated responses to resource state changes. [doc](https://docs.aws.amazon.com/chime-sdk/latest/ag/monitoring-overview.html)
+
+<!-- meta: last_reviewed=2026-07-05; sources=15 -->
