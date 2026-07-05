@@ -14,14 +14,26 @@ sustainability, each one linked to its official AWS source.
 
 ## Why this instead of just asking the model directly
 
-An AI agent's training data goes stale the moment AWS ships a new feature,
-renames a service, or updates its Well-Architected guidance — and left to its
-own devices, it will still answer confidently. This repo is a living,
-source-linked reference the agent reads instead of recalling from memory: 208
-services across 23 categories, plus 9 cross-service topics, every practice
-traceable to an official `docs.aws.amazon.com` / `aws.amazon.com` /
-`wa.aws.amazon.com` page — and a documented refresh loop (below) that keeps it
-that way over time.
+There are three ways an AI agent can answer "what are the best practices for
+this AWS service":
+
+1. **From memory** — free and instant, but the model's training data goes
+   stale the moment AWS ships a new feature, renames a service, or updates its
+   Well-Architected guidance. It will still answer confidently even when it's
+   wrong or out of date.
+2. **Live research** — the agent runs web searches or queries an AWS
+   documentation MCP server on the spot, every time. This gets it right, but
+   it's expensive: several search → fetch → read round-trips, burning tens of
+   thousands of tokens, repeated for every question, even the same one asked
+   twice.
+3. **This skill** — the research is already done, once, per service, and
+   stored as a small, source-linked file. The agent opens exactly
+   `services/<category>/<service>.md`, reads a few hundred lines, and answers
+   — no live search needed and no repeated token cost, while every practice is
+   still traceable to an official `docs.aws.amazon.com` / `aws.amazon.com` /
+   `wa.aws.amazon.com` page. And because content ages, a documented refresh
+   loop (below) keeps it from silently drifting back into "stale training
+   data" territory.
 
 ## What it contains / does NOT contain
 
@@ -34,13 +46,25 @@ that way over time.
 
 ## Quick start
 
-**Claude Code:**
+**1. Install the coding agent** (skip if you already have one):
+
 ```bash
-git clone https://github.com/ferdinandobons/AWSBestPracticesSkill ~/.claude/skills/aws-best-practices
+# Claude Code
+npm install -g @anthropic-ai/claude-code
+claude --version   # verify
+
+# OpenAI Codex CLI
+npm install -g @openai/codex
+codex --version    # verify
 ```
 
-**OpenAI Codex CLI:**
+**2. Install this skill:**
+
 ```bash
+# Claude Code
+git clone https://github.com/ferdinandobons/AWSBestPracticesSkill ~/.claude/skills/aws-best-practices
+
+# OpenAI Codex CLI
 git clone https://github.com/ferdinandobons/AWSBestPracticesSkill ~/.codex/skills/aws-best-practices
 ```
 

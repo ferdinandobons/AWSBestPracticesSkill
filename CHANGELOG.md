@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
 
 ### Added
-- Repository skeleton: `SKILL.md` router, `_TEMPLATE.md`, `MAINTENANCE.md`, CI.
+- Repository skeleton: `SKILL.md` router, `MAINTENANCE.md`, CI.
 - `catalog.json` source of truth: 208 services across 23 categories + 9 general docs.
 - `scripts/check.py` validator + diff-checker (coverage, conformance, links,
   baseline diff, index generation).
@@ -42,3 +42,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Dropped catalog entries for services confirmed fully retired by AWS: Amazon
   QLDB, AWS OpsWorks, AWS RoboMaker, AWS IoT Analytics, AWS IoT Events. The
   `robotics` category was removed as a result (RoboMaker was its only entry).
+- Dropped `_TEMPLATE.md`: orphaned once `GENERATE.md` started embedding the
+  file format spec directly (self-contained by design), and unreferenced by
+  any other doc.
