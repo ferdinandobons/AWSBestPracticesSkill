@@ -48,10 +48,10 @@ this AWS service":
 
 **Claude Code** (plugin, recommended):
 ```bash
-/plugin marketplace add ferdinandobons/AWSBestPracticesSkill
-/plugin install aws-best-practices@aws-best-practices-skill
+claude plugin marketplace add ferdinandobons/AWSBestPracticesSkill
+claude plugin install aws-best-practices@aws-best-practices-skill
 ```
-Update with `/plugin update aws-best-practices`, remove with `/plugin uninstall aws-best-practices`.
+Update with `claude plugin update aws-best-practices`, remove with `claude plugin uninstall aws-best-practices`. (Same steps work as `/plugin marketplace add ...` and `/plugin install ...` from inside an active Claude Code session.)
 
 **OpenAI Codex CLI** (plugin, recommended):
 ```bash
