@@ -54,6 +54,12 @@
       "agents": 28,
       "tokens": 1229736,
       "files": 13
+    },
+    {
+      "name": "analytics (finish)",
+      "agents": 23,
+      "tokens": 1668960,
+      "files": 5
     }
   ]
 }

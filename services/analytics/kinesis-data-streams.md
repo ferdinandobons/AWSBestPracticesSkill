@@ -45,6 +45,6 @@
 - **[monitoring]** Enable shard-level metrics to pinpoint hot shards or failing consumers at the individual-shard granularity rather than only at the aggregate stream level. [doc](https://aws.amazon.com/blogs/big-data/best-practices-for-consuming-amazon-kinesis-data-streams-using-aws-lambda/)
 - **[monitoring]** Alarm on `ReadProvisionedThroughputExceeded` to detect when consumers are being throttled, and respond by adding shards or moving to an enhanced fan-out consumer. [doc](https://aws.amazon.com/blogs/big-data/best-practices-for-consuming-amazon-kinesis-data-streams-using-aws-lambda/)
 - **[scaling operations]** Separate resharding/administrative operations into a dedicated administrative application with broader IAM permissions, keeping producer and consumer applications scoped to only the actions they need. [doc](https://docs.aws.amazon.com/streams/latest/dev/kinesis-using-sdk-java-resharding.html)
-- **[scaling operations]** When using `UpdateShardCount`, target a shard count that is a multiple of 25% of the current count for faster, more predictable scaling completion. [doc](https://docs.aws.amazon.com/sdk-for-go/api/service/kinesis/index.html)
+- **[scaling operations]** When using `UpdateShardCount`, target a shard count that is a multiple of 25% of the current count for faster, more predictable scaling completion. [doc](https://docs.aws.amazon.com/sdkfornet/v4/apidocs/items/Kinesis/TUpdateShardCountRequest.html)
 
 <!-- meta: last_reviewed=2026-07-05; sources=18 -->

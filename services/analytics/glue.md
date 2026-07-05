@@ -28,7 +28,7 @@
 - **[Diagnostics]** Use the Spark UI (enabled through job configuration) and AWS Glue Observability metrics to pinpoint specific bottlenecks such as skewed partitions or underutilized workers before changing configuration. [doc](https://docs.aws.amazon.com/glue/latest/dg/monitor-observability.html)
 - **[Crawlers]** Enable incremental crawls so crawlers add only new partitions instead of rescanning the entire data source, and use include/exclude paths to limit the scope of each crawl. [doc](https://docs.aws.amazon.com/glue/latest/dg/incremental-crawls.html)
 - **[Crawlers]** Generate partition indexes on large partitioned tables to speed up partition lookups for downstream query engines such as Athena, EMR, and Redshift Spectrum. [doc](https://aws.amazon.com/blogs/big-data/efficiently-crawl-your-data-lake-and-improve-data-access-with-aws-glue-crawler-using-partition-indexes/)
-- **[Storage format]** Store data in an optimized columnar format such as Parquet on Amazon S3 to reduce data scanned and improve job throughput. [doc](https://aws.amazon.com/solutions/guidance/identifying-and-resolving-duplicate-customer-records-on-aws/)
+- **[Storage format]** Store data in an optimized columnar format such as Parquet on Amazon S3 to reduce data scanned and improve job throughput. [doc](https://docs.aws.amazon.com/prescriptive-guidance/latest/serverless-etl-aws-glue/best-practices.html)
 
 ## 💰 Cost Optimization
 - **[Job execution]** Use AWS Glue Flex execution for non-time-sensitive workloads such as preproduction jobs, testing, and batch loads to reduce compute cost when fast startup isn't required. [doc](https://aws.amazon.com/glue/features/)

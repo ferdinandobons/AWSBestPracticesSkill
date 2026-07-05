@@ -12,7 +12,7 @@
 - **[Authentication]** Require MFA for sensitive operations and use policy conditions (source IP, time window, SSL/MFA) to further restrict access to EMR resources. [doc](https://docs.aws.amazon.com/emr/latest/ManagementGuide/security_iam_service-with-iam-policy-best-practices.html)
 - **[Encryption]** Enable an EMR security configuration to encrypt data at rest in EMRFS/Amazon S3 (SSE-S3, SSE-KMS, or CSE) and on cluster local disks/EBS volumes, and reuse the same configuration across clusters for consistency. [doc](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-data-encryption.html)
 - **[Encryption]** Use AWS KMS symmetric keys for at-rest encryption of EMRFS and storage volumes, and enable in-transit encryption (TLS/SASL) for data moving between cluster nodes and to Amazon S3. [doc](https://docs.aws.amazon.com/kms/latest/developerguide/services-emr.html)
-- **[Network]** Launch clusters in private subnets, restrict security groups so worker nodes only accept traffic from the master node, and use Amazon EMR block public access to prevent clusters from allowing unintended public access on any port. [doc](https://aws.amazon.com/emr/faqs/)
+- **[Network]** Launch clusters in private subnets, restrict security groups so worker nodes only accept traffic from the master node, and use Amazon EMR block public access to prevent clusters from allowing unintended public access on any port. [doc](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-block-public-access.html)
 - **[Data protection]** Never place sensitive identifying information in free-form fields (names, tags) since this data can be captured in diagnostic logs; use AWS CloudTrail to log API and user activity for auditing. [doc](https://docs.aws.amazon.com/emr/latest/ManagementGuide/data-protection.html)
 - **[Hardening]** Apply CIS controls to a custom AMI when you need root-volume encryption or additional OS hardening beyond what default EMR AMIs provide. [doc](https://aws.amazon.com/blogs/big-data/best-practices-for-securing-amazon-emr/)
 
@@ -36,6 +36,6 @@
 ## ⚙️ Operational Excellence
 - **[Monitoring]** Configure the CloudWatch agent on EMR to stream custom Hadoop, YARN, and HBase metrics and cluster logs to CloudWatch for real-time visibility into cluster health and performance. [doc](https://docs.aws.amazon.com/emr/latest/ManagementGuide/enhanced-custom-metrics.html)
 - **[Monitoring]** Set CloudWatch alarms on key EMR metrics (e.g., cluster idle status, HDFS utilization, node health) to detect and respond to issues proactively. [doc](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-manage-cluster-cloudwatch.html)
-- **[Logging]** Archive step, job, and task log files to Amazon S3 so you can troubleshoot cluster issues even after the cluster has terminated. [doc](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-overview-benefits.html)
+- **[Logging]** Archive step, job, and task log files to Amazon S3 so you can troubleshoot cluster issues even after the cluster has terminated. [doc](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-debugging.html)
 
 <!-- meta: last_reviewed=2026-07-05; sources=18 -->

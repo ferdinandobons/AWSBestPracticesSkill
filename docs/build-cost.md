@@ -14,4 +14,5 @@ and accumulated here — generation agents only (research + write + verify).
 | management-governance | 20 | 40 | 2,633,854 |
 | application-integration | 9 | 18 | 1,167,666 |
 | analytics (partial) | 13 | 28 | 1,229,736 |
-| **Total** | **123** | **279** | **17,003,440 (~17.00M)** |
+| analytics (finish) | 5 | 23 | 1,668,960 |
+| **Total** | **128** | **302** | **18,672,400 (~18.67M)** |
