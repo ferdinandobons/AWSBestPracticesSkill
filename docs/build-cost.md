@@ -18,4 +18,5 @@ and accumulated here — generation agents only (research + write + verify).
 | machine-learning | 19 | 38 | 2,500,092 |
 | developer-tools | 10 | 20 | 1,363,837 |
 | migration-transfer | 7 | 14 | 928,859 |
-| **Total** | **164** | **374** | **23,465,188 (~23.47M)** |
+| frontend-web-mobile | 5 | 10 | 628,777 |
+| **Total** | **169** | **384** | **24,093,965 (~24.09M)** |

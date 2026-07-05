@@ -78,6 +78,12 @@
       "agents": 14,
       "tokens": 928859,
       "files": 7
+    },
+    {
+      "name": "frontend-web-mobile",
+      "agents": 10,
+      "tokens": 628777,
+      "files": 5
     }
   ]
 }
