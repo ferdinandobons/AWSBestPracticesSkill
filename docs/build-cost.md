@@ -12,4 +12,5 @@ and accumulated here — generation agents only (research + write + verify).
 | networking-content-delivery | 16 | 32 | 2,100,215 |
 | security-identity-compliance | 23 | 46 | 2,892,048 |
 | management-governance | 20 | 40 | 2,633,854 |
-| **Total** | **101** | **233** | **14,606,038 (~14.61M)** |
+| application-integration | 9 | 18 | 1,167,666 |
+| **Total** | **110** | **251** | **15,773,704 (~15.77M)** |

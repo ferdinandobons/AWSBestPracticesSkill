@@ -42,6 +42,12 @@
       "agents": 40,
       "tokens": 2633854,
       "files": 20
+    },
+    {
+      "name": "application-integration",
+      "agents": 18,
+      "tokens": 1167666,
+      "files": 9
     }
   ]
 }
