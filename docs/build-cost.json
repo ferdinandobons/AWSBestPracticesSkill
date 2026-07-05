@@ -12,6 +12,12 @@
       "agents": 20,
       "tokens": 1243027,
       "files": 7
+    },
+    {
+      "name": "storage",
+      "agents": 28,
+      "tokens": 1742112,
+      "files": 10
     }
   ]
 }
