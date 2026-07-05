@@ -1,0 +1,42 @@
+# Amazon VPC Lattice — Best Practices
+
+## Common scenarios
+- Service-to-service connectivity across VPCs and accounts for microservices        → Security, Reliability, Operational Excellence
+- Sharing internal or SaaS-style services with consumer accounts via AWS RAM        → Security, Cost Optimization
+- Consolidating access to shared services/resources instead of Transit Gateway + firewall appliances        → Cost Optimization, Performance Efficiency
+- Blue/green and canary traffic shifting between application versions        → Reliability, Operational Excellence
+
+## 🔒 Security
+- **[defense in depth]** Layer VPC Lattice auth policies on top of security groups/network ACLs and the VPC-to-service-network association itself — a client only reaches a service if all three layers (association, network controls, auth policy) allow it. [doc](https://docs.aws.amazon.com/vpc-lattice/latest/ug/access-management-overview.html)
+- **[auth policies]** Attach an IAM-syntax auth policy to the service network for coarse-grained, org-wide guardrails (e.g., only authenticated requests from your AWS Organization) and a separate, more restrictive auth policy at the service level for fine-grained control owned by the service team. [doc](https://docs.aws.amazon.com/vpc-lattice/latest/ug/auth-policies.html)
+- **[least privilege]** Scope auth policy `Principal`, `Action`, `Resource`, and `Condition` elements tightly, and remember that both the auth policy and the caller's IAM identity-based policy must explicitly allow the request — an allow in only one is insufficient. [doc](https://docs.aws.amazon.com/vpc-lattice/latest/ug/auth-policies.html)
+- **[tag-based policies]** Reference `aws:ResourceTag/<key>` conditions in auth policies to grant access by tag (e.g., `Environment=Gamma`) instead of hardcoding service ARNs/IDs, so policies keep working as services are recreated or scaled. [doc](https://docs.aws.amazon.com/vpc-lattice/latest/ug/auth-policies.html)
+- **[network-level micro-segmentation]** Attach a security group to each VPC association with a service network and reference the VPC Lattice managed prefix lists (IPv4/IPv6) so you can allow or deny specific VPC resources' access to the service network at the network layer. [doc](https://aws.amazon.com/blogs/networking-and-content-delivery/build-secure-multi-account-multi-vpc-connectivity-for-your-applications-with-amazon-vpc-lattice/)
+- **[cross-account sharing]** Use AWS Resource Access Manager to share service networks, services, and resource configurations across accounts instead of duplicating them, and control acceptance so only vetted accounts can associate. [doc](https://docs.aws.amazon.com/vpc-lattice/latest/ug/access-management-overview.html)
+- **[TLS]** Require clients to use TLS 1.2 at minimum (TLS 1.3 recommended) with cipher suites that support perfect forward secrecy (DHE/ECDHE) when calling VPC Lattice control-plane and data-plane (Invoke API) endpoints. [doc](https://docs.aws.amazon.com/vpc-lattice/latest/ug/infrastructure-security.html)
+- **[encryption in transit]** Use HTTPS or TLS listeners so data-plane traffic between clients and services is encrypted; note VPC Lattice terminates TLS at HTTP/HTTPS listeners, so use TLS-passthrough listeners if you require true end-to-end encryption to the target. [doc](https://docs.aws.amazon.com/vpc-lattice/latest/ug/data-protection.html)
+
+## 🛡️ Reliability
+- **[multi-AZ targets]** Spread registered targets for each service across multiple Availability Zones — VPC Lattice is a highly available Regional service and routes only to healthy targets, so single-AZ target placement undermines that resilience. [doc](https://aws.amazon.com/vpc/lattice/faqs/)
+- **[health checks]** Enable and tune target group health checks (interval, timeout, healthy/unhealthy thresholds, matcher codes) so unhealthy targets are removed from rotation quickly and traffic is only sent to targets that pass checks. [doc](https://docs.aws.amazon.com/vpc-lattice/latest/ug/target-group-health-checks.html)
+- **[Auto Scaling integration]** Turn on VPC Lattice health checks for Auto Scaling groups attached as targets so unhealthy instances are automatically deregistered and replaced, keeping the target group at capacity. [doc](https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-vpc-lattice.html)
+- **[protocol-specific health checks]** Confirm health check support for your target group's protocol version before relying on it — HTTP1 has health checks on by default, HTTP2 requires manual enablement, and gRPC and Lambda/Application Load Balancer target groups have limitations or don't support VPC Lattice health checks directly. [doc](https://docs.aws.amazon.com/vpc-lattice/latest/ug/target-group-health-checks.html)
+- **[traffic shifting]** Use weighted target groups and listener rules to implement blue/green or canary deployments, shifting traffic gradually and rolling back quickly if error rates increase. [doc](https://aws.amazon.com/vpc/lattice/faqs/)
+
+## ⚡ Performance Efficiency
+- **[load balancing]** Let VPC Lattice's Layer-7 proxy data plane handle connection management, load balancing, and service discovery across targets rather than building custom sidecar or proxy logic for basic service-to-service routing. [doc](https://docs.aws.amazon.com/prescriptive-guidance/latest/scaling-amazon-eks-infrastructure/network-scaling.html)
+- **[compute integrations]** Onboard services from EC2, EKS, ECS, Fargate, and Lambda directly as VPC Lattice targets so traffic management, observability, and access control are consistent regardless of the underlying compute platform. [doc](https://aws.amazon.com/vpc/lattice/faqs/)
+
+## 💰 Cost Optimization
+- **[architecture consolidation]** Prefer VPC Lattice service networks over a centralized Transit Gateway + AWS Network Firewall setup for accessing shared services over HTTPS/TCP, which can reduce cost while simplifying operations. [doc](https://aws.amazon.com/blogs/networking-and-content-delivery/streamline-and-secure-access-to-shared-services-and-resources-with-amazon-vpc-lattice/)
+- **[shared service networks]** Use AWS RAM to share a single service network across consumer accounts/VPCs rather than provisioning duplicate networking infrastructure per team, reducing redundant resources. [doc](https://aws.amazon.com/blogs/networking-and-content-delivery/automating-large-scale-deployments-with-tags-for-amazon-vpc-lattice/)
+- **[access log costs]** Enable access logs only where you need the visibility, since published (vended) logs to CloudWatch, S3, or Firehose incur charges — scope log destinations and retention deliberately rather than logging every service network and service by default. [doc](https://docs.aws.amazon.com/vpc-lattice/latest/ug/monitoring-access-logs.html)
+
+## ⚙️ Operational Excellence
+- **[access logging]** Enable access logs at the service network and/or service level, sending them to CloudWatch Logs, S3, or Kinesis Data Firehose, to gain visibility into traffic patterns, service dependencies, and troubleshooting data. [doc](https://docs.aws.amazon.com/vpc-lattice/latest/ug/monitoring-access-logs.html)
+- **[observability stack]** Combine VPC Lattice CloudWatch metrics and access logs with VPC Flow Logs and AWS X-Ray for full-stack observability of network flows, service interactions, and API calls. [doc](https://aws.amazon.com/vpc/lattice/faqs/)
+- **[tag-driven automation]** Tag services, resource configurations, and service networks consistently (e.g., environment/stage tags) to drive automated association/disassociation workflows and attribute-based auth policies at scale. [doc](https://aws.amazon.com/blogs/networking-and-content-delivery/automating-large-scale-deployments-with-tags-for-amazon-vpc-lattice/)
+- **[infrastructure as code]** Deploy VPC Lattice resources (service networks, services, target groups, auth policies) through CloudFormation or a CI/CD pipeline rather than manual console changes, so changes are controlled, auditable, and repeatable. [doc](https://aws.amazon.com/solutions/guidance/external-connectivity-to-amazon-vpc-lattice/)
+- **[roles and ownership]** Define clear service-network-owner vs. service-owner responsibilities up front (who sets coarse-grained vs. fine-grained auth policies, who manages associations) to avoid conflicting or gap-prone access configuration in multi-team environments. [doc](https://docs.aws.amazon.com/vpc-lattice/latest/ug/what-is-vpc-lattice.html)
+
+<!-- meta: last_reviewed=2026-07-05; sources=13 -->

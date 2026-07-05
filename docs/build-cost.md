@@ -9,4 +9,5 @@ and accumulated here — generation agents only (research + write + verify).
 | containers | 7 | 20 | 1,243,027 |
 | storage | 10 | 28 | 1,742,112 |
 | database | 14 | 36 | 2,180,054 |
-| **Total** | **42** | **115** | **6,979,921 (~6.98M)** |
+| networking-content-delivery | 16 | 32 | 2,100,215 |
+| **Total** | **58** | **147** | **9,080,136 (~9.08M)** |

@@ -24,6 +24,12 @@
       "agents": 36,
       "tokens": 2180054,
       "files": 14
+    },
+    {
+      "name": "networking-content-delivery",
+      "agents": 32,
+      "tokens": 2100215,
+      "files": 16
     }
   ]
 }
