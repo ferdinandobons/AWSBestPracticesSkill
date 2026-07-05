@@ -11,4 +11,5 @@ and accumulated here — generation agents only (research + write + verify).
 | database | 14 | 36 | 2,180,054 |
 | networking-content-delivery | 16 | 32 | 2,100,215 |
 | security-identity-compliance | 23 | 46 | 2,892,048 |
-| **Total** | **81** | **193** | **11,972,184 (~11.97M)** |
+| management-governance | 20 | 40 | 2,633,854 |
+| **Total** | **101** | **233** | **14,606,038 (~14.61M)** |

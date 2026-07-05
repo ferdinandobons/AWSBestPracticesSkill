@@ -1,0 +1,33 @@
+# AWS Trusted Advisor — Best Practices
+
+## Common scenarios
+- Continuously auditing an account against AWS cost, security, and reliability best practices        → Cost Optimization, Security, Reliability
+- Getting a consolidated best-practice view across a multi-account AWS Organization        → Operational Excellence, Security
+- Automating alerts and remediation when a check status changes        → Operational Excellence, Reliability
+- Accelerating AWS Well-Architected Framework Reviews with mapped check evidence        → Operational Excellence
+
+## 🔒 Security
+- **[access control]** Restrict access to the Trusted Advisor console and API using IAM policies scoped to the `trustedadvisor` namespace (and `support:*` actions for the underlying API), separating full access, read-only access, and specific check operations. [doc](https://docs.aws.amazon.com/awssupport/latest/user/security-trusted-advisor.html)
+- **[root account]** Act promptly on the `MFA on Root Account` check and enable multi-factor authentication on the root user — this check is available at every support level and flags one of the most critical account-level exposures. [doc](https://aws.amazon.com/blogs/aws/trusted-advisor-console-basic/)
+- **[network exposure]** Remediate findings from the `Security Groups – Specific Ports Unrestricted` and `Security Groups – Unrestricted Access` checks to close overly permissive inbound access that can enable hacking or denial-of-service activity. [doc](https://aws.amazon.com/blogs/aws/trusted-advisor-console-basic/)
+- **[IAM hygiene]** Address the `IAM Use`, `IAM Password Policy`, and `IAM Access Key Rotation` checks to move away from account-level credentials and enforce a strong, regularly rotated credential posture. [doc](https://docs.aws.amazon.com/awssupport/latest/user/get-started-with-aws-trusted-advisor.html)
+- **[data exposure]** Review the `Amazon S3 Bucket Permissions`, `Amazon EBS Public Snapshots`, and `Amazon RDS Public Snapshots` checks to catch open access permissions and publicly exposed data before they cause a leak. [doc](https://aws.amazon.com/blogs/storage/find-public-s3-buckets-in-your-aws-account/)
+- **[audit trail]** Act on the `AWS CloudTrail Logging` check to ensure logging is enabled across your account, giving you the audit trail needed to investigate any security findings Trusted Advisor surfaces. [doc](https://docs.aws.amazon.com/awssupport/latest/user/logging-using-cloudtrail-for-aws-trusted-advisor.html)
+- **[org-wide visibility]** Enable Trusted Advisor's integration with AWS Organizations so security findings (open ports, public buckets, IAM gaps) are visible across every member account, not just the account you happen to be signed into. [doc](https://docs.aws.amazon.com/organizations/latest/userguide/services-that-can-integrate-ta.html)
+
+## 🛡️ Reliability
+- **[fault tolerance]** Regularly review the fault-tolerance checks (e.g., S3 versioning status, redundancy shortfalls) to identify single points of failure and overused resources before they cause an outage. [doc](https://docs.aws.amazon.com/awssupport/latest/user/get-started-with-aws-trusted-advisor.html)
+- **[service quotas]** Monitor the service-limits checks and act when usage approaches 80% of a quota (e.g., EC2 instances, EBS volumes) — this is one of the checks available to all support levels regardless of plan. [doc](https://aws.amazon.com/blogs/aws/trusted-advisor-console-basic/)
+- **[continuous refresh]** Refresh Trusted Advisor checks regularly (automatic weekly refresh is available on Business Support+, Enterprise Support, and Unified Operations plans; other plans require a manual console refresh) so recommendations reflect current resource state before you act on them or generate a report. [doc](https://docs.aws.amazon.com/awssupport/latest/user/organizational-view.html)
+- **[event-driven response]** Use Amazon EventBridge to detect Trusted Advisor check status changes (e.g., from OK to ERROR) in near real time and trigger automated remediation, rather than relying solely on periodic manual review. [doc](https://docs.aws.amazon.com/awssupport/latest/user/cloudwatch-events-ta.html)
+
+## ⚙️ Operational Excellence
+- **[org-wide reporting]** Set up the Organizational view for Trusted Advisor to receive consolidated check results and downloadable reports (JSON/CSV) across every account in your AWS Organization instead of checking accounts one by one. [doc](https://docs.aws.amazon.com/awssupport/latest/user/organizational-view.html)
+- **[prioritization]** Use Trusted Advisor Priority (Enterprise Support or Unified Operations) to focus on the most important, context-driven recommendations curated by your AWS account team alongside machine-generated checks, and track each recommendation through acknowledgment, resolution, or dismissal. [doc](https://docs.aws.amazon.com/awssupport/latest/user/trusted-advisor-priority.html)
+- **[Well-Architected alignment]** Use the AWS Well-Architected Tool's integration with Trusted Advisor to surface mapped check results directly against Well-Architected Framework Review questions, reducing the time needed to gather evidence during a review. [doc](https://aws.amazon.com/blogs/architecture/accelerating-well-architected-framework-reviews-using-integrated-aws-trusted-advisor-insights/)
+- **[automation]** Build event-driven automation with EventBridge rules and Lambda targets (for example, posting to a Slack channel or streaming status changes to Kinesis) so status changes on critical checks trigger notifications or corrective actions without manual monitoring. [doc](https://docs.aws.amazon.com/awssupport/latest/user/cloudwatch-events-ta.html)
+- **[operational excellence checks]** Review the dedicated Operational Excellence check category, which integrates with AWS Config to evaluate operational readiness, alongside the other five categories rather than focusing only on cost or security. [doc](https://aws.amazon.com/blogs/mt/continuously-optimize-your-operational-excellence-posture-through-aws-trusted-advisor/)
+- **[exclusions hygiene]** Use the exclude/include feature deliberately and review excluded items periodically — excluding a resource permanently silences it from a check, so stale exclusions can hide real regressions. [doc](https://docs.aws.amazon.com/awssupport/latest/user/get-started-with-aws-trusted-advisor.html)
+- **[notifications]** Configure weekly notification preferences so designated recipients receive a summary of check status changes and savings estimates by email, keeping stakeholders informed without requiring them to log into the console. [doc](https://aws.amazon.com/premiumsupport/faqs/)
+
+<!-- meta: last_reviewed=2026-07-05; sources=12 -->

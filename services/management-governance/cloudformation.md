@@ -1,0 +1,49 @@
+# AWS CloudFormation — Best Practices
+
+## Common scenarios
+- Provisioning and versioning infrastructure as code across environments        → Operational Excellence, Reliability
+- Multi-account, multi-region deployment of standardized resources        → Reliability, Operational Excellence
+- Enforcing organizational security and cost guardrails on provisioned resources        → Security, Cost Optimization
+- Safely rolling out and rolling back infrastructure changes        → Reliability, Operational Excellence
+
+## 🔒 Security
+- **[access control]** Use IAM to control who can view, create, update, or delete stacks, and separate that from permissions needed by the resources themselves — prevents users from gaining unintended access to underlying resources through CloudFormation. [doc](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/security-best-practices.html)
+- **[service roles]** Use a CloudFormation service role so the service — not the calling user's own policy — provisions resources, and restrict which roles a principal can pass using the `cloudformation:RoleARN` condition key — limits privilege escalation paths. [doc](https://docs.aws.amazon.com/prescriptive-guidance/latest/least-privilege-cloudformation/best-practices.html)
+- **[least privilege]** Apply least-privilege permissions to CloudFormation service roles and to resources created by templates, avoiding wildcard permissions, and use IAM Access Analyzer to find and remove unused permissions — reduces blast radius if credentials are compromised. [doc](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/best-practices.html)
+- **[credentials]** Never embed credentials, passwords, or API keys directly in templates — store them in Secrets Manager or Systems Manager Parameter Store and retrieve them with dynamic references at deployment time. [doc](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/security-best-practices.html)
+- **[sensitive parameters]** Set `NoEcho: true` on sensitive template parameters so their values aren't displayed in the console, API responses, or CLI output. [doc](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/best-practices.html)
+- **[privilege escalation]** Use permissions boundaries or service control policies as guardrails to cap the maximum permissions a service role can grant, since CloudFormation's ability to provision IAM resources creates a privilege-escalation path if left unchecked. [doc](https://docs.aws.amazon.com/prescriptive-guidance/latest/least-privilege-cloudformation/best-practices-identity-based-policies.html)
+- **[audit]** Enable AWS CloudTrail to log all CloudFormation API calls — gives you a record of who created, changed, or deleted stacks and their resources. [doc](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/security-best-practices.html)
+- **[policy as code]** Implement policy-as-code checks with AWS CloudFormation Guard or CloudFormation Hooks to proactively validate that templates, stacks, and change sets comply with security, operational, and cost requirements before resources are provisioned. [doc](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/best-practices.html)
+
+## 🛡️ Reliability
+- **[change management]** Always create a change set before updating a stack so you can preview exactly what CloudFormation will add, modify, or replace before execution. [doc](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/best-practices.html)
+- **[drift-aware changes]** Use drift-aware change sets to get a three-way comparison of actual resource state, last-deployed state, and desired state — this reveals whether a deployment would silently overwrite out-of-band changes made during incident response. [doc](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/drift-aware-change-sets.html)
+- **[drift detection]** Run drift detection regularly on stacks (and separately on nested stacks, since parent-stack drift detection doesn't cover them) to catch resources that were modified outside CloudFormation. [doc](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html)
+- **[rollback]** Configure rollback triggers using CloudWatch alarms so CloudFormation automatically rolls back a stack create or update to the last known good state if a monitored alarm fires. [doc](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/best-practices.html)
+- **[stack protection]** Apply stack policies to protect critical resources from unintended updates or replacement during stack operations. [doc](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/best-practices.html)
+- **[resource management]** Manage all stack resources exclusively through CloudFormation after creation — manual out-of-band changes cause drift and can break future updates or deletes. [doc](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/best-practices.html)
+- **[blast radius]** Organize stacks by lifecycle and ownership, and keep templates and stacks reasonably small — this minimizes blast radius when something changes and simplifies troubleshooting of resource dependencies. [doc](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/best-practices.html)
+- **[quotas]** Verify CloudFormation account quotas (resources per stack, parameters, dynamic references, template size, etc.) up front so template design doesn't run into limits mid-project. [doc](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cloudformation-limits.html)
+- **[multi-region/account]** Use CloudFormation StackSets for consistent, repeatable deployment of the same template across multiple accounts and regions, ensuring global resources like IAM roles and S3 buckets are named to avoid conflicts. [doc](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-bestpractices.html)
+
+## ⚡ Performance Efficiency
+- **[fail fast]** Lint and test templates locally with `cfn-lint` and tools like TaskCat before committing, and rely on CloudFormation's built-in pre-deployment validation on create/update/change-set operations — catches syntax and configuration errors early and shortens the feedback loop. [doc](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/best-practices.html)
+- **[template validation]** Validate templates before use, including checks for organization policy compliance, to avoid failed deployments consuming time on invalid configurations. [doc](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/best-practices.html)
+- **[modularity]** Split large templates into nested stacks or modules for reusable, well-scoped components — improves maintainability and makes each stack's resource graph easier for CloudFormation to reason about and provision efficiently. [doc](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html)
+
+## 💰 Cost Optimization
+- **[guardrails]** Use CloudFormation Hooks to enforce cost-related guardrails, such as restricting non-production environments to smaller instance types, before resources are provisioned. [doc](https://docs.aws.amazon.com/cloudformation-cli/latest/hooks-userguide/what-is-cloudformation-hooks.html)
+- **[environment reuse]** Parameterize templates (parameters, mappings, conditions) to reuse the same template across development, test, and production while specifying lower-cost configurations for non-production environments. [doc](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/best-practices.html)
+- **[tagging]** Implement a comprehensive tagging strategy on stacks and resources so costs can be attributed and tracked accurately across teams and environments. [doc](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/best-practices.html)
+
+## ⚙️ Operational Excellence
+- **[stack organization]** Organize stacks by lifecycle and ownership (for example, a layered architecture or service-oriented architecture) so teams can update their own resources independently without coordinating unrelated changes. [doc](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/best-practices.html)
+- **[cross-stack references]** Use cross-stack references (exported outputs) to share values between stacks instead of duplicating resource definitions. [doc](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/best-practices.html)
+- **[version control]** Manage templates with code reviews and revision control, treating infrastructure definitions the same as application code. [doc](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/best-practices.html)
+- **[refactoring]** Use CloudFormation's stack refactoring capabilities to move resources between stacks or reorganize resources without disruptive delete-and-recreate operations. [doc](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/best-practices.html)
+- **[authoring tools]** Use the IaC Generator to create templates from existing, unmanaged resources, and use AWS Infrastructure Composer for visual template design — brings existing infrastructure under CloudFormation management with less manual authoring. [doc](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/best-practices.html)
+- **[complex infrastructure]** Consider AWS CDK for complex infrastructure, since it synthesizes to CloudFormation templates and runs the same pre-deployment validation via `cdk validate`. [doc](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/best-practices.html)
+- **[EC2 maintenance]** Keep EC2 instances provisioned by CloudFormation patched and updated regularly rather than treating the stack as a one-time deployment. [doc](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/best-practices.html)
+
+<!-- meta: last_reviewed=2026-07-05; sources=6 -->

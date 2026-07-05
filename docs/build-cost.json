@@ -36,6 +36,12 @@
       "agents": 46,
       "tokens": 2892048,
       "files": 23
+    },
+    {
+      "name": "management-governance",
+      "agents": 40,
+      "tokens": 2633854,
+      "files": 20
     }
   ]
 }
