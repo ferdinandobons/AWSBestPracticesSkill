@@ -1,4 +1,11 @@
 {
   "note": "Token usage extracted from GENERATE.md generation runs (subagent_tokens). One row per generation batch.",
-  "phases": []
+  "phases": [
+    {
+      "name": "compute",
+      "agents": 31,
+      "tokens": 1814728,
+      "files": 11
+    }
+  ]
 }
