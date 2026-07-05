@@ -23,4 +23,5 @@ and accumulated here — generation agents only (research + write + verify).
 | media-services | 7 | 16 | 1,030,501 |
 | end-user-computing | 4 | 8 | 600,460 |
 | business-applications | 7 | 14 | 878,668 |
-| **Total** | **196** | **440** | **27,800,164 (~27.80M)** |
+| cloud-financial-management | 6 | 12 | 705,398 |
+| **Total** | **202** | **452** | **28,505,562 (~28.51M)** |

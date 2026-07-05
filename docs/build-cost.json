@@ -108,6 +108,12 @@
       "agents": 14,
       "tokens": 878668,
       "files": 7
+    },
+    {
+      "name": "cloud-financial-management",
+      "agents": 12,
+      "tokens": 705398,
+      "files": 6
     }
   ]
 }
