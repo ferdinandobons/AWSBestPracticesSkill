@@ -1,6 +1,6 @@
 {
   "name": "aws-best-practices",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Unofficial source-linked AWS best practices for every service, organized by Well-Architected pillar, use case, and scenario-targeted answer flow. Independent project, not affiliated with AWS.",
   "author": {
     "name": "Ferdinando Bons",

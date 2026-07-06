@@ -9,7 +9,7 @@ sustainability, each one linked to its official AWS source.
 
 **Project page:** <https://ferdinandobons.github.io/AWSBestPracticesSkill/>
 
-**Latest release:** [v0.1.4](https://github.com/ferdinandobons/AWSBestPracticesSkill/releases/tag/v0.1.4)
+**Latest release:** [v0.1.5](https://github.com/ferdinandobons/AWSBestPracticesSkill/releases/tag/v0.1.5)
 
 > **Unofficial project:** this is an independent community-maintained skill.
 > It is not an official AWS skill, AWS product, or AWS-maintained resource,
