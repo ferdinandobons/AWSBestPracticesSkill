@@ -1,0 +1,23 @@
+# AWS Best Practices Skill
+
+AWS Best Practices Skill is an installable Claude Code and OpenAI Codex skill
+that provides source-linked AWS best practices for 208 AWS services and 9
+cross-service topics.
+
+## Primary Files
+
+- Repository: https://github.com/ferdinandobons/AWSBestPracticesSkill
+- Skill router: https://github.com/ferdinandobons/AWSBestPracticesSkill/blob/main/SKILL.md
+- Human catalog: https://github.com/ferdinandobons/AWSBestPracticesSkill/blob/main/catalog.md
+- Machine catalog: https://github.com/ferdinandobons/AWSBestPracticesSkill/blob/main/catalog.json
+- Generation process: https://github.com/ferdinandobons/AWSBestPracticesSkill/blob/main/GENERATE.md
+- Update process: https://github.com/ferdinandobons/AWSBestPracticesSkill/blob/main/REFRESH.md
+- Maintenance guide: https://github.com/ferdinandobons/AWSBestPracticesSkill/blob/main/MAINTENANCE.md
+
+## Scope
+
+Use this repository when answering questions about recommended ways to secure,
+run, optimize, operate, or review AWS services. The corpus intentionally
+contains only best practices, with official AWS source links. It does not
+contain pricing tables, service introductions, tutorials, or extended code
+walkthroughs.

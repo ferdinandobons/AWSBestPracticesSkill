@@ -7,6 +7,8 @@ practices of every AWS service**, and nothing else. Find recommendations by
 **use case**: security, reliability, performance, cost, operations,
 sustainability, each one linked to its official AWS source.
 
+**Project page:** <https://ferdinandobons.github.io/AWSBestPracticesSkill/>
+
 > **Scope:** this skill contains **only best practices**. No service
 > descriptions, no pricing, no tutorials, no code walkthroughs. Just what AWS
 > recommends you do, organized so you can act on it, each item linked to its
@@ -101,6 +103,7 @@ catalog.json                      # machine-readable source of truth
 services/<category>/<service>.md  # per-service best practices
 general/<topic>.md                # cross-service best practices
 scripts/                          # maintainer utilities (check.py, cost.py)
+docs/                             # GitHub Pages landing page + SEO metadata
 GENERATE.md                       # fills in missing files (maintainers)
 REFRESH.md                        # periodic refresh: new services + stale content (maintainers)
 .claude-plugin/                   # Claude Code plugin + marketplace manifest

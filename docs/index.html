@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AWS Best Practices Skill | Source-linked AWS guidance for AI coding agents</title>
+    <meta name="description" content="AWS Best Practices Skill is an AI-ready catalog of official AWS best practices for 208 AWS services and 9 cross-service topics, organized by Well-Architected pillar.">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <meta name="keywords" content="AWS best practices, AWS Well-Architected, Claude Code skill, OpenAI Codex skill, AWS security best practices, AWS reliability, AWS cost optimization">
+    <link rel="canonical" href="https://ferdinandobons.github.io/AWSBestPracticesSkill/">
+    <link rel="stylesheet" href="styles.css">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="AWS Best Practices Skill">
+    <meta property="og:description" content="Source-linked AWS best practices for AI coding agents, covering 208 services and 9 cross-service topics.">
+    <meta property="og:url" content="https://ferdinandobons.github.io/AWSBestPracticesSkill/">
+    <meta property="og:image" content="https://ferdinandobons.github.io/AWSBestPracticesSkill/site-preview.svg">
+    <meta property="og:image:type" content="image/svg+xml">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AWS Best Practices Skill">
+    <meta name="twitter:description" content="Official-source AWS best practices for Claude Code, OpenAI Codex, and agentic development workflows.">
+    <meta name="twitter:image" content="https://ferdinandobons.github.io/AWSBestPracticesSkill/site-preview.svg">
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://ferdinandobons.github.io/AWSBestPracticesSkill/#website",
+            "url": "https://ferdinandobons.github.io/AWSBestPracticesSkill/",
+            "name": "AWS Best Practices Skill",
+            "description": "AI-ready catalog of source-linked AWS best practices."
+          },
+          {
+            "@type": "SoftwareSourceCode",
+            "@id": "https://github.com/ferdinandobons/AWSBestPracticesSkill#source",
+            "name": "AWS Best Practices Skill",
+            "codeRepository": "https://github.com/ferdinandobons/AWSBestPracticesSkill",
+            "programmingLanguage": "Markdown",
+            "license": "https://github.com/ferdinandobons/AWSBestPracticesSkill/blob/main/LICENSE",
+            "description": "Installable Claude Code and OpenAI Codex skill for AWS best-practice guidance."
+          },
+          {
+            "@type": "Dataset",
+            "@id": "https://github.com/ferdinandobons/AWSBestPracticesSkill/blob/main/catalog.json#dataset",
+            "name": "AWS best-practices catalog",
+            "description": "A curated catalog of official AWS best practices for 208 AWS services and 9 general AWS topics.",
+            "url": "https://github.com/ferdinandobons/AWSBestPracticesSkill/blob/main/catalog.json",
+            "keywords": ["AWS", "best practices", "Well-Architected", "cloud security", "cloud reliability"]
+          },
+          {
+            "@type": "HowTo",
+            "@id": "https://ferdinandobons.github.io/AWSBestPracticesSkill/#updates",
+            "name": "How the AWS Best Practices Skill stays current",
+            "step": [
+              {"@type": "HowToStep", "name": "Compare catalog.json with the current AWS service lineup"},
+              {"@type": "HowToStep", "name": "Classify services as new, renamed, recategorized, or retired"},
+              {"@type": "HowToStep", "name": "Refresh stale files against official AWS documentation"},
+              {"@type": "HowToStep", "name": "Run scripts/check.py validation before publishing"}
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="AWS Best Practices Skill home">
+        <span class="brand-mark">AWS</span>
+        <span>AWS Best Practices Skill</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="#coverage">Coverage</a>
+        <a href="#extraction">Extraction</a>
+        <a href="#updates">Updates</a>
+        <a href="#install">Install</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero band">
+        <div class="hero-copy">
+          <p class="eyebrow">Claude Code and OpenAI Codex skill</p>
+          <h1>AWS Best Practices Skill</h1>
+          <p class="lede">
+            A source-linked catalog of official AWS best practices that coding agents can read directly, without relying on stale model memory or repeated live research.
+          </p>
+          <div class="actions" aria-label="Primary links">
+            <a class="button primary" href="https://github.com/ferdinandobons/AWSBestPracticesSkill">View repository</a>
+            <a class="button secondary" href="https://github.com/ferdinandobons/AWSBestPracticesSkill/blob/main/catalog.md">Browse catalog</a>
+          </div>
+        </div>
+        <aside class="hero-visual" aria-label="AWS Best Practices Skill data pipeline">
+          <img class="preview-art" src="site-preview.svg" alt="Official AWS documentation flowing through extraction and validation into agent-ready best-practice files.">
+        </aside>
+      </section>
+
+      <section class="metrics" aria-label="Catalog metrics">
+        <div>
+          <strong>208</strong>
+          <span>AWS services</span>
+        </div>
+        <div>
+          <strong>9</strong>
+          <span>general AWS topics</span>
+        </div>
+        <div>
+          <strong>217</strong>
+          <span>best-practice files</span>
+        </div>
+        <div>
+          <strong>30.51M</strong>
+          <span>tracked generation tokens</span>
+        </div>
+      </section>
+
+      <section class="band intro" id="overview">
+        <div class="section-heading">
+          <p class="eyebrow">What it is</p>
+          <h2>Best practices only, organized for agent workflows</h2>
+        </div>
+        <div class="feature-grid">
+          <article>
+            <h3>Official-source guidance</h3>
+            <p>Every practice links back to an AWS-owned source such as AWS documentation, AWS blogs, or Well-Architected content.</p>
+          </article>
+          <article>
+            <h3>Well-Architected shape</h3>
+            <p>Service files are grouped by security, reliability, performance efficiency, cost optimization, operational excellence, and sustainability.</p>
+          </article>
+          <article>
+            <h3>Focused scope</h3>
+            <p>The corpus intentionally excludes service descriptions, pricing, tutorials, and long code samples so an agent can answer quickly and stay on task.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="band split" id="coverage">
+        <div>
+          <p class="eyebrow">Coverage</p>
+          <h2>A catalog built around the AWS service taxonomy</h2>
+          <p>
+            The repository stores a machine-readable source of truth in <code>catalog.json</code>, a human index in <code>catalog.md</code>, and one Markdown file per service or general topic.
+          </p>
+        </div>
+        <div class="category-grid" aria-label="AWS service categories covered">
+          <span>Security, Identity &amp; Compliance <strong>23</strong></span>
+          <span>Management &amp; Governance <strong>20</strong></span>
+          <span>Machine Learning <strong>19</strong></span>
+          <span>Analytics <strong>18</strong></span>
+          <span>Networking &amp; Content Delivery <strong>16</strong></span>
+          <span>Database <strong>14</strong></span>
+          <span>Compute <strong>11</strong></span>
+          <span>Storage <strong>10</strong></span>
+          <span>Developer Tools <strong>10</strong></span>
+          <span>IoT <strong>9</strong></span>
+          <span>General AWS Best Practices <strong>9</strong></span>
+          <span>Application Integration <strong>9</strong></span>
+          <span>Media Services <strong>8</strong></span>
+          <span>Containers <strong>7</strong></span>
+          <span>Business Applications <strong>7</strong></span>
+          <span>Migration &amp; Transfer <strong>7</strong></span>
+          <span>Cloud Financial Management <strong>6</strong></span>
+          <span>Front-End Web &amp; Mobile <strong>5</strong></span>
+          <span>End User Computing <strong>4</strong></span>
+          <span>Game Tech <strong>2</strong></span>
+          <span>Blockchain <strong>1</strong></span>
+          <span>Quantum Technologies <strong>1</strong></span>
+          <span>Satellite <strong>1</strong></span>
+        </div>
+      </section>
+
+      <section class="band process" id="extraction">
+        <div class="section-heading">
+          <p class="eyebrow">Extraction process</p>
+          <h2>How new best-practice files are created</h2>
+        </div>
+        <ol class="steps">
+          <li>
+            <strong>Read the catalog scope.</strong>
+            <span><code>GENERATE.md</code> starts from missing entries in <code>catalog.json</code>, optionally limited to one AWS category.</span>
+          </li>
+          <li>
+            <strong>Research only official AWS sources.</strong>
+            <span>The agent searches AWS documentation, Well-Architected content, and AWS-owned pages for service-specific best practices.</span>
+          </li>
+          <li>
+            <strong>Normalize the result.</strong>
+            <span>Each file gets common scenarios, relevant Well-Architected pillar sections, context tags, concise imperatives, and source links.</span>
+          </li>
+          <li>
+            <strong>Reject noisy content.</strong>
+            <span>Descriptions, pricing, tutorials, and extended code samples are removed because the skill is a best-practices corpus, not a general AWS manual.</span>
+          </li>
+          <li>
+            <strong>Validate and index.</strong>
+            <span><code>scripts/check.py</code> checks conformance, coverage, link hosts, freshness metadata, and regenerates <code>catalog.md</code> plus the <code>SKILL.md</code> index.</span>
+          </li>
+        </ol>
+      </section>
+
+      <section class="band process alt" id="updates">
+        <div class="section-heading">
+          <p class="eyebrow">Update process</p>
+          <h2>How the catalog avoids becoming stale</h2>
+        </div>
+        <ol class="steps">
+          <li>
+            <strong>Diff the AWS service lineup.</strong>
+            <span><code>REFRESH.md</code> compares the current AWS product list with <code>catalog.json</code> before touching existing content.</span>
+          </li>
+          <li>
+            <strong>Classify catalog drift.</strong>
+            <span>New, renamed, recategorized, and fully retired services are handled differently so the catalog does not duplicate or prematurely delete services.</span>
+          </li>
+          <li>
+            <strong>Refresh stale entries.</strong>
+            <span>Files older than the freshness threshold, currently 180 days by default, are re-reviewed against current official AWS guidance.</span>
+          </li>
+          <li>
+            <strong>Run local gates before publishing.</strong>
+            <span>Maintainers use <code>python3 scripts/check.py</code>, <code>--strict</code>, <code>--check-links</code>, and <code>--stale</code> to keep the catalog complete and sourced.</span>
+          </li>
+        </ol>
+      </section>
+
+      <section class="band commands" id="install">
+        <div class="section-heading">
+          <p class="eyebrow">Install and validate</p>
+          <h2>Use it as a plugin or clone it as a skill</h2>
+        </div>
+        <div class="command-grid">
+          <article>
+            <h3>Claude Code</h3>
+            <pre><code>claude plugin marketplace add ferdinandobons/AWSBestPracticesSkill
+claude plugin install aws-best-practices@aws-best-practices-skill</code></pre>
+          </article>
+          <article>
+            <h3>OpenAI Codex CLI</h3>
+            <pre><code>codex plugin marketplace add ferdinandobons/AWSBestPracticesSkill
+codex plugin add aws-best-practices@aws-best-practices-skill</code></pre>
+          </article>
+          <article>
+            <h3>Maintainer checks</h3>
+            <pre><code>python3 scripts/check.py
+python3 scripts/check.py --strict
+python3 scripts/check.py --check-links
+python3 scripts/check.py --stale</code></pre>
+          </article>
+        </div>
+      </section>
+
+      <section class="band links">
+        <div class="section-heading">
+          <p class="eyebrow">Source files</p>
+          <h2>Primary repository entry points</h2>
+        </div>
+        <div class="link-list">
+          <a href="https://github.com/ferdinandobons/AWSBestPracticesSkill/blob/main/SKILL.md">Skill router</a>
+          <a href="https://github.com/ferdinandobons/AWSBestPracticesSkill/blob/main/catalog.md">Human catalog</a>
+          <a href="https://github.com/ferdinandobons/AWSBestPracticesSkill/blob/main/GENERATE.md">Extraction prompt</a>
+          <a href="https://github.com/ferdinandobons/AWSBestPracticesSkill/blob/main/REFRESH.md">Update prompt</a>
+          <a href="https://github.com/ferdinandobons/AWSBestPracticesSkill/blob/main/MAINTENANCE.md">Maintenance guide</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>AWS Best Practices Skill</span>
+      <a href="https://github.com/ferdinandobons/AWSBestPracticesSkill">GitHub</a>
+      <a href="https://github.com/ferdinandobons/AWSBestPracticesSkill/blob/main/LICENSE">MIT License</a>
+    </footer>
+  </body>
+</html>
