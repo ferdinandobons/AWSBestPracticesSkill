@@ -4,14 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>AWS Best Practices Skill | Unofficial source-linked AWS guidance for AI coding agents</title>
-    <meta name="description" content="Unofficial AWS Best Practices Skill: an AI-ready catalog of AWS-published best practices for 208 AWS services and 9 cross-service topics, organized by Well-Architected pillar.">
+    <meta name="description" content="Unofficial AWS Best Practices Skill: an AI-ready catalog of AWS-published best practices for 208 AWS services and 9 cross-service topics, organized by use case and Well-Architected pillar.">
     <meta name="robots" content="index,follow,max-image-preview:large">
     <meta name="keywords" content="AWS best practices, AWS Well-Architected, Claude Code skill, OpenAI Codex skill, AWS security best practices, AWS reliability, AWS cost optimization">
     <link rel="canonical" href="https://ferdinandobons.github.io/AWSBestPracticesSkill/">
     <link rel="stylesheet" href="styles.css">
     <meta property="og:type" content="website">
     <meta property="og:title" content="AWS Best Practices Skill">
-    <meta property="og:description" content="Unofficial source-linked AWS best practices for AI coding agents, covering 208 services and 9 cross-service topics.">
+    <meta property="og:description" content="Unofficial source-linked AWS best practices for AI coding agents, covering 208 services and 9 cross-service topics with scenario-targeted answers.">
     <meta property="og:url" content="https://ferdinandobons.github.io/AWSBestPracticesSkill/">
     <meta property="og:image" content="https://ferdinandobons.github.io/AWSBestPracticesSkill/site-preview.svg">
     <meta property="og:image:type" content="image/svg+xml">
@@ -19,7 +19,7 @@
     <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="AWS Best Practices Skill">
-    <meta name="twitter:description" content="Unofficial source-linked AWS best practices for Claude Code, OpenAI Codex, and agentic development workflows.">
+    <meta name="twitter:description" content="Unofficial source-linked AWS best practices for Claude Code, OpenAI Codex, and scenario-targeted agent workflows.">
     <meta name="twitter:image" content="https://ferdinandobons.github.io/AWSBestPracticesSkill/site-preview.svg">
     <script type="application/ld+json">
       {
@@ -30,7 +30,7 @@
             "@id": "https://ferdinandobons.github.io/AWSBestPracticesSkill/#website",
             "url": "https://ferdinandobons.github.io/AWSBestPracticesSkill/",
             "name": "AWS Best Practices Skill",
-            "description": "Unofficial AI-ready catalog of source-linked AWS best practices."
+            "description": "Unofficial AI-ready catalog of source-linked AWS best practices, organized for scenario-targeted answers."
           },
           {
             "@type": "SoftwareSourceCode",
@@ -39,13 +39,13 @@
             "codeRepository": "https://github.com/ferdinandobons/AWSBestPracticesSkill",
             "programmingLanguage": "Markdown",
             "license": "https://github.com/ferdinandobons/AWSBestPracticesSkill/blob/main/LICENSE",
-            "description": "Unofficial installable Claude Code and OpenAI Codex skill for AWS best-practice guidance."
+            "description": "Unofficial installable Claude Code and OpenAI Codex skill for scenario-targeted AWS best-practice guidance."
           },
           {
             "@type": "Dataset",
             "@id": "https://github.com/ferdinandobons/AWSBestPracticesSkill/blob/main/catalog.json#dataset",
             "name": "AWS best-practices catalog",
-            "description": "A curated, unofficial catalog of AWS-published best practices for 208 AWS services and 9 general AWS topics.",
+            "description": "A curated, unofficial catalog of AWS-published best practices for 208 AWS services and 9 general AWS topics, organized by use case and Well-Architected pillar.",
             "url": "https://github.com/ferdinandobons/AWSBestPracticesSkill/blob/main/catalog.json",
             "keywords": ["AWS", "best practices", "Well-Architected", "cloud security", "cloud reliability"]
           },
@@ -83,7 +83,7 @@
           <p class="eyebrow">Claude Code and OpenAI Codex skill</p>
           <h1>AWS Best Practices Skill</h1>
           <p class="lede">
-            An unofficial, source-linked catalog of AWS-published best practices that coding agents can read directly, without relying on stale model memory or repeated live research.
+            An unofficial, source-linked catalog of AWS-published best practices that coding agents can read directly and tailor to the user's scenario, without relying on stale model memory or repeated live research.
           </p>
           <p class="disclaimer">
             Independent community project. Not an official AWS skill, AWS product, or AWS-maintained resource; not affiliated with or endorsed by Amazon Web Services.
@@ -134,6 +134,10 @@
           <article>
             <h3>Focused scope</h3>
             <p>The corpus intentionally excludes service descriptions, pricing, tutorials, and long code samples so an agent can answer quickly and stay on task.</p>
+          </article>
+          <article>
+            <h3>Scenario-targeted answers</h3>
+            <p>Agents use the local common-scenarios map first, then return the relevant baseline, decisions, and caveats instead of dumping every practice.</p>
           </article>
         </div>
       </section>

@@ -25,3 +25,10 @@ run, optimize, operate, or review AWS services. The corpus intentionally
 contains only best practices, with official AWS source links. It does not
 contain pricing tables, service introductions, tutorials, or extended code
 walkthroughs.
+
+Answer behavior: use the local catalog first. For a specific scenario or
+workload, select only the practices that apply to that case. If no specific
+scenario is provided, give a general production baseline for the service. Do
+not browse or re-check AWS documentation for ordinary answers unless the user
+explicitly requests live verification or the local catalog is missing the
+service/topic.

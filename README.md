@@ -1,6 +1,6 @@
 # AWS Best Practices Skill
 
-**Ask your AI coding agent "how should I secure my S3 bucket" and get a sourced, current AWS best practice, skipping both stale training data and costly live research.**
+**Ask your AI coding agent "how should I secure my S3 bucket" and get sourced, locally cataloged AWS best practices, skipping both stale training data and costly live research.**
 
 A skill for **Claude Code** and **OpenAI Codex** that collects the **best
 practices of every AWS service**, and nothing else. Find recommendations by
@@ -95,6 +95,26 @@ automatically, no invocation needed:
 Either way, the model reads [`SKILL.md`](SKILL.md), opens the matching
 `services/<category>/<service>.md` (or `general/<topic>.md`), and answers with
 sourced best practices; it won't need to open anything else in this repo.
+
+## How answers are shaped
+
+The skill is scenario-first. If you ask for a specific case, the agent should
+select the relevant practices instead of dumping the whole service file:
+
+- **Specific case**: "secure my S3 bucket", "SQS queue in production",
+  "reduce DynamoDB cost", or "is this Lambda setup production-ready?" returns
+  the practices that apply to that workload, grouped by the useful
+  Well-Architected pillars.
+- **No specific case**: "best practices for SQS" returns a general production
+  baseline across security, reliability, performance, cost, and operations.
+- **No live web by default**: ordinary answers come from the local Markdown
+  catalog. Source URLs are copied from those files; the agent should only
+  browse or re-check AWS documentation when you explicitly ask for a live
+  verification or the local catalog is missing the topic.
+
+The default response shape is compact: recommended baseline, key decisions
+when the service has trade-offs, caveats for special cases, and the local file
+path plus `last_reviewed` date when available.
 
 ## How navigation works
 

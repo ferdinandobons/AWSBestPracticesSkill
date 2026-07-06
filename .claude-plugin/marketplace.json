@@ -1,6 +1,6 @@
 {
   "name": "aws-best-practices-skill",
-  "description": "Marketplace for the AWS Best Practices Skill: unofficial source-linked best practices for every AWS service.",
+  "description": "Marketplace for the AWS Best Practices Skill: unofficial source-linked best practices for every AWS service, organized for scenario-targeted answers.",
   "owner": {
     "name": "Ferdinando Bons"
   },
@@ -8,7 +8,7 @@
     {
       "name": "aws-best-practices",
       "source": "./",
-      "description": "Unofficial source-linked AWS best practices for every service, organized by Well-Architected pillar and use case.",
+      "description": "Unofficial source-linked AWS best practices for every service, organized by Well-Architected pillar, use case, and scenario-targeted answer flow.",
       "keywords": [
         "aws",
         "best-practices",

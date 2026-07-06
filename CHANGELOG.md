@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Changed
+- Clarify `README.md`, GitHub Pages, LLM metadata, and plugin descriptions
+  around the v0.1.4 answer flow: scenario-targeted practices when the user
+  provides context, general production baseline when they do not, and no live
+  web browsing for ordinary answers.
+
 ## [0.1.4] - 2026-07-06
 
 ### Changed
