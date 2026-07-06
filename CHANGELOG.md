@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.1.4] - 2026-07-06
+
 ### Changed
 - Add answer-style guidance to `SKILL.md`: target recommendations to the
   user's scenario when one is provided; otherwise give a general production
