@@ -73,6 +73,50 @@ the requested service/topic is not covered by the local catalog.
 
 If a service is not yet covered, say so plainly; do not invent best practices.
 
+## Use-case targeting
+
+Prefer a targeted answer over an exhaustive dump. If the user gives a specific
+scenario, workload, constraint, or concern, select only the best practices that
+apply to that case.
+
+Examples:
+- "secure my S3 bucket" → focus on Security, access control, encryption,
+  public access prevention, audit, and network restrictions.
+- "SQS queue in production" → give a production baseline across reliability,
+  security, performance, cost, and operations.
+- "reduce DynamoDB cost" → focus on Cost Optimization and any performance or
+  operational practices that directly affect spend.
+- "is this Lambda setup production-ready?" → structure the answer as gaps,
+  risks, and concrete fixes.
+
+If the user does **not** provide a specific scenario, give the general
+production baseline for that service: the most broadly useful practices across
+Security, Reliability, Performance Efficiency, Cost Optimization, and
+Operational Excellence. Do not list every bullet in the file unless the user
+asks for a complete/deep-dive answer.
+
+## Answer style
+
+Default to an actionable production baseline, not an encyclopedia. Use this
+shape unless the user asks for another format:
+
+1. Start with one sentence that names the local service file used.
+2. Give a short "baseline consigliata" / "recommended baseline" list of the
+   highest-impact settings or practices.
+3. Add "decisioni chiave" / "key decisions" when the service has important
+   trade-offs (for example Standard vs FIFO, SSE-S3 vs SSE-KMS, single-Region
+   vs replication).
+4. Group additional guidance by relevant Well-Architected pillars only when it
+   helps the user act.
+5. Add caveats for special cases, such as Lambda consumers, FIFO ordering,
+   sensitive data, private networking, compliance, or high throughput.
+6. End with the local file path and last_reviewed date when available. Include
+   only a few source URLs, copied from the local Markdown, unless the user asks
+   for full citations.
+
+Avoid very wide tables by default because they often wrap poorly in terminals.
+Use compact bullets unless the user explicitly asks for a table.
+
 ## File layout
 
 ```
