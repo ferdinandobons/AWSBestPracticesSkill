@@ -20,6 +20,10 @@ A curated, source-linked collection of **AWS best practices** for every AWS
 service, plus cross-service general guidance. Organized so you can find what
 matters **for a specific use case**.
 
+> **Unofficial project:** this skill is independently maintained. It is not an
+> official AWS skill, AWS product, or AWS-maintained resource, and it is not
+> affiliated with or endorsed by Amazon Web Services.
+
 ## What this contains / does NOT contain
 
 - ✅ **Only best practices**, per service, organized by the 6 AWS Well-Architected

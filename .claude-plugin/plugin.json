@@ -2,7 +2,7 @@
   "name": "aws-best-practices",
   "displayName": "AWS Best Practices",
   "version": "0.1.1",
-  "description": "Source-linked AWS best practices for every service, organized by Well-Architected pillar and use case. No service descriptions, no pricing, no tutorials, just what AWS recommends and why.",
+  "description": "Unofficial source-linked AWS best practices for every service, organized by Well-Architected pillar and use case. Independent project, not affiliated with AWS.",
   "author": {
     "name": "Ferdinando Bons"
   },

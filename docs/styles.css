@@ -57,22 +57,9 @@ pre {
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
   color: var(--ink);
   font-weight: 750;
   text-decoration: none;
-}
-
-.brand-mark {
-  display: inline-grid;
-  width: 42px;
-  height: 28px;
-  place-items: center;
-  border-radius: 6px;
-  background: var(--amber);
-  color: #fff;
-  font-size: 0.78rem;
-  letter-spacing: 0;
 }
 
 nav {
@@ -149,6 +136,15 @@ h3 {
   margin: 24px 0 0;
   color: var(--muted);
   font-size: clamp(1.08rem, 2vw, 1.35rem);
+}
+
+.disclaimer {
+  max-width: 700px;
+  margin: 18px 0 0;
+  padding-left: 14px;
+  border-left: 4px solid var(--amber);
+  color: var(--muted);
+  font-size: 1rem;
 }
 
 .actions {

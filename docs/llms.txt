@@ -4,6 +4,10 @@ AWS Best Practices Skill is an installable Claude Code and OpenAI Codex skill
 that provides source-linked AWS best practices for 208 AWS services and 9
 cross-service topics.
 
+This is an independent community-maintained project. It is not an official AWS
+skill, AWS product, or AWS-maintained resource, and it is not affiliated with
+or endorsed by Amazon Web Services.
+
 ## Primary Files
 
 - Repository: https://github.com/ferdinandobons/AWSBestPracticesSkill

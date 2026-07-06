@@ -9,6 +9,10 @@ sustainability, each one linked to its official AWS source.
 
 **Project page:** <https://ferdinandobons.github.io/AWSBestPracticesSkill/>
 
+> **Unofficial project:** this is an independent community-maintained skill.
+> It is not an official AWS skill, AWS product, or AWS-maintained resource,
+> and it is not affiliated with or endorsed by Amazon Web Services.
+
 > **Scope:** this skill contains **only best practices**. No service
 > descriptions, no pricing, no tutorials, no code walkthroughs. Just what AWS
 > recommends you do, organized so you can act on it, each item linked to its

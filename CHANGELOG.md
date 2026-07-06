@@ -11,6 +11,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   `sitemap.xml`, and `llms.txt`.
 - GitHub Actions workflow to deploy the `docs/` directory to GitHub Pages.
 
+### Changed
+- Clarify in the README, skill router, plugin manifests, Pages site, and LLM
+  metadata that this is an independent, unofficial project and not affiliated
+  with or endorsed by AWS.
+- Remove the orange `AWS` badge from the GitHub Pages header.
+
 ## [0.1.1] - 2026-07-05
 
 ### Changed
