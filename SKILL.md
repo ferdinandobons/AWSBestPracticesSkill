@@ -1,19 +1,21 @@
 ---
 name: aws-best-practices
 description: >-
-  Use when the user needs AWS best practices for any AWS service, based on their
-  use case: security, reliability, performance, cost, operations, or
-  sustainability. Trigger on "best practices for <AWS service>", "how should I
-  configure <service>", "is my <service> setup correct", "AWS Well-Architected
-  guidance for <service>", "harden / optimize / secure my <service>", or any
-  question about recommended ways to run an AWS service. Also covers
-  cross-service AWS best practices (account baseline, multi-account, cost
-  governance, DR, observability, tagging). Consult it for any "how should I set
-  up / secure / harden / optimize / run my <AWS service>" question, even when the
-  user never says the words "best practice". Use the local catalog files first;
-  do not browse or open AWS docs for ordinary answers unless the user explicitly
-  asks for live/current verification or the local file is missing. This skill
-  contains ONLY best practices and nothing else about the services.
+  No-web local AWS best-practices catalog. Use the local catalog files first and
+  do not browse, search the web, open AWS docs, or use live documentation tools
+  for ordinary answers unless the user explicitly asks for live/current
+  verification or the local file is missing. Trigger when the user needs AWS
+  best practices for any AWS service, based on their use case: security,
+  reliability, performance, cost, operations, or sustainability. Trigger on
+  "best practices for <AWS service>", "how should I configure <service>", "is
+  my <service> setup correct", "AWS Well-Architected guidance for <service>",
+  "harden / optimize / secure my <service>", or any question about recommended
+  ways to run an AWS service. Also covers cross-service AWS best practices
+  (account baseline, multi-account, cost governance, DR, observability,
+  tagging). Consult it for any "how should I set up / secure / harden /
+  optimize / run my <AWS service>" question, even when the user never says the
+  words "best practice". This skill contains ONLY best practices and nothing
+  else about the services.
 ---
 
 # AWS Best Practices
@@ -21,6 +23,11 @@ description: >-
 A curated, source-linked collection of **AWS best practices** for every AWS
 service, plus cross-service general guidance. Organized so you can find what
 matters **for a specific use case**.
+
+> **No live web for ordinary answers:** use the local files in this repository.
+> Do not search the web, open AWS documentation URLs, or use live documentation
+> tools unless the user explicitly asks for a current/live refresh or the local
+> catalog is missing the requested service/topic.
 
 > **Unofficial project:** this skill is independently maintained. It is not an
 > official AWS skill, AWS product, or AWS-maintained resource, and it is not
@@ -49,16 +56,16 @@ matters **for a specific use case**.
 5. For cross-service questions (account setup, multi-account, cost governance,
    DR, observability, tagging), use the **General** section under `general/`.
 6. When you cite a best practice, include the source URL already present in the
-   local file.
+   local file. Copy the URL text from the local Markdown; do not open it.
 
 ## Web access policy
 
 For ordinary best-practice answers, use this repository as the source of truth:
 read `SKILL.md`, `catalog.md`, and the relevant local `services/` or `general/`
-file. Do **not** search the web, open AWS documentation URLs, or use live
-documentation tools just to verify or cite a bullet that is already in the
-local file. The `[doc](...)` URLs in those files are the citations to include in
-the answer.
+file. Do **not** call web search, open AWS documentation URLs, fetch pages, or
+use live documentation tools just to verify or cite a bullet that is already in
+the local file. The `[doc](...)` URLs in those files are pre-recorded citations:
+copy them from the local Markdown when useful, but do not visit them.
 
 Use live web/documentation access only when the user explicitly asks for a
 current/live refresh, asks you to verify whether AWS changed something, or when

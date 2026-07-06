@@ -9,6 +9,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Strengthen `SKILL.md` instructions so ordinary best-practice answers use the
   local catalog and cite existing source URLs without opening AWS docs or doing
   live web searches.
+- Move the no-web instruction to the start of the skill description so it
+  survives shortened skill descriptions, and clarify that source URLs should be
+  copied from local Markdown instead of opened.
 
 ## [0.1.2] - 2026-07-06
 
