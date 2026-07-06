@@ -10,8 +10,10 @@ description: >-
   cross-service AWS best practices (account baseline, multi-account, cost
   governance, DR, observability, tagging). Consult it for any "how should I set
   up / secure / harden / optimize / run my <AWS service>" question, even when the
-  user never says the words "best practice". This skill contains ONLY best
-  practices and nothing else about the services.
+  user never says the words "best practice". Use the local catalog files first;
+  do not browse or open AWS docs for ordinary answers unless the user explicitly
+  asks for live/current verification or the local file is missing. This skill
+  contains ONLY best practices and nothing else about the services.
 ---
 
 # AWS Best Practices
@@ -46,7 +48,21 @@ matters **for a specific use case**.
    `[context]` tag tells you whether it applies to the user's situation.
 5. For cross-service questions (account setup, multi-account, cost governance,
    DR, observability, tagging), use the **General** section under `general/`.
-6. When you cite a best practice, include its source link.
+6. When you cite a best practice, include the source URL already present in the
+   local file.
+
+## Web access policy
+
+For ordinary best-practice answers, use this repository as the source of truth:
+read `SKILL.md`, `catalog.md`, and the relevant local `services/` or `general/`
+file. Do **not** search the web, open AWS documentation URLs, or use live
+documentation tools just to verify or cite a bullet that is already in the
+local file. The `[doc](...)` URLs in those files are the citations to include in
+the answer.
+
+Use live web/documentation access only when the user explicitly asks for a
+current/live refresh, asks you to verify whether AWS changed something, or when
+the requested service/topic is not covered by the local catalog.
 
 If a service is not yet covered, say so plainly; do not invent best practices.
 
